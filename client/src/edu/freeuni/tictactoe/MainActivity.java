@@ -16,7 +16,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		btnSignIn = (Button) findViewById(R.id.btnSingIn);
+		btnSignIn = (Button) findViewById(R.id.btnSignIn);
 		btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
 		btnSignIn.setOnClickListener(this);
@@ -25,15 +25,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Intent i = null;
+		Intent intent = null;
 		switch (v.getId()) {
-			case R.id.btnSingIn:
-				i = new Intent(this, SignInActivity.class);
+			case R.id.btnSignIn:
+				intent = new Intent(this, SignInActivity.class);
 				break;
 			case R.id.btnSignUp:
-				i = new Intent(this, SignUpActivity.class);
+				intent = new Intent(this, SignUpActivity.class);
 				break;
 		}
-		startActivity(i);
+		startActivity(intent);
 	}
 }

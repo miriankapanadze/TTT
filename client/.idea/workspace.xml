@@ -79,30 +79,16 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="39" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="168" max-vertical-offset="1056">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_main.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="56" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0" vertical-offset="168" max-vertical-offset="1176">
+            <state line="3" column="25" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1056">
               <folding />
             </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="SignInActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/SignInActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="7" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
+            <state line="36" column="35" selection-start="984" selection-end="984" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1056">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,10 +99,46 @@
       <file leaf-file-name="SignUpActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/SignUpActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="1" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
+            <state line="28" column="66" selection-start="934" selection-end="934" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="1104">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServicesFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/ServicesFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="1" selection-start="219" selection-end="219" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginServiceImpl.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="20" selection-start="230" selection-end="230" vertical-scroll-proportion="0.30379745" vertical-offset="0" max-vertical-offset="553">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegistrationServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/RegistrationServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="38" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="19" selection-start="19" selection-end="19" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="312">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -135,29 +157,33 @@
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/LoginForm.java" />
         <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/model/ServerStatus.java" />
-        <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginService.java" />
         <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/RegistrationService.java" />
         <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/GameService.java" />
         <option value="$PROJECT_DIR$/res/layout/login_form.xml" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/linearlayout_bg.xml" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/button_default_bg.xml" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/res/layout/activity_sign_up_screen.xml" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/edittext_top_bg.xml" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/edittext_default_bg.xml" />
+        <option value="$PROJECT_DIR$/res/drawable-hdpi/edittext_bottom_bg.xml" />
+        <option value="$PROJECT_DIR$/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/MainActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/activity_sign_up_screen.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_sign_in_screen.xml" />
         <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/SignInActivity.java" />
         <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/SignUpActivity.java" />
-        <option value="$PROJECT_DIR$/res/drawable-hdpi/edittext_bottom_bg.xml" />
-        <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/MainActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/ServicesFactory.java" />
+        <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/RegistrationServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginService.java" />
+        <option value="$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginServiceImpl.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="960" />
-    <option name="width" value="960" />
-    <option name="height" value="1046" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1064" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -225,6 +251,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tictactoe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -245,6 +293,8 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="0123456789ABCDEF" />
     <property name="FullScreen" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RunManager" selected="Android Application.client">
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails" singleton="true">
@@ -497,16 +547,16 @@
       <created>1405159173921</created>
       <updated>1405159173921</updated>
       <workItem from="1405159175737" duration="2463000" />
-      <workItem from="1405192733970" duration="3199000" />
+      <workItem from="1405192733970" duration="6625000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5662000" />
+    <option name="totallyTimeSpent" value="9088000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="0" width="960" height="1046" extended-state="0" />
-    <editor active="false" />
+    <frame x="-9" y="-9" width="1938" height="1064" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -524,13 +574,13 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32951945" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32286996" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41111112" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41107562" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951945" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -601,9 +651,7 @@
     <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="40" selection-start="767" selection-end="767" vertical-scroll-proportion="0.0" vertical-offset="792" max-vertical-offset="1128">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -622,13 +670,6 @@
     <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/model/ServerStatus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="1" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="432">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="121" selection-end="121" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="336">
           <folding />
         </state>
       </provider>
@@ -689,9 +730,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_sign_in_screen.xml">
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="10" selection-start="431" selection-end="431" vertical-scroll-proportion="0.40677965" vertical-offset="0" max-vertical-offset="1392">
+        <state line="22" column="36" selection-start="787" selection-end="787" vertical-scroll-proportion="-2.5555556" vertical-offset="459" max-vertical-offset="1176">
           <folding />
         </state>
       </provider>
@@ -701,7 +742,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_sign_up_screen.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="43" selection-start="1531" selection-end="1531" vertical-scroll-proportion="2.1333334" vertical-offset="0" max-vertical-offset="1632">
+        <state line="39" column="17" selection-start="1336" selection-end="1336" vertical-scroll-proportion="0.95628417" vertical-offset="411" max-vertical-offset="1632">
           <folding />
         </state>
       </provider>
@@ -709,9 +750,16 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="25" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1056">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/SignInActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="7" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
+        <state line="36" column="35" selection-start="984" selection-end="984" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1056">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -720,30 +768,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/SignUpActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="1" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="384">
+        <state line="28" column="66" selection-start="934" selection-end="934" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="1104">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/ServicesFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="39" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="168" max-vertical-offset="1056">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="11" column="1" selection-start="219" selection-end="219" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+    <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/RegistrationServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="56" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0" vertical-offset="168" max-vertical-offset="1176">
+        <state line="7" column="38" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_sign_in_screen.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="35" selection-start="720" selection-end="720" vertical-scroll-proportion="0.07414449" vertical-offset="465" max-vertical-offset="1392">
           <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="19" selection-start="19" selection-end="19" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="312">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/freeuni/tictactoe/server/LoginServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="20" selection-start="230" selection-end="230" vertical-scroll-proportion="0.30379745" vertical-offset="0" max-vertical-offset="553">
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
