@@ -1,0 +1,16 @@
+.idea
+.idea/*
+*.iml
+*/*.iml
+*.class
+*.orig
+target/
+*.bat
+.classpath
+.project
+.settings
+.git
+*.log
+bin/
+out/
+gen/
