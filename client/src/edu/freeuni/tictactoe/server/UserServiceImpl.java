@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 	private static String loggerMarker = "userServiceImpl";
 
-	private static String serverIp = "192.168.0.101";
+	private static String serverIp = "192.168.0.100";
 	private static int serverPort = 8080;
 	private static Socket socket;
 
@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
 				Log.i(loggerMarker, "socketCreated");
 
 				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("requestType", RequestType.LOGIN.name());
 				jsonObject.put("username", request.getUserName());
 				jsonObject.put("password", request.getPassword());
 

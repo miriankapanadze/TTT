@@ -20,6 +20,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 	private EditText userName;
 	private EditText name;
 	private EditText password;
+	private Handler handler;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 		btnSignUp.setOnClickListener(this);
 		userService = ServicesFactory.getUserService();
 		ServicesFactory.addRegisterListener(this);
+		handler = new Handler();
 	}
 
 	@Override
@@ -52,7 +54,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 
 	@Override
 	public void onRegister(final ServerStatus status) {
-		new Handler().post(new Runnable() {
+		handler.post(new Runnable() {
 			@Override
 			public void run() {
 				Toast.makeText(SignUpActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
