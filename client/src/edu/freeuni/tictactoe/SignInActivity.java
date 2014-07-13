@@ -24,6 +24,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 	private EditText password;
 
 	private UserService userService;
+	private Handler handler;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 		btnSignIn.setOnClickListener(this);
 		userService = ServicesFactory.getUserService();
 		ServicesFactory.addLoginListener(this);
+		handler = new Handler();
 	}
 
 	@Override
@@ -52,7 +54,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 
 	@Override
 	public void onLogin(final ServerStatus status, final List<UserEntry> users) {
-		new Handler().post(new Runnable() {
+		handler.post(new Runnable() {
 			@Override
 			public void run() {
 				Toast.makeText(SignInActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();

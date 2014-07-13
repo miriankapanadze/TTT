@@ -23,6 +23,8 @@ public class UserServiceImpl implements UserService {
 	private static String serverIp = "192.168.0.100";
 	private static int serverPort = 8080;
 	private static Socket socket;
+	private static ObjectInputStream inputStream;
+	private static ObjectOutputStream outputStream;
 
 	@Override
 	public void login(LoginRequest request) {
@@ -51,6 +53,8 @@ public class UserServiceImpl implements UserService {
 				Log.i(loggerMarker, "try registration");
 				if (socket == null) {
 					socket = new Socket(serverIp, serverPort);
+					outputStream = new ObjectOutputStream(socket.getOutputStream());
+					inputStream = new ObjectInputStream(socket.getInputStream());
 				}
 				Log.i(loggerMarker, "socketCreated");
 
@@ -59,20 +63,18 @@ public class UserServiceImpl implements UserService {
 				jsonObject.put("username", request.getUserName());
 				jsonObject.put("password", request.getPassword());
 
-				ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
 				Log.i(loggerMarker, "ObjectOutputStream created");
-				stream.writeObject(jsonObject.toString());
+				outputStream.writeObject(jsonObject.toString());
 				Log.i(loggerMarker, "written object");
 
-				ObjectInputStream oi = new ObjectInputStream(socket.getInputStream());
-				String responseString = (String) oi.readObject();
+				String responseString = (String) inputStream.readObject();
 				JSONObject response = new JSONObject(responseString);
 				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
 					JSONArray jsonArray = response.getJSONArray("opponents");
 					for (int i = 0; i < jsonArray.length(); i++) {
-						JSONObject object = (JSONObject) jsonArray.get(i);
+						JSONObject object = new JSONObject(((String) jsonArray.get(i)));
 
 						UserEntry userEntry = new UserEntry();
 						userEntry.setId(object.getInt("id"));
@@ -110,6 +112,8 @@ public class UserServiceImpl implements UserService {
 				Log.i(loggerMarker, "try registration");
 				if (socket == null) {
 					socket = new Socket(serverIp, serverPort);
+					outputStream = new ObjectOutputStream(socket.getOutputStream());
+					inputStream = new ObjectInputStream(socket.getInputStream());
 				}
 				Log.i(loggerMarker, "socketCreated");
 
@@ -119,13 +123,11 @@ public class UserServiceImpl implements UserService {
 				jsonObject.put("name", request.getName());
 				jsonObject.put("password", request.getPassword());
 
-				ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
 				Log.i(loggerMarker, "ObjectOutputStream created");
-				stream.writeObject(jsonObject.toString());
+				outputStream.writeObject(jsonObject.toString());
 				Log.i(loggerMarker, "written object");
 
-				ObjectInputStream oi = new ObjectInputStream(socket.getInputStream());
-				String responseString = (String) oi.readObject();
+				String responseString = (String) inputStream.readObject();
 				JSONObject response = new JSONObject(responseString);
 				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
