@@ -9,6 +9,7 @@
 	<string name="password">პაროლი</string>
 	<string name="login">შესვლა</string>
 	<string name="register">რეგისტრაცია</string>
+	<string name="startGame">თამაშის დაწყება</string>
 
 	<style name="DefaultButtonText">
 		<item name="android:layout_width">fill_parent</item>

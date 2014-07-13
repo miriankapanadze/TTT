@@ -2,16 +2,18 @@ package edu.freeuni.tictactoe;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import edu.freeuni.tictactoe.listeners.RegisterListener;
 import edu.freeuni.tictactoe.model.RegistrationRequest;
 import edu.freeuni.tictactoe.model.ServerStatus;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.UserService;
 
-public class SignUpActivity extends Activity implements View.OnClickListener {
+public class SignUpActivity extends Activity implements View.OnClickListener, RegisterListener {
 
 	private UserService userService;
 	private EditText userName;
@@ -29,7 +31,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
 
 		btnSignUp.setOnClickListener(this);
 		userService = ServicesFactory.getUserService();
-
+		ServicesFactory.addRegisterListener(this);
 	}
 
 	@Override
@@ -44,7 +46,16 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
 		request.setUserName(userName.getText().toString());
 		request.setPassword(password.getText().toString());
 
-		ServerStatus status = userService.register(request);
-//		Toast.makeText(this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_LONG).show();
+		userService.register(request);
+	}
+
+	@Override
+	public void onRegister(final ServerStatus status) {
+		new Handler().post(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(SignUpActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 }
