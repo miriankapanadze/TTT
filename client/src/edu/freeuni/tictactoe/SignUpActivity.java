@@ -1,6 +1,7 @@
 package edu.freeuni.tictactoe;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -54,7 +55,12 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 		new Handler().post(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(SignUpActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_LONG).show();
+				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
+					Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+					startActivity(intent);
+				} else {
+					Toast.makeText(SignUpActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 	}
