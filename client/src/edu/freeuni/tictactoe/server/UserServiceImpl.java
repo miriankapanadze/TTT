@@ -8,14 +8,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class UserServiceImpl implements UserService {
 	private static String loggerMarker = "userServiceImpl";
 
-	private static String serverIp = "192.168.0.101";
+	private static String serverIp = "192.168.0.100";
 	private static int serverPort = 8080;
 	private static Socket socket;
 
@@ -81,13 +83,22 @@ public class UserServiceImpl implements UserService {
 				jsonObject.put("name", request.getName());
 				jsonObject.put("password", request.getPassword());
 
-				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-				Log.i(loggerMarker, "ObjectOutputStream created");
-				out.writeObject(jsonObject);
+				OutputStream stream = socket.getOutputStream();
+				Log.i(loggerMarker, "OutputStream created");
+
+				stream.write(jsonObject.toString().getBytes());
 				Log.i(loggerMarker, "written object");
 
-				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-				JSONObject response = (JSONObject) in.readObject();
+//				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+//				Log.i(loggerMarker, "ObjectOutputStream created");
+//				out.writeObject(jsonObject);
+//				Log.i(loggerMarker, "written object");
+
+				InputStream in = socket.getInputStream();
+				byte [] buffer = new byte[10000];
+				in.read(buffer);
+				String resp = new String(buffer);
+				JSONObject response = new JSONObject(resp);
 				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 
@@ -95,7 +106,7 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			} catch (JSONException e) {
 				e.printStackTrace();
-			} catch (ClassNotFoundException ignored){}
+			}
 		}
 	}
 }

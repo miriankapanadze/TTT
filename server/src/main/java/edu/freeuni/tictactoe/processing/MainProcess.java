@@ -6,8 +6,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -38,20 +40,25 @@ public class MainProcess {
 		@Override
 		public void run() {
 			try {
-				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+//				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 				/*while (true) {
 				}*/
 
-				JSONObject response = (JSONObject) in.readObject();
-				User user = new User(response.getString("name"), response.getString("username"), response.getString("password"));
-				UsersManager.getInstance().updateUser(user);
-
+//				JSONObject response = (JSONObject) in.readObject();
+//				User user = new User(response.getString("name"), response.getString("username"), response.getString("password"));
+//				UsersManager.getInstance().updateUser(user);
+				InputStream in = socket.getInputStream();
+				in.read(new byte[1100]);
+//
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("status", "SUCCESS");
 				jsonObject.put("additionalInfo", "Test");
 
-				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-				out.writeObject(jsonObject);
+//				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+				OutputStream outputStream = socket.getOutputStream();
+				outputStream.write(jsonObject.toString().getBytes());
+
+//				out.writeObject(jsonObject);
 
 			} catch (Exception e) {
 				e.printStackTrace();
