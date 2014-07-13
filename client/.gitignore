@@ -1,5 +1,6 @@
 .idea
 .idea/*
+.idea/
 *.iml
 */*.iml
 *.class
@@ -10,6 +11,7 @@ target/
 .project
 .settings
 .git
+workspace.xml
 *.log
 bin/
 out/
