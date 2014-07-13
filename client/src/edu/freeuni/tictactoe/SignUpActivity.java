@@ -55,12 +55,9 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 		new Handler().post(new Runnable() {
 			@Override
 			public void run() {
-				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
-					Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-					startActivity(intent);
-				} else {
-					Toast.makeText(SignUpActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_LONG).show();
-				}
+				Toast.makeText(SignUpActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

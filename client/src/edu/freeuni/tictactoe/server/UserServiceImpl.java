@@ -67,9 +67,8 @@ public class UserServiceImpl implements UserService {
 				String responseString = (String) oi.readObject();
 				JSONObject response = new JSONObject(responseString);
 				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
-				if (status.getStatus() == ServerStatus.Status.FAILURE) {
-					status.setAdditionalInfo(response.getString("additionalInfo"));
-				} else {
+				status.setAdditionalInfo(response.getString("additionalInfo"));
+				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
 					JSONArray jsonArray = response.getJSONArray("opponents");
 					for (int i = 0; i < jsonArray.length(); i++) {
 						JSONObject object = (JSONObject) jsonArray.get(i);

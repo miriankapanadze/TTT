@@ -55,13 +55,11 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 		new Handler().post(new Runnable() {
 			@Override
 			public void run() {
-				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
-					Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
-					intent.putExtra("users", new Gson().toJson(users));
-					startActivity(intent);
-				} else {
-					Toast.makeText(SignInActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_LONG).show();
-				}
+				Toast.makeText(SignInActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
+
+				Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
+				intent.putExtra("users", new Gson().toJson(users));
+				startActivity(intent);
 			}
 		});
 	}
