@@ -1,11 +1,28 @@
 package edu.freeuni.tictactoe.model;
 
 public class ServerStatus {
-	Status status;
 
-	String additionalInfo;
+	private Status status;
 
-	private enum Status {
+	private String additionalInfo;
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
+
+	public enum Status {
 		SUCCESS,
 		FAILURE,
 		WORN

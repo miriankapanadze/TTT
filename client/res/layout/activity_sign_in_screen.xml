@@ -19,12 +19,12 @@
 		>
 
 		<EditText
-			android:id="@+id/inMail"
+			android:id="@+id/inUserName"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@drawable/edittext_top_bg"
 			android:padding="10dp"
-			android:hint="Email"
+			android:hint="@string/userName"
 			android:textColorHint="#cccccc"
 			android:drawableLeft="@drawable/email"/>
 		<EditText
@@ -34,7 +34,7 @@
 			android:background="@drawable/edittext_bottom_bg"
 			android:layout_marginTop="-2dp"
 			android:padding="10dp"
-			android:hint="Password"
+			android:hint="@string/password"
 			android:textColorHint="#cccccc"
 			android:password="true"
 			android:drawableLeft="@drawable/password"/>
@@ -44,7 +44,7 @@
 			android:layout_height="wrap_content"
 			android:padding="10dp"
 			android:layout_margin="4dp"
-			android:text="Sign In"
+			android:text="@string/login"
 			style="@style/DefaultButtonText"
 			android:background="@drawable/button_default_bg"
 			/>

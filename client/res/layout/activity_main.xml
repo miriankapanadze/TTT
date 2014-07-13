@@ -20,22 +20,22 @@
 		>
 
 		<Button
-			android:id="@+id/btnSignUp"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:padding="10dp"
-			android:layout_margin="4dp"
-			android:text="Sign Up"
-			android:background="@drawable/button_default_bg"
-			style="@style/DefaultButtonText"
-			/>
-		<Button
 			android:id="@+id/btnSignIn"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:padding="10dp"
 			android:layout_margin="4dp"
-			android:text="Sign In"
+			android:text="@string/login"
+			android:background="@drawable/button_default_bg"
+			style="@style/DefaultButtonText"
+			/>
+		<Button
+			android:id="@+id/btnSignUp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="10dp"
+			android:layout_margin="4dp"
+			android:text="@string/register"
 			style="@style/DefaultButtonText"
 			android:background="@drawable/button_default_bg"
 			/>
