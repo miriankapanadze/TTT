@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="TicTacToeServer:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="TicTacToeServer.war">
-      <element id="artifact" artifact-name="TicTacToeServer:war exploded" />
-    </root>
-  </artifact>
-</component>
