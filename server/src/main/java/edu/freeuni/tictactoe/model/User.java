@@ -1,10 +1,16 @@
 package edu.freeuni.tictactoe.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
@@ -72,5 +78,32 @@ public class User implements Serializable {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+
+	@Transient
+	public static JSONObject getJSONObject(User user) {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("id", user.getId());
+			jsonObject.put("name", user.getName());
+			jsonObject.put("username", user.getUsername());
+			jsonObject.put("password", user.getPassword());
+			jsonObject.put("rank", user.getRank());
+
+			return jsonObject;
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Transient
+	public static JSONArray getJSONArray(List<User> users) {
+		JSONArray jsonArray = new JSONArray();
+		for (User user : users) {
+			jsonArray.put(getJSONObject(user));
+		}
+		return jsonArray;
 	}
 }

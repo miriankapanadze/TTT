@@ -1,5 +1,6 @@
 package edu.freeuni.tictactoe.processing;
 
+import edu.freeuni.tictactoe.model.History;
 import edu.freeuni.tictactoe.model.RequestType;
 import edu.freeuni.tictactoe.model.ServerStatus;
 import edu.freeuni.tictactoe.model.User;
@@ -93,8 +94,8 @@ public class MainProcess {
 
 				responseJSON.put("status", ServerStatus.Status.SUCCESS.name());
 				responseJSON.put("additionalInfo", "loginSuccessful");
-				responseJSON.put("opponents", UsersManager.getInstance().getOpponents(dbUser));
-				responseJSON.put("history", UsersManager.getInstance().getUserHistory(dbUser));
+				responseJSON.put("opponents", User.getJSONArray(UsersManager.getInstance().getOpponents(dbUser)).toString());
+				responseJSON.put("history", History.getJSONArray(UsersManager.getInstance().getUserHistory(dbUser)).toString());
 				outputStream.writeObject(responseJSON.toString());
 
 			} catch (Exception e) {
