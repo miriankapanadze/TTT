@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 public class User implements Serializable {
 
-	private long id;
+	private int id;
 
 	private String name;
 
@@ -17,7 +17,14 @@ public class User implements Serializable {
 
 	private String password;
 
+	private int rank;
+
 	public User() {}
+
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 
 	public User(String name, String username, String password) {
 		this.name = name;
@@ -27,11 +34,11 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -57,5 +64,13 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 }

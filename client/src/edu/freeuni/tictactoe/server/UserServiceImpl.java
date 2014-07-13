@@ -3,6 +3,7 @@ package edu.freeuni.tictactoe.server;
 import android.util.Log;
 import edu.freeuni.tictactoe.model.LoginRequest;
 import edu.freeuni.tictactoe.model.RegistrationRequest;
+import edu.freeuni.tictactoe.model.RequestType;
 import edu.freeuni.tictactoe.model.ServerStatus;
 import edu.freeuni.tictactoe.model.UserEntry;
 import org.json.JSONArray;
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException ignored){
-			}finally {
+			} finally {
 				ServicesFactory.notifyLoginListeners(status, users);
 			}
 		}
@@ -113,6 +114,7 @@ public class UserServiceImpl implements UserService {
 				Log.i(loggerMarker, "socketCreated");
 
 				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("requestType", RequestType.REGISTRATION.name());
 				jsonObject.put("username", request.getUserName());
 				jsonObject.put("name", request.getName());
 				jsonObject.put("password", request.getPassword());
