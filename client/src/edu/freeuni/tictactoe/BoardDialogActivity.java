@@ -3,6 +3,7 @@ package edu.freeuni.tictactoe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import edu.freeuni.tictactoe.server.ServicesFactory;
 public class BoardDialogActivity extends Activity implements GameStartListener {
 
 	private int opponentId;
+	private Handler handler;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,10 +40,11 @@ public class BoardDialogActivity extends Activity implements GameStartListener {
 			}
 		});
 		ServicesFactory.addGameStartListener(this);
+		handler = new Handler();
 	}
 
 	@Override
-	public void startGame(int boardSize, Status status) {
+	public void startGame(int boardSize, final Status status) {
 		if (status.getType() == Status.Type.SUCCESS) {
 			Intent intent = new Intent(BoardDialogActivity.this, BoardActivity.class);
 			intent.putExtra("size", boardSize);
@@ -49,7 +52,12 @@ public class BoardDialogActivity extends Activity implements GameStartListener {
 			intent.putExtra("opponentId", opponentId);
 			startActivity(intent);
 		} else {
-			Toast.makeText(this, status.getAdditionalInfo(), Toast.LENGTH_SHORT).show();
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					Toast.makeText(BoardDialogActivity.this, status.getAdditionalInfo(), Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 	}
 }
