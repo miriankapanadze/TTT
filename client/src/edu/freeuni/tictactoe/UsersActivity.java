@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -37,6 +38,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 
 	private List<UserEntry> userEntries;
 	private UsersAdapter adapter;
+	Handler handler;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 			ServicesFactory.getGameService().waitForOpponent();
 		}
 		listView.setItemsCanFocus(true);
+		handler = new Handler();
 	}
 
 	@Override
@@ -104,31 +107,36 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 
 	@Override
 	public void onGameInvitation(final int opponentId, String opponentName, int opponentRank, final int boardSize) {
-		System.out.println("onGameInvitation");
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-		alertDialog.setMessage("შემოთავაზება");
-		alertDialog.setPositiveButton("იეს", new DialogInterface.OnClickListener() {
+		handler.post(new Runnable() {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				System.out.println("onPositiveButton");
-				ServicesFactory.getGameService().acceptInvitation();
-				Intent intent = new Intent(UsersActivity.this, BoardActivity.class);
-				intent.putExtra("size", boardSize);
-				intent.putExtra("mode", UserMode.PASSIVE);
-				intent.putExtra("opponentId", opponentId);
-				startActivity(intent);
+			public void run() {
+				System.out.println("onGameInvitation");
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(UsersActivity.this);
+				alertDialog.setMessage("შემოთავაზება");
+				alertDialog.setPositiveButton("იეს", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						System.out.println("onPositiveButton");
+						ServicesFactory.getGameService().acceptInvitation();
+						Intent intent = new Intent(UsersActivity.this, BoardActivity.class);
+						intent.putExtra("size", boardSize);
+						intent.putExtra("mode", UserMode.PASSIVE.name());
+						intent.putExtra("opponentId", opponentId);
+						startActivity(intent);
+					}
+				});
+
+				alertDialog.setNegativeButton("ნოუ", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						System.out.println("onNegativeButton");
+						ServicesFactory.getGameService().rejectInvitation();
+					}
+				});
+
+				alertDialog.create().show();
 			}
 		});
-
-		alertDialog.setNegativeButton("ნოუ", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				System.out.println("onNegativeButton");
-				ServicesFactory.getGameService().rejectInvitation();
-			}
-		});
-
-		alertDialog.create().show();
 	}
 
 	private class UsersAdapter extends ArrayAdapter<UserEntry> {
