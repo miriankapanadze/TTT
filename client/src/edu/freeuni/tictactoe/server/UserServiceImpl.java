@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public void run() {
 			Status status = new Status();
-			status.setType(Status.TYPE.FAILURE);
+			status.setType(Status.Type.FAILURE);
 			List<UserEntry> users = new ArrayList<UserEntry>();
 			try {
 				Log.i(loggerMarker, "try registration");
@@ -83,10 +83,10 @@ public class UserServiceImpl implements UserService {
 
 				String responseString = (String) inputStream.readObject();
 				JSONObject response = new JSONObject(responseString);
-				status.setType(Status.TYPE.valueOf(response.getString("status")));
+				status.setType(Status.Type.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 
-				if (status.getType() == Status.TYPE.SUCCESS) {
+				if (status.getType() == Status.Type.SUCCESS) {
 					JSONArray jsonArray = new JSONArray(response.getString("opponents"));
 
 					for (int i = 0; i < jsonArray.length(); i++) {
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 						users.add(userEntry);
 					}
 				}
-				if (status.getType() != Status.TYPE.SUCCESS) {
+				if (status.getType() != Status.Type.SUCCESS) {
 					LOGIN_SOCKET.close();
 				}
 			} catch (IOException e) {
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public void run() {
 			final Status status = new Status();
-			status.setType(Status.TYPE.FAILURE);
+			status.setType(Status.Type.FAILURE);
 			try {
 				Log.i(loggerMarker, "try registration");
 				Socket socket = new Socket(serverIp, serverPort);
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
 
 				String responseString = (String) inputStream.readObject();
 				JSONObject response = new JSONObject(responseString);
-				status.setType(Status.TYPE.valueOf(response.getString("status")));
+				status.setType(Status.Type.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 				socket.close();
 

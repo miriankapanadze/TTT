@@ -2,7 +2,7 @@ package edu.freeuni.tictactoe.server.test;
 
 import edu.freeuni.tictactoe.model.LoginRequest;
 import edu.freeuni.tictactoe.model.RegistrationRequest;
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.ServicesFactory;
@@ -15,8 +15,8 @@ public class TestUserServiceImpl implements UserService {
 
 	@Override
 	public void login(LoginRequest request) {
-		ServerStatus serverStatus = new ServerStatus();
-		serverStatus.setStatus(ServerStatus.Status.SUCCESS);
+		Status serverStatus = new Status();
+		serverStatus.setType(Status.Type.SUCCESS);
 		serverStatus.setAdditionalInfo("SUCCESS");
 
 		List<UserEntry> userEntries = new ArrayList<UserEntry>();

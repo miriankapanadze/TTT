@@ -78,7 +78,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 			public void run() {
 				Toast.makeText(SignInActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
 
-				if (status.getType() == Status.TYPE.SUCCESS && mode == UserMode.ACTIVE) {
+				if (status.getType() == Status.Type.SUCCESS && mode == UserMode.ACTIVE) {
 					Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
 					intent.putExtra("users", new Gson().toJson(users));
 					startActivity(intent);

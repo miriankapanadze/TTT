@@ -2,15 +2,15 @@ package edu.freeuni.tictactoe.model;
 
 public class Status {
 
-	private TYPE type;
+	private Type type;
 
 	private String additionalInfo;
 
-	public TYPE getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(TYPE type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
@@ -22,7 +22,7 @@ public class Status {
 		this.additionalInfo = additionalInfo;
 	}
 
-	public enum TYPE {
+	public enum Type {
 		SUCCESS,
 		FAILURE,
 		WARN

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import edu.freeuni.tictactoe.listeners.GameListener;
 import edu.freeuni.tictactoe.model.GameType;
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 
 @SuppressWarnings("ConstantConditions")
@@ -38,7 +38,7 @@ public class BoardDialogActivity extends Activity implements GameListener {
 	}
 
 	@Override
-	public void startGame(int board, ServerStatus status) {
+	public void startGame(int board, Status status) {
 		Intent intent = new Intent(BoardDialogActivity.this, BoardActivity.class);
 		intent.putExtra("boardSize", board);
 		startActivity(intent);

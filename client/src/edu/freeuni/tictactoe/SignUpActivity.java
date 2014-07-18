@@ -58,7 +58,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 			@Override
 			public void run() {
 				Toast.makeText(SignUpActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
-				if (status.getType() == Status.TYPE.SUCCESS) {
+				if (status.getType() == Status.Type.SUCCESS) {
 					Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
 					startActivity(intent);
 				}
