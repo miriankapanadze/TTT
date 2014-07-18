@@ -29,6 +29,7 @@ import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.GameService;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 @SuppressWarnings({"unchecked", "ConstantConditions"})
@@ -103,11 +104,13 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 
 	@Override
 	public void onGameInvitation(final int opponentId, String opponentName, int opponentRank, final int boardSize) {
+		System.out.println("onGameInvitation");
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 		alertDialog.setMessage("შემოთავაზება");
 		alertDialog.setPositiveButton("იეს", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				System.out.println("onPositiveButton");
 				ServicesFactory.getGameService().acceptInvitation();
 				Intent intent = new Intent(UsersActivity.this, BoardActivity.class);
 				intent.putExtra("size", boardSize);
@@ -120,11 +123,12 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 		alertDialog.setNegativeButton("ნოუ", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				System.out.println("onNegativeButton");
 				ServicesFactory.getGameService().rejectInvitation();
 			}
 		});
 
-		alertDialog.setMessage("შემოთავაზება");
+		alertDialog.create().show();
 	}
 
 	private class UsersAdapter extends ArrayAdapter<UserEntry> {
