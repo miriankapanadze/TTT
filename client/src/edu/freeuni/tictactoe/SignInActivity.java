@@ -38,8 +38,8 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 		userName = (EditText) findViewById(R.id.inUserName);
 		password = (EditText) findViewById(R.id.inPass);
 		mode = (ToggleButton) findViewById(R.id.mode);
-		mode.setTextOff(getResources().getString(R.string.activeMode));
-		mode.setTextOn(getResources().getString(R.string.passiveMode));
+		mode.setTextOff(getResources().getString(R.string.passiveMode));
+		mode.setTextOn(getResources().getString(R.string.activeMode));
 		mode.setText("რეჟიმი");
 		mode.setBackgroundColor(Color.WHITE);
 		mode.setButtonDrawable(getResources().getDrawable(R.drawable.button_default_bg));
@@ -66,7 +66,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 		LoginRequest request = new LoginRequest();
 		request.setUserName(userName.getText().toString());
 		request.setPassword(password.getText().toString());
-		request.setUserMode(mode.isFocused() ? UserMode.ACTIVE : UserMode.PASSIVE);
+		request.setUserMode(mode.isChecked() ? UserMode.ACTIVE : UserMode.PASSIVE);
 
 		userService.login(request);
 	}
