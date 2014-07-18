@@ -6,49 +6,36 @@
 	android:paddingLeft="@dimen/activity_horizontal_margin"
 	android:paddingRight="@dimen/activity_horizontal_margin"
 	android:paddingTop="@dimen/activity_vertical_margin"
-	android:background="#ffffff">
+	tools:context=".MainActivity"
+
+	android:background="@drawable/tic_tac_toe_logo">
 
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
+		android:background="@drawable/linearlayout_bg"
 		android:padding="10dp"
 		>
 
-		<EditText
-			android:id="@+id/inUserName"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/edittext_top_bg"
-			android:padding="10dp"
-			android:hint="@string/userName"
-			android:textColorHint="#cccccc"
-			android:drawableLeft="@drawable/email"/>
-		<EditText
-			android:id="@+id/inPass"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/edittext_bottom_bg"
-			android:layout_marginTop="-2dp"
-			android:padding="10dp"
-			android:hint="@string/password"
-			android:textColorHint="#cccccc"
-			android:password="true"
-			android:drawableLeft="@drawable/password"/>
-		<ToggleButton
-			android:id="@+id/mode"
-			android:layout_width="match_parent"
-			android:layout_marginTop="10dp"
-			android:padding="10dp"
-			android:layout_height="wrap_content" />
 		<Button
-			android:id="@+id/submitSignIn"
+			android:id="@+id/nineGrid"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:padding="10dp"
 			android:layout_margin="4dp"
-			android:text="@string/login"
+			android:text="@string/threeThreeGrid"
+			android:background="@drawable/button_default_bg"
+			style="@style/DefaultButtonText"
+			/>
+		<Button
+			android:id="@+id/twentyFiveGrid"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="10dp"
+			android:layout_margin="4dp"
+			android:text="@string/fiveFiveGrid"
 			style="@style/DefaultButtonText"
 			android:background="@drawable/button_default_bg"
 			/>

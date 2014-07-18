@@ -10,6 +10,11 @@
 	<string name="login">შესვლა</string>
 	<string name="register">რეგისტრაცია</string>
 	<string name="startGame">თამაშის დაწყება</string>
+	<string name="activeMode">აქტიური რეჟიმი</string>
+	<string name="passiveMode">მოლოდინის რეჟიმი</string>
+	<string name="fiveFiveGrid">5:5</string>
+	<string name="threeThreeGrid">3:3</string>
+	<string name="userMode">აქტიური|პასიური</string>
 
 	<style name="DefaultButtonText">
 		<item name="android:layout_width">fill_parent</item>

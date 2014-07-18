@@ -2,6 +2,7 @@ package edu.freeuni.tictactoe;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import edu.freeuni.tictactoe.model.UserEntry;
 
 import java.util.List;
@@ -32,8 +34,7 @@ public class UsersActivity extends Activity {
 		adapter = new UsersAdapter(this);
 		listView.setAdapter(adapter);
 
-		userEntries = new Gson().fromJson(getIntent().getExtras().getString("users"), List.class);
-
+		userEntries = new Gson().fromJson(getIntent().getExtras().getString("users"), new TypeToken<List<UserEntry>>(){}.getType());
 		registerForContextMenu(listView);
 
 		listView.setItemsCanFocus(true);
@@ -71,6 +72,9 @@ public class UsersActivity extends Activity {
 			case 1:
 				int userId = item.getItemId();
 				Toast.makeText(this, "starting game", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(UsersActivity.this, BoardDialogActivity.class);
+				intent.putExtra("opponent", userId);
+				startActivity(intent);
 				break;
 			default:
 				break;

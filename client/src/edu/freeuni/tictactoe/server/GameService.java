@@ -1,5 +1,8 @@
 package edu.freeuni.tictactoe.server;
 
-public class GameService {
+import edu.freeuni.tictactoe.model.GameType;
 
+public interface GameService {
+
+	void startGame(int opponentId, GameType type);
 }

@@ -6,6 +6,8 @@ public class LoginRequest {
 
 	private String password;
 
+	private UserMode mode;
+
 	public String getUserName() {
 		return userName;
 	}
@@ -20,5 +22,13 @@ public class LoginRequest {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UserMode getUserMode() {
+		return mode;
+	}
+
+	public void setUserMode(UserMode mode) {
+		this.mode = mode;
 	}
 }

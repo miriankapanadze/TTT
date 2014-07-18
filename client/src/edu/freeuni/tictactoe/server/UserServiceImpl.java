@@ -18,13 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-	private static String loggerMarker = "userServiceImpl";
 
-	private static String serverIp = "192.168.0.100";
+	private static String loggerMarker = "userServiceImpl";
+	private static String serverIp = "192.168.0.101";
 	private static int serverPort = 8080;
-	private static Socket socket;
 	private static ObjectInputStream inputStream;
 	private static ObjectOutputStream outputStream;
+	public static Socket LOGIN_SOCKET;
 
 	@Override
 	public void login(LoginRequest request) {
@@ -34,6 +34,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void register(RegistrationRequest registrationRequest) {
 		new RegistrationThread(registrationRequest).start();
+	}
+
+	@Override
+	public void logout() {
+		if (LOGIN_SOCKET != null) {
+			try {
+				LOGIN_SOCKET.close();
+				LOGIN_SOCKET = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private class LoginThread extends Thread {
@@ -51,17 +63,19 @@ public class UserServiceImpl implements UserService {
 			List<UserEntry> users = new ArrayList<UserEntry>();
 			try {
 				Log.i(loggerMarker, "try registration");
-				if (socket == null) {
-					socket = new Socket(serverIp, serverPort);
-					outputStream = new ObjectOutputStream(socket.getOutputStream());
-					inputStream = new ObjectInputStream(socket.getInputStream());
+				if (LOGIN_SOCKET != null) {
+					LOGIN_SOCKET.close();
 				}
+				LOGIN_SOCKET = new Socket(serverIp, serverPort);
+				outputStream = new ObjectOutputStream(LOGIN_SOCKET.getOutputStream());
+				inputStream = new ObjectInputStream(LOGIN_SOCKET.getInputStream());
 				Log.i(loggerMarker, "socketCreated");
 
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("requestType", RequestType.LOGIN.name());
 				jsonObject.put("username", request.getUserName());
 				jsonObject.put("password", request.getPassword());
+				jsonObject.put("userMode", request.getUserMode().name());
 
 				Log.i(loggerMarker, "ObjectOutputStream created");
 				outputStream.writeObject(jsonObject.toString());
@@ -72,9 +86,9 @@ public class UserServiceImpl implements UserService {
 				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
-					JSONArray jsonArray = response.getJSONArray("opponents");
+					JSONArray jsonArray = new JSONArray(response.getString("opponents"));
 					for (int i = 0; i < jsonArray.length(); i++) {
-						JSONObject object = new JSONObject(((String) jsonArray.get(i)));
+						JSONObject object = (JSONObject) jsonArray.get(i);
 
 						UserEntry userEntry = new UserEntry();
 						userEntry.setId(object.getInt("id"));
@@ -85,13 +99,16 @@ public class UserServiceImpl implements UserService {
 						users.add(userEntry);
 					}
 				}
+				if (status.getStatus() != ServerStatus.Status.SUCCESS) {
+					LOGIN_SOCKET.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException ignored){
 			} finally {
-				ServicesFactory.notifyLoginListeners(status, users);
+				ServicesFactory.notifyLoginListeners(status, users, request.getUserMode());
 			}
 		}
 	}
@@ -110,11 +127,9 @@ public class UserServiceImpl implements UserService {
 			status.setStatus(ServerStatus.Status.FAILURE);
 			try {
 				Log.i(loggerMarker, "try registration");
-				if (socket == null) {
-					socket = new Socket(serverIp, serverPort);
-					outputStream = new ObjectOutputStream(socket.getOutputStream());
-					inputStream = new ObjectInputStream(socket.getInputStream());
-				}
+				Socket socket = new Socket(serverIp, serverPort);
+				ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+				ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
 				Log.i(loggerMarker, "socketCreated");
 
 				JSONObject jsonObject = new JSONObject();
@@ -131,6 +146,7 @@ public class UserServiceImpl implements UserService {
 				JSONObject response = new JSONObject(responseString);
 				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
+				socket.close();
 
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -8,4 +8,6 @@ public interface UserService {
 	void login(LoginRequest request);
 
 	void register(RegistrationRequest registrationRequest);
+
+	void logout();
 }
