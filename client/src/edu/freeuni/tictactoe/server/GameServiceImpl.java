@@ -25,7 +25,7 @@ public class GameServiceImpl implements GameService {
 
 					Status status = new Status();
 					status.setType(Status.Type.valueOf(responseJSON.getString("status")));
-					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
+					status.setAdditionalInfo("sss");
 
 					ServicesFactory.notifyStartGameListeners(type == BoardType.BOARD_3X3 ? 3 : 5, status);
 
@@ -97,6 +97,7 @@ public class GameServiceImpl implements GameService {
 				try {
 					JSONObject responseJSN = new JSONObject();
 					responseJSN.put("status", Status.Type.FAILURE);
+					responseJSN.put("additionalInfo", "failure");
 					UserServiceImpl.outputStream.writeObject(responseJSN.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -112,7 +113,8 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					JSONObject responseJSN = new JSONObject();
-					responseJSN.put("status", Status.Type.SUCCESS);
+					responseJSN.put("status", Status.Type.SUCCESS.name());
+					responseJSN.put("additionalInfo", "success");
 					UserServiceImpl.outputStream.writeObject(responseJSN.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
