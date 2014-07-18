@@ -144,7 +144,7 @@ public class MainProcess {
 
 				StatusType statusType = sendInvitation(opponent, boardType);
 				responseJSON.put("status", statusType.name());
-				responseJSON.put("additionalInfo", "");
+				responseJSON.put("additionalInfo", "test");
 				outputStream.writeObject(responseJSON.toString());
 
 			} catch (Exception e) {
