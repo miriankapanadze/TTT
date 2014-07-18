@@ -51,6 +51,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 		if (mode == UserMode.ACTIVE) {
 			registerForContextMenu(listView);
 		} else {
+			ServicesFactory.addGameInvitationListener(this);
 			ServicesFactory.getGameService().waitForOpponent();
 		}
 		listView.setItemsCanFocus(true);

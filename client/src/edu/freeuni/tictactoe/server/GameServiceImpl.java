@@ -72,7 +72,9 @@ public class GameServiceImpl implements GameService {
 			@Override
 			public void run() {
 				try {
+					System.out.println("waiting invitation");
 					String requestSTR = (String)UserServiceImpl.inputStream.readObject();
+					System.out.println("received invitation");
 					JSONObject requestJSN = new JSONObject(requestSTR);
 					int opponentId = requestJSN.getInt("opponentId");
 					String opponentName = requestJSN.getString("opponentName");
