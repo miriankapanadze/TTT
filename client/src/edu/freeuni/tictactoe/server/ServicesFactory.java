@@ -4,7 +4,7 @@ import edu.freeuni.tictactoe.listeners.GameListener;
 import edu.freeuni.tictactoe.listeners.LoginListener;
 import edu.freeuni.tictactoe.listeners.RegisterListener;
 import edu.freeuni.tictactoe.model.UserMode;
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.server.test.TestGameServiceImpl;
 import edu.freeuni.tictactoe.server.test.TestUserServiceImpl;
@@ -30,13 +30,13 @@ public class ServicesFactory {
 		gameListeners.add(gameListener);
 	}
 
-	public static void notifyLoginListeners(ServerStatus status, List<UserEntry> users, UserMode mode) {
+	public static void notifyLoginListeners(Status status, List<UserEntry> users, UserMode mode) {
 		for (LoginListener loginListener : loginListeners) {
 			loginListener.onLogin(status, users, mode);
 		}
 	}
 
-	public static void notifyRegisterListeners(ServerStatus status) {
+	public static void notifyRegisterListeners(Status status) {
 		for (RegisterListener registerListener : registerListeners) {
 			registerListener.onRegister(status);
 		}
@@ -50,7 +50,7 @@ public class ServicesFactory {
 		return new TestGameServiceImpl();
 	}
 
-	public static void notifyStartGameListeners(int board, ServerStatus status) {
+	public static void notifyStartGameListeners(int board, Status status) {
 		for (GameListener gameListener : gameListeners) {
 			gameListener.startGame(board, status);
 		}

@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.RegisterListener;
 import edu.freeuni.tictactoe.model.RegistrationRequest;
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.UserService;
 
@@ -53,12 +53,12 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 	}
 
 	@Override
-	public void onRegister(final ServerStatus status) {
+	public void onRegister(final Status status) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(SignUpActivity.this, status.getStatus().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
-				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
+				Toast.makeText(SignUpActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
+				if (status.getType() == Status.TYPE.SUCCESS) {
 					Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
 					startActivity(intent);
 				}

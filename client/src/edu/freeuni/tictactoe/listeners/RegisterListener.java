@@ -1,7 +1,7 @@
 package edu.freeuni.tictactoe.listeners;
 
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 
 public interface RegisterListener {
-	void onRegister(ServerStatus status);
+	void onRegister(Status status);
 }

@@ -25,11 +25,12 @@ public class User implements Serializable {
 
 	private int rank;
 
+	private UserMode mode;
+
 	public User() {}
 
 	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
+		this(null, username, password);
 	}
 
 	public User(String name, String username, String password) {
@@ -78,6 +79,33 @@ public class User implements Serializable {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+
+	@Transient
+	public UserMode getMode() {
+		return mode;
+	}
+
+	public void setMode(UserMode mode) {
+		this.mode = mode;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+
+		User other = (User) obj;
+		return id == other.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
 	}
 
 	@Transient

@@ -1,10 +1,10 @@
 package edu.freeuni.tictactoe.listeners;
 
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 
 public interface GameListener {
 
-	void startGame(int board, ServerStatus status);
+	void startGame(int board, Status status);
 
 	void move();
 }

@@ -1,12 +1,12 @@
 package edu.freeuni.tictactoe.listeners;
 
 import edu.freeuni.tictactoe.model.UserMode;
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 
 import java.util.List;
 
 public interface LoginListener {
 
-	void onLogin(ServerStatus status, List<UserEntry> users, UserMode mode);
+	void onLogin(Status status, List<UserEntry> users, UserMode mode);
 }

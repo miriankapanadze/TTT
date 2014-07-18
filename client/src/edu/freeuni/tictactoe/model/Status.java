@@ -1,17 +1,17 @@
 package edu.freeuni.tictactoe.model;
 
-public class ServerStatus {
+public class Status {
 
-	private Status status;
+	private TYPE type;
 
 	private String additionalInfo;
 
-	public Status getStatus() {
-		return status;
+	public TYPE getType() {
+		return type;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setType(TYPE type) {
+		this.type = type;
 	}
 
 	public String getAdditionalInfo() {
@@ -22,7 +22,7 @@ public class ServerStatus {
 		this.additionalInfo = additionalInfo;
 	}
 
-	public enum Status {
+	public enum TYPE {
 		SUCCESS,
 		FAILURE,
 		WARN

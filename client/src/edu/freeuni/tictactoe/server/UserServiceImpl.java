@@ -4,7 +4,7 @@ import android.util.Log;
 import edu.freeuni.tictactoe.model.LoginRequest;
 import edu.freeuni.tictactoe.model.RegistrationRequest;
 import edu.freeuni.tictactoe.model.RequestType;
-import edu.freeuni.tictactoe.model.ServerStatus;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,8 +58,8 @@ public class UserServiceImpl implements UserService {
 
 		@Override
 		public void run() {
-			ServerStatus status = new ServerStatus();
-			status.setStatus(ServerStatus.Status.FAILURE);
+			Status status = new Status();
+			status.setType(Status.TYPE.FAILURE);
 			List<UserEntry> users = new ArrayList<UserEntry>();
 			try {
 				Log.i(loggerMarker, "try registration");
@@ -83,10 +83,12 @@ public class UserServiceImpl implements UserService {
 
 				String responseString = (String) inputStream.readObject();
 				JSONObject response = new JSONObject(responseString);
-				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
+				status.setType(Status.TYPE.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
-				if (status.getStatus() == ServerStatus.Status.SUCCESS) {
+
+				if (status.getType() == Status.TYPE.SUCCESS) {
 					JSONArray jsonArray = new JSONArray(response.getString("opponents"));
+
 					for (int i = 0; i < jsonArray.length(); i++) {
 						JSONObject object = (JSONObject) jsonArray.get(i);
 
@@ -99,7 +101,7 @@ public class UserServiceImpl implements UserService {
 						users.add(userEntry);
 					}
 				}
-				if (status.getStatus() != ServerStatus.Status.SUCCESS) {
+				if (status.getType() != Status.TYPE.SUCCESS) {
 					LOGIN_SOCKET.close();
 				}
 			} catch (IOException e) {
@@ -123,8 +125,8 @@ public class UserServiceImpl implements UserService {
 
 		@Override
 		public void run() {
-			final ServerStatus status = new ServerStatus();
-			status.setStatus(ServerStatus.Status.FAILURE);
+			final Status status = new Status();
+			status.setType(Status.TYPE.FAILURE);
 			try {
 				Log.i(loggerMarker, "try registration");
 				Socket socket = new Socket(serverIp, serverPort);
@@ -144,7 +146,7 @@ public class UserServiceImpl implements UserService {
 
 				String responseString = (String) inputStream.readObject();
 				JSONObject response = new JSONObject(responseString);
-				status.setStatus(ServerStatus.Status.valueOf(response.getString("status")));
+				status.setType(Status.TYPE.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 				socket.close();
 

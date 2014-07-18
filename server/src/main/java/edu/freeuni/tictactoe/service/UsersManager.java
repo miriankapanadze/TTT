@@ -48,7 +48,18 @@ public class UsersManager {
 		return user;
 	}
 
-	public User findUser(User user) throws Exception {
+	public User findUserById(int id) throws Exception {
+		try {
+			return (User) em.createQuery("SELECT u FROM User u WHERE u.id = :id")
+					.setParameter("id", id)
+					.getSingleResult();
+
+		} catch (NoResultException e) {
+			throw new Exception("unknownUser");
+		}
+	}
+
+	public User findUserByCredentials(User user) throws Exception {
 		try {
 			return (User) em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password")
 					.setParameter("username", user.getUsername())
