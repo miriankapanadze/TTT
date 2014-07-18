@@ -176,7 +176,7 @@ public class MainProcess {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return null;
+			return StatusType.FAILURE;
 		}
 
 		private JSONObject getInvitationJSON(BoardType boardType) {

@@ -96,7 +96,7 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					JSONObject responseJSN = new JSONObject();
-					responseJSN.put("status", Status.Type.FAILURE);
+					responseJSN.put("status", Status.Type.FAILURE.name());
 					responseJSN.put("additionalInfo", "failure");
 					UserServiceImpl.outputStream.writeObject(responseJSN.toString());
 				} catch (Exception e) {

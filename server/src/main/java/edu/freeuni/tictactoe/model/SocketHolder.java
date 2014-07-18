@@ -7,9 +7,7 @@ import java.net.Socket;
 public class SocketHolder {
 
 	private Socket socket;
-
 	private ObjectInputStream inputStream;
-
 	private ObjectOutputStream outputStream;
 
 	public SocketHolder(Socket socket, ObjectInputStream inputStream, ObjectOutputStream outputStream) {
