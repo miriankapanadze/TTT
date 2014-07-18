@@ -108,7 +108,7 @@ public class MainProcess {
 						.findUserByCredentials(new User(receivedJSON.getString("username"), receivedJSON.getString("password")));
 
 				user = dbUser;
-				UserMode status = UserMode.valueOf(receivedJSON.getString("userStatus"));
+				UserMode status = UserMode.valueOf(receivedJSON.getString("userMode"));
 				user.setMode(status);
 				socketsMap.put(user, new SocketHolder(socket, inputStream, outputStream));
 
@@ -183,7 +183,8 @@ public class MainProcess {
 			JSONObject invitation = new JSONObject();
 			try {
 				invitation.put("status", StatusType.SUCCESS.name());
-				invitation.put("opponent", user.getUsername());
+				invitation.put("opponentId", user.getId());
+				invitation.put("opponentName", user.getUsername());
 				invitation.put("opponentRank", user.getRank());
 				invitation.put("boardType", boardType.name());
 
