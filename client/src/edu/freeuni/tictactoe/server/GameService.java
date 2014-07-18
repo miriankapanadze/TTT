@@ -5,4 +5,6 @@ import edu.freeuni.tictactoe.model.GameType;
 public interface GameService {
 
 	void startGame(int opponentId, GameType type);
+
+	void move(int x, int y);
 }

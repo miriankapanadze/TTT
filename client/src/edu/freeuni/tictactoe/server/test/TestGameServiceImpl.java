@@ -12,4 +12,19 @@ public class TestGameServiceImpl implements GameService {
 
 		ServicesFactory.notifyStartGameListeners(type == GameType.FIVE_TO_FIVE ? 5 : 3, new Status());
 	}
+
+	@Override
+	public void move(int x, int y) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Thread.currentThread().sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					ServicesFactory.notifyMoveGameListeners(2, 2);
+				}
+			}).start();
+	}
 }

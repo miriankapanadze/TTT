@@ -40,12 +40,12 @@ public class BoardDialogActivity extends Activity implements GameListener {
 	@Override
 	public void startGame(int board, Status status) {
 		Intent intent = new Intent(BoardDialogActivity.this, BoardActivity.class);
-		intent.putExtra("boardSize", board);
+		intent.putExtra("size", board);
+		intent.putExtra("mode", getIntent().getExtras().getString("mode"));
+
 		startActivity(intent);
 	}
 
 	@Override
-	public void move() {
-
-	}
+	public void onOpponentMove(int x, int y) { }
 }

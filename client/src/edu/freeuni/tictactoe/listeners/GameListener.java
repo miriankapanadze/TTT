@@ -6,5 +6,5 @@ public interface GameListener {
 
 	void startGame(int board, Status status);
 
-	void move();
+	void onOpponentMove(int x, int y);
 }

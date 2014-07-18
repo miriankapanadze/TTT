@@ -56,7 +56,9 @@ public class ServicesFactory {
 		}
 	}
 
-	public static void notifyMoveGameListeners() {
-
+	public static void notifyMoveGameListeners(int x, int y) {
+		for (GameListener gameListener : gameListeners) {
+			gameListener.onOpponentMove(x, y);
+		}
 	}
 }

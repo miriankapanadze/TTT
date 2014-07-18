@@ -8,4 +8,9 @@ public class GameServiceImpl implements GameService {
 	public void startGame(int opponentId, GameType type) {
 
 	}
+
+	@Override
+	public void move(int x, int y) {
+
+	}
 }

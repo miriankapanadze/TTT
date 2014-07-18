@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.freeuni.tictactoe.model.UserEntry;
+import edu.freeuni.tictactoe.model.UserMode;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class UsersActivity extends Activity {
 
 	private List<UserEntry> userEntries;
 	private UsersAdapter adapter;
+	private UserMode mode;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,7 +37,11 @@ public class UsersActivity extends Activity {
 		listView.setAdapter(adapter);
 
 		userEntries = new Gson().fromJson(getIntent().getExtras().getString("users"), new TypeToken<List<UserEntry>>(){}.getType());
-		registerForContextMenu(listView);
+		mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
+
+		if (mode == UserMode.ACTIVE) {
+			registerForContextMenu(listView);
+		}
 
 		listView.setItemsCanFocus(true);
 	}
@@ -74,6 +80,8 @@ public class UsersActivity extends Activity {
 				Toast.makeText(this, "starting game", Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(UsersActivity.this, BoardDialogActivity.class);
 				intent.putExtra("opponent", userId);
+				intent.putExtra("mode", UserMode.ACTIVE.name());
+
 				startActivity(intent);
 				break;
 			default:
