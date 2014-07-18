@@ -42,6 +42,10 @@ public class UserServiceImpl implements UserService {
 			try {
 				LOGIN_SOCKET.close();
 				LOGIN_SOCKET = null;
+				inputStream.close();
+				outputStream.close();
+				inputStream = null;
+				outputStream = null;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -60,11 +64,12 @@ public class UserServiceImpl implements UserService {
 		public void run() {
 			Status status = new Status();
 			status.setType(Status.Type.FAILURE);
-			List<UserEntry> users = new ArrayList<UserEntry>();
+			List<UserEntry> users = new ArrayList<>();
 			try {
 				Log.i(loggerMarker, "try registration");
 				if (LOGIN_SOCKET != null) {
 					LOGIN_SOCKET.close();
+					LOGIN_SOCKET = null;
 				}
 				LOGIN_SOCKET = new Socket(serverIp, serverPort);
 				outputStream = new ObjectOutputStream(LOGIN_SOCKET.getOutputStream());
@@ -103,10 +108,9 @@ public class UserServiceImpl implements UserService {
 				}
 				if (status.getType() != Status.Type.SUCCESS) {
 					LOGIN_SOCKET.close();
+					LOGIN_SOCKET = null;
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
+			} catch (IOException | JSONException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException ignored){
 			} finally {
