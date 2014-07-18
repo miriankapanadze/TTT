@@ -73,8 +73,8 @@ public class MainProcess {
 						case LOGIN:
 							if (!onLogin(receivedJSON)) return;
 							break;
-						case SELECT_OPPONENT:
-							onSelectOpponent(receivedJSON);
+						case START_GAME:
+							onStartGame(receivedJSON);
 							break;
 						case MOVE:
 							onMove(receivedJSON);
@@ -126,7 +126,7 @@ public class MainProcess {
 			}
 		}
 
-		private void onSelectOpponent(JSONObject receivedJSON) {
+		private void onStartGame(JSONObject receivedJSON) {
 			JSONObject responseJSON = new JSONObject();
 			try {
 				int opponentId = receivedJSON.getInt("opponentId");
@@ -144,6 +144,7 @@ public class MainProcess {
 
 				StatusType statusType = sendInvitation(opponent, boardType);
 				responseJSON.put("status", statusType.name());
+				responseJSON.put("additionalInfo", "");
 				outputStream.writeObject(responseJSON.toString());
 
 			} catch (Exception e) {
@@ -226,6 +227,7 @@ public class MainProcess {
 			JSONObject move = new JSONObject();
 			try {
 				move.put("status", StatusType.SUCCESS.name());
+				move.put("additionalInfo", "");
 				move.put("x", x);
 				move.put("y", y);
 

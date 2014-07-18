@@ -27,7 +27,6 @@ public class UsersActivity extends Activity {
 
 	private List<UserEntry> userEntries;
 	private UsersAdapter adapter;
-	private UserMode mode;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,12 +36,13 @@ public class UsersActivity extends Activity {
 		listView.setAdapter(adapter);
 
 		userEntries = new Gson().fromJson(getIntent().getExtras().getString("users"), new TypeToken<List<UserEntry>>(){}.getType());
-		mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
+		UserMode mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
 
 		if (mode == UserMode.ACTIVE) {
 			registerForContextMenu(listView);
-		}
+		} else {
 
+		}
 		listView.setItemsCanFocus(true);
 	}
 
@@ -101,19 +101,19 @@ public class UsersActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflanter = ((Activity) context).getLayoutInflater();
+			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			View row = convertView;
-			PaymentsListHolder holder;
+			UsersListHolder holder;
 
 			if (row == null) {
-				row = inflanter.inflate(R.layout.users_list_item, parent, false);
-				holder = new PaymentsListHolder();
+				row = inflater.inflate(R.layout.users_list_item, parent, false);
+				holder = new UsersListHolder();
 				holder.name = ((TextView) row.findViewById(R.id.name));
 				holder.username = ((TextView) row.findViewById(R.id.userName));
 				holder.rank = ((TextView) row.findViewById(R.id.rank));
 				row.setTag(holder);
 			} else {
-				holder = (PaymentsListHolder) row.getTag();
+				holder = (UsersListHolder) row.getTag();
 			}
 
 			UserEntry item = getItem(position);
@@ -125,7 +125,7 @@ public class UsersActivity extends Activity {
 			return row;
 		}
 
-		private class PaymentsListHolder {
+		private class UsersListHolder {
 			TextView name;
 			TextView username;
 			TextView rank;

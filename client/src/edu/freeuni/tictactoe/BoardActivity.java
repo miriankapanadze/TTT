@@ -7,45 +7,40 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
-import edu.freeuni.tictactoe.listeners.GameListener;
-import edu.freeuni.tictactoe.model.Status;
+import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.game.Board;
 
 @SuppressWarnings("ConstantConditions")
-public class BoardActivity extends Activity implements GameListener {
+public class BoardActivity extends Activity implements GameMoveListener {
 
-	int size;
+	private int size;
+	private int self;
+	private int opponent;
 
-	int self;
-	int selfIcon;
-	int opponent;
-	int opponentIcon;
+	private int opponentId;
 
-	Handler handler;
+	private Handler handler;
 
-	Board board;
-	GridView grid;
-	GridAdapter adapter;
+	private Board board;
+	private GridAdapter adapter;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.board);
+
+		opponentId = getIntent().getExtras().getInt("opponentId");
 
 		size = getIntent().getExtras().getInt("size");
 		board = new Board(size);
 		adapter = new GridAdapter(this, size, board.getValues());
 
 		UserMode mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
-
 		self = mode == UserMode.ACTIVE ? 1 : 2;
-		selfIcon = self == 1 ? R.drawable.x : R.drawable.o;
-
 		opponent = mode == UserMode.ACTIVE ? 2 : 1;
-		opponentIcon = self == 1 ? R.drawable.o : R.drawable.x;
 
-		grid = (GridView) findViewById(R.id.gridView);
+		GridView grid = (GridView) findViewById(R.id.gridView);
 		grid.setNumColumns(size);
 		grid.setAdapter(adapter);
 		handler = new Handler();
@@ -60,17 +55,14 @@ public class BoardActivity extends Activity implements GameListener {
 				if (board.getTurn() == self) {
 					adapter.getValues().set(position, opponent);
 					adapter.notifyDataSetChanged();
-					ServicesFactory.getGameService().move(position / size, position % size);
+					ServicesFactory.getGameService().move(opponentId, position / size, position % size);
 					board.set(position);
 				}
 			}
 		});
 
-		ServicesFactory.addGameListener(this);
+		ServicesFactory.addGameMoveListener(this);
 	}
-
-	@Override
-	public void startGame(int board, Status status) { }
 
 	@Override
 	public void onOpponentMove(final int x, final int y) {

@@ -3,7 +3,7 @@ package edu.freeuni.tictactoe.model;
 public class StartGameRequest {
 
 	private int opponentType;
-	private GameType type;
+	private BoardType type;
 
 	public int getOpponentType() {
 		return opponentType;
@@ -13,11 +13,11 @@ public class StartGameRequest {
 		this.opponentType = opponentType;
 	}
 
-	public GameType getType() {
+	public BoardType getType() {
 		return type;
 	}
 
-	public void setType(GameType type) {
+	public void setType(BoardType type) {
 		this.type = type;
 	}
 }

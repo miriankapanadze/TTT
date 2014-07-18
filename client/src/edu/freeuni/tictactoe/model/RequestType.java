@@ -4,6 +4,6 @@ public enum RequestType {
 
 	REGISTRATION,
 	LOGIN,
-	SELECT_OPPONENT,
+	START_GAME,
 	MOVE
 }

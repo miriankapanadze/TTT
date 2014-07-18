@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
 	private static String loggerMarker = "userServiceImpl";
 	private static String serverIp = "192.168.0.101";
 	private static int serverPort = 8080;
-	private static ObjectInputStream inputStream;
-	private static ObjectOutputStream outputStream;
+	public static ObjectInputStream inputStream;
+	public static ObjectOutputStream outputStream;
 	public static Socket LOGIN_SOCKET;
 
 	@Override

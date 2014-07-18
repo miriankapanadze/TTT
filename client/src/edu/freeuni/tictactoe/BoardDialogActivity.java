@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import edu.freeuni.tictactoe.listeners.GameListener;
-import edu.freeuni.tictactoe.model.GameType;
+import android.widget.Toast;
+import edu.freeuni.tictactoe.listeners.GameStartListener;
+import edu.freeuni.tictactoe.model.BoardType;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 
 @SuppressWarnings("ConstantConditions")
-public class BoardDialogActivity extends Activity implements GameListener {
+public class BoardDialogActivity extends Activity implements GameStartListener {
+
+	private int opponentId;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,33 +22,34 @@ public class BoardDialogActivity extends Activity implements GameListener {
 
 		Button nine = (Button) findViewById(R.id.nineGrid);
 		Button twentyFive = (Button) findViewById(R.id.twentyFiveGrid);
-		final int opponentId = getIntent().getExtras().getInt("opponent");
+		opponentId = getIntent().getExtras().getInt("opponent");
 
 		nine.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ServicesFactory.getGameService().startGame(opponentId, GameType.THREE_TO_THREE);
+				ServicesFactory.getGameService().startGame(opponentId, BoardType.BOARD_3X3);
 			}
 		});
 
 		twentyFive.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ServicesFactory.getGameService().startGame(opponentId, GameType.FIVE_TO_FIVE);
+				ServicesFactory.getGameService().startGame(opponentId, BoardType.BOARD_5X5);
 			}
 		});
-		ServicesFactory.addGameListener(this);
+		ServicesFactory.addGameStartListener(this);
 	}
 
 	@Override
-	public void startGame(int board, Status status) {
-		Intent intent = new Intent(BoardDialogActivity.this, BoardActivity.class);
-		intent.putExtra("size", board);
-		intent.putExtra("mode", getIntent().getExtras().getString("mode"));
-
-		startActivity(intent);
+	public void startGame(int boardSize, Status status) {
+		if (status.getType() == Status.Type.SUCCESS) {
+			Intent intent = new Intent(BoardDialogActivity.this, BoardActivity.class);
+			intent.putExtra("size", boardSize);
+			intent.putExtra("mode", getIntent().getExtras().getString("mode"));
+			intent.putExtra("opponentId", opponentId);
+			startActivity(intent);
+		} else {
+			Toast.makeText(this, status.getAdditionalInfo(), Toast.LENGTH_SHORT).show();
+		}
 	}
-
-	@Override
-	public void onOpponentMove(int x, int y) { }
 }
