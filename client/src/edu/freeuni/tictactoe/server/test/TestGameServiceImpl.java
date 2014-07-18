@@ -27,4 +27,19 @@ public class TestGameServiceImpl implements GameService {
 				}
 			}).start();
 	}
+
+	@Override
+	public void waitForOpponent() {
+
+	}
+
+	@Override
+	public void rejectInvitation() {
+
+	}
+
+	@Override
+	public void acceptInvitation() {
+
+	}
 }

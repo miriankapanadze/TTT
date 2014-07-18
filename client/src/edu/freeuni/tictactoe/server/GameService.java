@@ -7,4 +7,10 @@ public interface GameService {
 	void startGame(int opponentId, BoardType type);
 
 	void move(int opponentId, int x, int y);
+
+	void waitForOpponent();
+
+	void rejectInvitation();
+
+	void acceptInvitation();
 }

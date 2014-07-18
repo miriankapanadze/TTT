@@ -36,7 +36,7 @@ public class Board {
 	}
 
 	public List<Integer> getValues() {
-		List<Integer> result = new ArrayList<Integer>();
+		List<Integer> result = new ArrayList<>();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				result.add(board[i][j]);

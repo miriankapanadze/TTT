@@ -65,4 +65,57 @@ public class GameServiceImpl implements GameService {
 			}
 		}).start();
 	}
+
+	@Override
+	public void waitForOpponent() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					String requestSTR = (String)UserServiceImpl.inputStream.readObject();
+					JSONObject requestJSN = new JSONObject(requestSTR);
+					int opponentId = requestJSN.getInt("opponentId");
+					String opponentName = requestJSN.getString("opponentName");
+					int rank = requestJSN.getInt("opponentRank");
+					BoardType boardType = BoardType.valueOf(requestJSN.getString("boardType"));
+
+					ServicesFactory.notifyGameInvitationListeners(opponentId, opponentName, rank, boardType == BoardType.BOARD_3X3 ? 3 : 5);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	@Override
+	public void rejectInvitation() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					JSONObject responseJSN = new JSONObject();
+					responseJSN.put("status", Status.Type.FAILURE);
+					UserServiceImpl.outputStream.writeObject(responseJSN.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	@Override
+	public void acceptInvitation() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					JSONObject responseJSN = new JSONObject();
+					responseJSN.put("status", Status.Type.SUCCESS);
+					UserServiceImpl.outputStream.writeObject(responseJSN.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
 }

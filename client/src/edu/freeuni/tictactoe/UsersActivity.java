@@ -1,11 +1,15 @@
 package edu.freeuni.tictactoe;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +21,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import edu.freeuni.tictactoe.listeners.GameInvitationListener;
+import edu.freeuni.tictactoe.listeners.GameStartListener;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
+import edu.freeuni.tictactoe.server.GameService;
+import edu.freeuni.tictactoe.server.ServicesFactory;
 
 import java.util.List;
 
 @SuppressWarnings({"unchecked", "ConstantConditions"})
-public class UsersActivity extends Activity {
+public class UsersActivity extends Activity implements GameInvitationListener {
 
 	private List<UserEntry> userEntries;
 	private UsersAdapter adapter;
@@ -42,7 +51,7 @@ public class UsersActivity extends Activity {
 		if (mode == UserMode.ACTIVE) {
 			registerForContextMenu(listView);
 		} else {
-
+			ServicesFactory.getGameService().waitForOpponent();
 		}
 		listView.setItemsCanFocus(true);
 	}
@@ -89,6 +98,32 @@ public class UsersActivity extends Activity {
 				break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onGameInvitation(final int opponentId, String opponentName, int opponentRank, final int boardSize) {
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+		alertDialog.setMessage("შემოთავაზება");
+		alertDialog.setPositiveButton("იეს", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ServicesFactory.getGameService().acceptInvitation();
+				Intent intent = new Intent(UsersActivity.this, BoardActivity.class);
+				intent.putExtra("size", boardSize);
+				intent.putExtra("mode", UserMode.PASSIVE);
+				intent.putExtra("opponentId", opponentId);
+				startActivity(intent);
+			}
+		});
+
+		alertDialog.setNegativeButton("ნოუ", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ServicesFactory.getGameService().rejectInvitation();
+			}
+		});
+
+		alertDialog.setMessage("შემოთავაზება");
 	}
 
 	private class UsersAdapter extends ArrayAdapter<UserEntry> {
