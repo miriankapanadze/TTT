@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
 				Log.i(loggerMarker, "ObjectOutputStream created");
 				OUTPUT_STREAM.writeUTF(jsonObject.toString());
-				OUTPUT_STREAM.flush();
+//				OUTPUT_STREAM.flush();
 				Log.i(loggerMarker, "written object");
 
 				String responseString = INPUT_STREAM.readUTF();
@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
 
 				Log.i(loggerMarker, "ObjectOutputStream created");
 				outputStream.writeUTF(jsonObject.toString());
-				outputStream.flush();
+//				outputStream.flush();
 				Log.i(loggerMarker, "written object");
 
 				String responseString = inputStream.readUTF();
