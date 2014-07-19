@@ -104,7 +104,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 			public void run() {
 				System.out.println("onGameInvitation");
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(UsersActivity.this);
-				alertDialog.setMessage(opponentName + getResources().getString(boardSize == 3 ? R.string.invitationText3 : R.string.invitationText5));
+				alertDialog.setMessage(opponentName + " " + getResources().getString(boardSize == 3 ? R.string.invitationText3 : R.string.invitationText5));
 				alertDialog.setPositiveButton(getResources().getString(R.string.accept), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {

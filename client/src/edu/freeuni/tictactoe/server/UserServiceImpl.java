@@ -20,10 +20,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 	private static String loggerMarker = "userServiceImpl";
-	private static String serverIp = "192.168.76.133";
+	private static String serverIp = "192.168.76.162";
 	private static int serverPort = 8080;
-	public static ObjectInputStream inputStream;
-	public static ObjectOutputStream outputStream;
+	public static ObjectInputStream INPUT_STREAM;
+	public static ObjectOutputStream OUTPUT_STREAM;
 	public static Socket LOGIN_SOCKET;
 
 	@Override
@@ -40,12 +40,7 @@ public class UserServiceImpl implements UserService {
 	public void logout() {
 		if (LOGIN_SOCKET != null) {
 			try {
-				LOGIN_SOCKET.close();
-				LOGIN_SOCKET = null;
-				inputStream.close();
-				outputStream.close();
-				inputStream = null;
-				outputStream = null;
+				closeConnection();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -68,12 +63,11 @@ public class UserServiceImpl implements UserService {
 			try {
 				Log.i(loggerMarker, "try registration");
 				if (LOGIN_SOCKET != null) {
-					LOGIN_SOCKET.close();
-					LOGIN_SOCKET = null;
+					closeConnection();
 				}
 				LOGIN_SOCKET = new Socket(serverIp, serverPort);
-				outputStream = new ObjectOutputStream(LOGIN_SOCKET.getOutputStream());
-				inputStream = new ObjectInputStream(LOGIN_SOCKET.getInputStream());
+				OUTPUT_STREAM = new ObjectOutputStream(LOGIN_SOCKET.getOutputStream());
+				INPUT_STREAM = new ObjectInputStream(LOGIN_SOCKET.getInputStream());
 				Log.i(loggerMarker, "socketCreated");
 
 				JSONObject jsonObject = new JSONObject();
@@ -83,10 +77,10 @@ public class UserServiceImpl implements UserService {
 				jsonObject.put("userMode", request.getUserMode().name());
 
 				Log.i(loggerMarker, "ObjectOutputStream created");
-				outputStream.writeObject(jsonObject.toString());
+				OUTPUT_STREAM.writeObject(jsonObject.toString());
 				Log.i(loggerMarker, "written object");
 
-				String responseString = (String) inputStream.readObject();
+				String responseString = (String) INPUT_STREAM.readObject();
 				JSONObject response = new JSONObject(responseString);
 				status.setType(Status.Type.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
@@ -117,6 +111,16 @@ public class UserServiceImpl implements UserService {
 				ListenersFactory.notifyLoginListeners(status, users, request.getUserMode());
 			}
 		}
+	}
+
+	private void closeConnection() throws IOException {
+		LOGIN_SOCKET.close();
+		INPUT_STREAM.close();
+		OUTPUT_STREAM.close();
+
+		LOGIN_SOCKET = null;
+		INPUT_STREAM = null;
+		OUTPUT_STREAM = null;
 	}
 
 	private class RegistrationThread extends Thread {
@@ -153,6 +157,8 @@ public class UserServiceImpl implements UserService {
 				status.setType(Status.Type.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 				socket.close();
+				inputStream.close();
+				outputStream.close();
 
 			} catch (IOException | JSONException e) {
 				e.printStackTrace();

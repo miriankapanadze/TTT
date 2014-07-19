@@ -18,9 +18,9 @@ public class GameServiceImpl implements GameService {
 					requestJSON.put("opponentId", opponentId);
 					requestJSON.put("boardType", type.name());
 
-					UserServiceImpl.outputStream.writeObject(requestJSON.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeObject(requestJSON.toString());
 
-					String responseString = (String) UserServiceImpl.inputStream.readObject();
+					String responseString = (String) UserServiceImpl.INPUT_STREAM.readObject();
 					JSONObject responseJSON = new JSONObject(responseString);
 
 					Status status = new Status();
@@ -48,9 +48,9 @@ public class GameServiceImpl implements GameService {
 					requestJSON.put("x", x);
 					requestJSON.put("y", y);
 
-					UserServiceImpl.outputStream.writeObject(requestJSON.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeObject(requestJSON.toString());
 
-					String responseString = (String) UserServiceImpl.inputStream.readObject();
+					String responseString = (String) UserServiceImpl.INPUT_STREAM.readObject();
 					JSONObject responseJSON = new JSONObject(responseString);
 
 					Status status = new Status();
@@ -73,7 +73,7 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					System.out.println("waiting invitation");
-					String requestSTR = (String)UserServiceImpl.inputStream.readObject();
+					String requestSTR = (String)UserServiceImpl.INPUT_STREAM.readObject();
 					System.out.println("received invitation");
 					JSONObject requestJSN = new JSONObject(requestSTR);
 					int opponentId = requestJSN.getInt("opponentId");
@@ -98,8 +98,9 @@ public class GameServiceImpl implements GameService {
 					JSONObject responseJSN = new JSONObject();
 					responseJSN.put("status", Status.Type.FAILURE.name());
 					responseJSN.put("additionalInfo", "rejected");
-					UserServiceImpl.outputStream.writeObject(responseJSN.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeObject(responseJSN.toString());
 				} catch (Exception e) {
+					System.out.println("reject invitation corrupted");
 					e.printStackTrace();
 				}
 			}
@@ -115,8 +116,9 @@ public class GameServiceImpl implements GameService {
 					JSONObject responseJSN = new JSONObject();
 					responseJSN.put("status", Status.Type.SUCCESS.name());
 					responseJSN.put("additionalInfo", "accepted");
-					UserServiceImpl.outputStream.writeObject(responseJSN.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeObject(responseJSN.toString());
 				} catch (Exception e) {
+					System.out.println("accept invitation corrupted");
 					e.printStackTrace();
 				}
 			}
