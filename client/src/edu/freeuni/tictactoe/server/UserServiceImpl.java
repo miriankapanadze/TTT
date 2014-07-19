@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 	private static String loggerMarker = "userServiceImpl";
-	private static String serverIp = "192.168.49.50";
+	private static String serverIp = "192.168.76.162";
 	private static int serverPort = 8080;
 	public static DataInputStream INPUT_STREAM;
 	public static DataOutputStream OUTPUT_STREAM;
@@ -106,7 +106,9 @@ public class UserServiceImpl implements UserService {
 			} catch (IOException | JSONException e) {
 				e.printStackTrace();
 			} finally {
+				System.out.println("should notify login listeners");
 				ListenersFactory.notifyLoginListeners(status, users, request.getUserMode());
+				System.out.println("notified login listeners");
 			}
 		}
 	}
