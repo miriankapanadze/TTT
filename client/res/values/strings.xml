@@ -15,6 +15,10 @@
 	<string name="fiveFiveGrid">5:5</string>
 	<string name="threeThreeGrid">3:3</string>
 	<string name="userMode">აქტიური|პასიური</string>
+	<string name="accept">დათანხმება</string>
+	<string name="reject">უარყოფა</string>
+	<string name="invitationText3">გთავაზობს, რომ ეთამაშო 3X3 დაფაზე</string>
+	<string name="invitationText5">გთავაზობს, რომ ეთამაშო 5X5 დაფაზე</string>
 
 	<style name="DefaultButtonText">
 		<item name="android:layout_width">fill_parent</item>

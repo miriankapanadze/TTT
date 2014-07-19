@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Board {
 
-	int[][] board;
-	int size;
-	int turn = 1;
+	private int[][] board;
+	private int size;
+	private int turn = 1;
 
 	public Board(int size) {
 		this.size = size;

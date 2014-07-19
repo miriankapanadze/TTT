@@ -9,6 +9,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.model.UserMode;
+import edu.freeuni.tictactoe.server.ListenersFactory;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.game.Board;
 
@@ -18,13 +19,11 @@ public class BoardActivity extends Activity implements GameMoveListener {
 	private int size;
 	private int self;
 	private int opponent;
-
 	private int opponentId;
-
-	private Handler handler;
 
 	private Board board;
 	private GridAdapter adapter;
+	private Handler handler;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,8 +46,6 @@ public class BoardActivity extends Activity implements GameMoveListener {
 
 		grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-				Toast.makeText(BoardActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-
 				if (board.get(position) != 0) {
 					return;
 				}
@@ -61,7 +58,7 @@ public class BoardActivity extends Activity implements GameMoveListener {
 			}
 		});
 
-		ServicesFactory.addGameMoveListener(this);
+		ListenersFactory.addGameMoveListener(this);
 	}
 
 	@Override

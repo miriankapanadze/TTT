@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 	private static String loggerMarker = "userServiceImpl";
-	private static String serverIp = "192.168.0.101";
+	private static String serverIp = "192.168.0.100";
 	private static int serverPort = 8080;
 	public static ObjectInputStream inputStream;
 	public static ObjectOutputStream outputStream;
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			} catch (ClassNotFoundException ignored){
 			} finally {
-				ServicesFactory.notifyLoginListeners(status, users, request.getUserMode());
+				ListenersFactory.notifyLoginListeners(status, users, request.getUserMode());
 			}
 		}
 	}
@@ -154,13 +154,11 @@ public class UserServiceImpl implements UserService {
 				status.setAdditionalInfo(response.getString("additionalInfo"));
 				socket.close();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
+			} catch (IOException | JSONException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException ignored){
 			} finally {
-				ServicesFactory.notifyRegisterListeners(status);
+				ListenersFactory.notifyRegisterListeners(status);
 			}
 		}
 	}

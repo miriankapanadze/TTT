@@ -2,15 +2,12 @@ package edu.freeuni.tictactoe;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,14 +20,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.freeuni.tictactoe.listeners.GameInvitationListener;
-import edu.freeuni.tictactoe.listeners.GameStartListener;
-import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
-import edu.freeuni.tictactoe.server.GameService;
+import edu.freeuni.tictactoe.server.ListenersFactory;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @SuppressWarnings({"unchecked", "ConstantConditions"})
@@ -38,7 +32,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 
 	private List<UserEntry> userEntries;
 	private UsersAdapter adapter;
-	Handler handler;
+	private Handler handler;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,7 +48,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 		if (mode == UserMode.ACTIVE) {
 			registerForContextMenu(listView);
 		} else {
-			ServicesFactory.addGameInvitationListener(this);
+			ListenersFactory.addGameInvitationListener(this);
 			ServicesFactory.getGameService().waitForOpponent();
 		}
 		listView.setItemsCanFocus(true);
@@ -88,11 +82,9 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		Log.i("categories", "onOptionsItemSelected");
 		switch (item.getGroupId()) {
 			case 1:
 				int userId = item.getItemId();
-				Toast.makeText(this, "starting game", Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(UsersActivity.this, BoardDialogActivity.class);
 				intent.putExtra("opponent", userId);
 				intent.putExtra("mode", UserMode.ACTIVE.name());
@@ -106,14 +98,14 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 	}
 
 	@Override
-	public void onGameInvitation(final int opponentId, String opponentName, int opponentRank, final int boardSize) {
+	public void onGameInvitation(final int opponentId, final String opponentName, int opponentRank, final int boardSize) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
 				System.out.println("onGameInvitation");
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(UsersActivity.this);
-				alertDialog.setMessage("შემოთავაზება");
-				alertDialog.setPositiveButton("იეს", new DialogInterface.OnClickListener() {
+				alertDialog.setMessage(opponentName + getResources().getString(boardSize == 3 ? R.string.invitationText3 : R.string.invitationText5));
+				alertDialog.setPositiveButton(getResources().getString(R.string.accept), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						System.out.println("onPositiveButton");
@@ -126,7 +118,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 					}
 				});
 
-				alertDialog.setNegativeButton("ნოუ", new DialogInterface.OnClickListener() {
+				alertDialog.setNegativeButton(getResources().getString(R.string.reject), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						System.out.println("onNegativeButton");

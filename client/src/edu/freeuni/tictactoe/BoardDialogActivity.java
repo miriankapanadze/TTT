@@ -10,6 +10,7 @@ import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.GameStartListener;
 import edu.freeuni.tictactoe.model.BoardType;
 import edu.freeuni.tictactoe.model.Status;
+import edu.freeuni.tictactoe.server.ListenersFactory;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 
 @SuppressWarnings("ConstantConditions")
@@ -39,7 +40,7 @@ public class BoardDialogActivity extends Activity implements GameStartListener {
 				ServicesFactory.getGameService().startGame(opponentId, BoardType.BOARD_5X5);
 			}
 		});
-		ServicesFactory.addGameStartListener(this);
+		ListenersFactory.addGameStartListener(this);
 		handler = new Handler();
 	}
 

@@ -27,7 +27,7 @@ public class GameServiceImpl implements GameService {
 					status.setType(Status.Type.valueOf(responseJSON.getString("status")));
 					status.setAdditionalInfo("sss");
 
-					ServicesFactory.notifyStartGameListeners(type == BoardType.BOARD_3X3 ? 3 : 5, status);
+					ListenersFactory.notifyStartGameListeners(type == BoardType.BOARD_3X3 ? 3 : 5, status);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +57,7 @@ public class GameServiceImpl implements GameService {
 					status.setType(Status.Type.valueOf(responseJSON.getString("status")));
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
 
-					ServicesFactory.notifyGameMoveListeners(responseJSON.getInt("x"), responseJSON.getInt("y"));
+					ListenersFactory.notifyGameMoveListeners(responseJSON.getInt("x"), responseJSON.getInt("y"));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -81,7 +81,7 @@ public class GameServiceImpl implements GameService {
 					int rank = requestJSN.getInt("opponentRank");
 					BoardType boardType = BoardType.valueOf(requestJSN.getString("boardType"));
 
-					ServicesFactory.notifyGameInvitationListeners(opponentId, opponentName, rank, boardType == BoardType.BOARD_3X3 ? 3 : 5);
+					ListenersFactory.notifyGameInvitationListeners(opponentId, opponentName, rank, boardType == BoardType.BOARD_3X3 ? 3 : 5);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
