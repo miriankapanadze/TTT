@@ -76,6 +76,7 @@ public class MainProcess {
 							if (!onLogin(receivedJSON)) return;
 							break;
 						case START_GAME:
+							System.out.println("calling onStartGame");
 							onStartGame(receivedJSON);
 							break;
 						case MOVE:
@@ -147,11 +148,17 @@ public class MainProcess {
 					throw new Exception("invalidOpponentUserMode");
 				}
 
+				System.out.println("calling sendInvitation method");
 				StatusType statusType = sendInvitation(opponent, boardType);
+
+				System.out.println("received invitation statusType: " + statusType.name());
+
 				responseJSON.put("status", statusType.name());
 				responseJSON.put("additionalInfo", "");
 
+				System.out.println("forwarding back invitation answer: " + responseJSON.toString());
 				outputStream.writeUTF(responseJSON.toString());
+				System.out.println("forwarded back invitation answer");
 				// outputStream.flush();
 
 			} catch (Exception e) {
@@ -174,17 +181,24 @@ public class MainProcess {
 				DataInputStream inputStream = holder.getInputStream();
 				DataOutputStream outputStream = holder.getOutputStream();
 
-				outputStream.writeUTF(getInvitationJSON(boardType).toString());
+				String invitation = getInvitationJSON(boardType).toString();
+				System.out.println("sending invitation: " + invitation);
+
+				outputStream.writeUTF(invitation);
 				// outputStream.flush();
 
+				System.out.println("waiting for invitation answer");
 				String receivedString = inputStream.readUTF();
+				System.out.println("invitation answer received: " + receivedString);
 				JSONObject receivedJSON = new JSONObject(receivedString);
 
+				System.out.println("returning invitation status");
 				return StatusType.valueOf(receivedJSON.getString("status"));
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			System.out.println("returning invitation failure status due to exception");
 			return StatusType.FAILURE;
 		}
 
