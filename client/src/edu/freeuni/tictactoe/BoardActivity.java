@@ -49,7 +49,7 @@ public class BoardActivity extends Activity implements GameMoveListener {
 					return;
 				}
 				if (board.getTurn() == self) {
-					adapter.getValues().set(position, opponent);
+					adapter.getValues().set(position, self);
 					adapter.notifyDataSetChanged();
 					ServicesFactory.getGameService().makeMove(opponentId, position / size, position % size);
 					board.set(position);
