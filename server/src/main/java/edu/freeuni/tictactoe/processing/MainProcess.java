@@ -11,6 +11,8 @@ import edu.freeuni.tictactoe.service.UsersManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -42,16 +44,16 @@ public class MainProcess {
 	static class CommunicationThread extends Thread {
 
 		private Socket socket;
-		private ObjectInputStream inputStream;
-		private ObjectOutputStream outputStream;
+		private DataInputStream inputStream;
+		private DataOutputStream outputStream;
 
 		private User user;
 
 		public CommunicationThread(Socket socket) {
 			try {
 				this.socket = socket;
-				this.outputStream = new ObjectOutputStream(socket.getOutputStream());
-				this.inputStream = new ObjectInputStream(socket.getInputStream());
+				this.outputStream = new DataOutputStream(socket.getOutputStream());
+				this.inputStream = new DataInputStream(socket.getInputStream());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -62,7 +64,7 @@ public class MainProcess {
 			try {
 				//noinspection InfiniteLoopStatement
 				while (true) {
-					String receivedString = (String) inputStream.readObject();
+					String receivedString = inputStream.readUTF();
 					JSONObject receivedJSON = new JSONObject(receivedString);
 					RequestType type = RequestType.valueOf(receivedJSON.getString("requestType"));
 
@@ -94,7 +96,7 @@ public class MainProcess {
 
 				responseJSON.put("status", StatusType.SUCCESS.name());
 				responseJSON.put("additionalInfo", "registrationSuccessful");
-				outputStream.writeObject(responseJSON.toString());
+				outputStream.writeUTF(responseJSON.toString());
 				outputStream.flush();
 
 			} catch (Exception e) {
@@ -118,8 +120,7 @@ public class MainProcess {
 				responseJSON.put("opponents", User.getJSONArray(UsersManager.getInstance().getOpponents(dbUser)).toString());
 				responseJSON.put("history", History.getJSONArray(UsersManager.getInstance().getUserHistory(dbUser)).toString());
 
-				outputStream.reset();
-				outputStream.writeObject(responseJSON.toString());
+				outputStream.writeUTF(responseJSON.toString());
 				outputStream.flush();
 
 				return true;
@@ -150,8 +151,7 @@ public class MainProcess {
 				responseJSON.put("status", statusType.name());
 				responseJSON.put("additionalInfo", "");
 
-				outputStream.reset();
-				outputStream.writeObject(responseJSON.toString());
+				outputStream.writeUTF(responseJSON.toString());
 				outputStream.flush();
 
 			} catch (Exception e) {
@@ -171,14 +171,13 @@ public class MainProcess {
 		private StatusType sendInvitation(User opponent, BoardType boardType) {
 			try {
 				SocketHolder holder = socketsMap.get(opponent);
-				ObjectInputStream inputStream = holder.getInputStream();
-				ObjectOutputStream outputStream = holder.getOutputStream();
+				DataInputStream inputStream = holder.getInputStream();
+				DataOutputStream outputStream = holder.getOutputStream();
 
-				outputStream.reset();
-				outputStream.writeObject(getInvitationJSON(boardType).toString());
+				outputStream.writeUTF(getInvitationJSON(boardType).toString());
 				outputStream.flush();
 
-				String receivedString = (String) inputStream.readObject();
+				String receivedString = inputStream.readUTF();
 				JSONObject receivedJSON = new JSONObject(receivedString);
 
 				return StatusType.valueOf(receivedJSON.getString("status"));
@@ -225,10 +224,9 @@ public class MainProcess {
 		private void sendMove(User opponent, int x, int y) {
 			try {
 				SocketHolder holder = socketsMap.get(opponent);
-				ObjectOutputStream outputStream = holder.getOutputStream();
+				DataOutputStream outputStream = holder.getOutputStream();
 
-				outputStream.reset();
-				outputStream.writeObject(getMoveJSON(x, y).toString());
+				outputStream.writeUTF(getMoveJSON(x, y).toString());
 				outputStream.flush();
 
 			} catch (Exception e) {
@@ -256,8 +254,7 @@ public class MainProcess {
 			try {
 				responseJSON.put("status", StatusType.FAILURE.name());
 				responseJSON.put("additionalInfo", e.getMessage());
-				outputStream.reset();
-				outputStream.writeObject(responseJSON.toString());
+				outputStream.writeUTF(responseJSON.toString());
 				outputStream.flush();
 
 			} catch (Exception ignored) {

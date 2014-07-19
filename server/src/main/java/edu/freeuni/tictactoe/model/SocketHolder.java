@@ -1,5 +1,7 @@
 package edu.freeuni.tictactoe.model;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -7,10 +9,10 @@ import java.net.Socket;
 public class SocketHolder {
 
 	private Socket socket;
-	private ObjectInputStream inputStream;
-	private ObjectOutputStream outputStream;
+	private DataInputStream inputStream;
+	private DataOutputStream outputStream;
 
-	public SocketHolder(Socket socket, ObjectInputStream inputStream, ObjectOutputStream outputStream) {
+	public SocketHolder(Socket socket, DataInputStream inputStream, DataOutputStream outputStream) {
 		this.socket = socket;
 		this.inputStream = inputStream;
 		this.outputStream = outputStream;
@@ -24,19 +26,11 @@ public class SocketHolder {
 		this.socket = socket;
 	}
 
-	public ObjectInputStream getInputStream() {
+	public DataInputStream getInputStream() {
 		return inputStream;
 	}
 
-	public void setInputStream(ObjectInputStream inputStream) {
-		this.inputStream = inputStream;
-	}
-
-	public ObjectOutputStream getOutputStream() {
+	public DataOutputStream getOutputStream() {
 		return outputStream;
-	}
-
-	public void setOutputStream(ObjectOutputStream outputStream) {
-		this.outputStream = outputStream;
 	}
 }
