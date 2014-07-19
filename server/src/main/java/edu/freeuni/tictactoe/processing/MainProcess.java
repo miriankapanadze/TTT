@@ -97,7 +97,7 @@ public class MainProcess {
 				responseJSON.put("status", StatusType.SUCCESS.name());
 				responseJSON.put("additionalInfo", "registrationSuccessful");
 				outputStream.writeUTF(responseJSON.toString());
-				outputStream.flush();
+				// outputStream.flush();
 
 			} catch (Exception e) {
 				onFailure(responseJSON, e);
@@ -121,7 +121,7 @@ public class MainProcess {
 				responseJSON.put("history", History.getJSONArray(UsersManager.getInstance().getUserHistory(dbUser)).toString());
 
 				outputStream.writeUTF(responseJSON.toString());
-				outputStream.flush();
+				// outputStream.flush();
 
 				return true;
 
@@ -152,7 +152,7 @@ public class MainProcess {
 				responseJSON.put("additionalInfo", "");
 
 				outputStream.writeUTF(responseJSON.toString());
-				outputStream.flush();
+				// outputStream.flush();
 
 			} catch (Exception e) {
 				onFailure(responseJSON, e);
@@ -175,7 +175,7 @@ public class MainProcess {
 				DataOutputStream outputStream = holder.getOutputStream();
 
 				outputStream.writeUTF(getInvitationJSON(boardType).toString());
-				outputStream.flush();
+				// outputStream.flush();
 
 				String receivedString = inputStream.readUTF();
 				JSONObject receivedJSON = new JSONObject(receivedString);
@@ -227,7 +227,7 @@ public class MainProcess {
 				DataOutputStream outputStream = holder.getOutputStream();
 
 				outputStream.writeUTF(getMoveJSON(x, y).toString());
-				outputStream.flush();
+				// outputStream.flush();
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -255,7 +255,7 @@ public class MainProcess {
 				responseJSON.put("status", StatusType.FAILURE.name());
 				responseJSON.put("additionalInfo", e.getMessage());
 				outputStream.writeUTF(responseJSON.toString());
-				outputStream.flush();
+				// outputStream.flush();
 
 			} catch (Exception ignored) {
 				ignored.printStackTrace();
