@@ -18,11 +18,10 @@ public class GameServiceImpl implements GameService {
 					requestJSON.put("opponentId", opponentId);
 					requestJSON.put("boardType", type.name());
 
-					UserServiceImpl.OUTPUT_STREAM.reset();
-					UserServiceImpl.OUTPUT_STREAM.writeObject(requestJSON.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					UserServiceImpl.OUTPUT_STREAM.flush();
 
-					String responseString = (String) UserServiceImpl.INPUT_STREAM.readObject();
+					String responseString = UserServiceImpl.INPUT_STREAM.readUTF();
 					JSONObject responseJSON = new JSONObject(responseString);
 
 					Status status = new Status();
@@ -50,8 +49,7 @@ public class GameServiceImpl implements GameService {
 					requestJSON.put("x", x);
 					requestJSON.put("y", y);
 
-					UserServiceImpl.OUTPUT_STREAM.reset();
-					UserServiceImpl.OUTPUT_STREAM.writeObject(requestJSON.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					UserServiceImpl.OUTPUT_STREAM.flush();
 					waitForOpponentMove();
 
@@ -68,7 +66,7 @@ public class GameServiceImpl implements GameService {
 			@Override
 			public void run() {
 				try {
-					String responseString = (String) UserServiceImpl.INPUT_STREAM.readObject();
+					String responseString = UserServiceImpl.INPUT_STREAM.readUTF();
 					JSONObject responseJSON = new JSONObject(responseString);
 
 					Status status = new Status();
@@ -91,7 +89,7 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					System.out.println("waiting invitation");
-					String requestSTR = (String)UserServiceImpl.INPUT_STREAM.readObject();
+					String requestSTR = UserServiceImpl.INPUT_STREAM.readUTF();
 					System.out.println("received invitation");
 					JSONObject requestJSN = new JSONObject(requestSTR);
 					int opponentId = requestJSN.getInt("opponentId");
@@ -116,8 +114,7 @@ public class GameServiceImpl implements GameService {
 					JSONObject responseJSN = new JSONObject();
 					responseJSN.put("status", "FAILURE");
 					responseJSN.put("additionalInfo", "rejected");
-					UserServiceImpl.OUTPUT_STREAM.reset();
-					UserServiceImpl.OUTPUT_STREAM.writeObject(responseJSN.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
 					UserServiceImpl.OUTPUT_STREAM.flush();
 				} catch (Exception e) {
 					System.out.println("reject invitation corrupted");
@@ -136,8 +133,7 @@ public class GameServiceImpl implements GameService {
 					JSONObject responseJSN = new JSONObject();
 					responseJSN.put("status", "SUCCESS");
 					responseJSN.put("additionalInfo", "accepted");
-					UserServiceImpl.OUTPUT_STREAM.reset();
-					UserServiceImpl.OUTPUT_STREAM.writeObject(responseJSN.toString());
+					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
 					UserServiceImpl.OUTPUT_STREAM.flush();
 				} catch (Exception e) {
 					System.out.println("accept invitation corrupted");
