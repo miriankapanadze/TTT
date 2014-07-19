@@ -45,13 +45,18 @@ public class BoardDialogActivity extends Activity implements GameStartListener {
 	}
 
 	@Override
-	public void startGame(int boardSize, final Status status) {
+	public void startGame(final int boardSize, final Status status) {
 		if (status.getType() == Status.Type.SUCCESS) {
-			Intent intent = new Intent(BoardDialogActivity.this, BoardActivity.class);
-			intent.putExtra("size", boardSize);
-			intent.putExtra("mode", getIntent().getExtras().getString("mode"));
-			intent.putExtra("opponentId", opponentId);
-			startActivity(intent);
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					Intent intent = new Intent(BoardDialogActivity.this, BoardActivity.class);
+					intent.putExtra("size", boardSize);
+					intent.putExtra("mode", getIntent().getExtras().getString("mode"));
+					intent.putExtra("opponentId", opponentId);
+					startActivity(intent);
+				}
+			});
 		} else {
 			handler.post(new Runnable() {
 				@Override
