@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.ListenersFactory;
@@ -52,13 +51,17 @@ public class BoardActivity extends Activity implements GameMoveListener {
 				if (board.getTurn() == self) {
 					adapter.getValues().set(position, opponent);
 					adapter.notifyDataSetChanged();
-					ServicesFactory.getGameService().move(opponentId, position / size, position % size);
+					ServicesFactory.getGameService().makeMove(opponentId, position / size, position % size);
 					board.set(position);
 				}
 			}
 		});
 
 		ListenersFactory.addGameMoveListener(this);
+
+		if (mode == UserMode.PASSIVE) {
+			ServicesFactory.getGameService().waitForOpponentMove();
+		}
 	}
 
 	@Override

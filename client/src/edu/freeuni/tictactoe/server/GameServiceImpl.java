@@ -37,7 +37,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void move(final int opponentId, final int x, final int y) {
+	public void makeMove(final int opponentId, final int x, final int y) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -49,7 +49,21 @@ public class GameServiceImpl implements GameService {
 					requestJSON.put("y", y);
 
 					UserServiceImpl.OUTPUT_STREAM.writeObject(requestJSON.toString());
+					waitForOpponentMove();
 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	@Override
+	public void waitForOpponentMove() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
 					String responseString = (String) UserServiceImpl.INPUT_STREAM.readObject();
 					JSONObject responseJSON = new JSONObject(responseString);
 
@@ -67,7 +81,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void waitForOpponent() {
+	public void waitForInvitation() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

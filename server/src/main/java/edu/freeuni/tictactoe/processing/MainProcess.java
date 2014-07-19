@@ -50,8 +50,8 @@ public class MainProcess {
 		public CommunicationThread(Socket socket) {
 			try {
 				this.socket = socket;
-				this.inputStream = new ObjectInputStream(socket.getInputStream());
 				this.outputStream = new ObjectOutputStream(socket.getOutputStream());
+				this.inputStream = new ObjectInputStream(socket.getInputStream());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -144,7 +144,7 @@ public class MainProcess {
 
 				StatusType statusType = sendInvitation(opponent, boardType);
 				responseJSON.put("status", statusType.name());
-				responseJSON.put("additionalInfo", "test");
+				responseJSON.put("additionalInfo", "");
 				outputStream.writeObject(responseJSON.toString());
 
 			} catch (Exception e) {
@@ -168,10 +168,10 @@ public class MainProcess {
 				ObjectOutputStream outputStream = holder.getOutputStream();
 
 				outputStream.writeObject(getInvitationJSON(boardType).toString());
-				String receivedString = (String) inputStream.readObject();
-				JSONObject receivedJSON = new JSONObject(receivedString);
+//				String receivedString = (String) inputStream.readObject();
+//				JSONObject receivedJSON = new JSONObject(receivedString);
 
-				return StatusType.valueOf(receivedJSON.getString("status"));
+				return StatusType.SUCCESS;
 
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -14,7 +14,7 @@ public class TestGameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void move(int opponentId, int x, int y) {
+	public void makeMove(int opponentId, int x, int y) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -29,7 +29,11 @@ public class TestGameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void waitForOpponent() {
+	public void waitForOpponentMove() {
+	}
+
+	@Override
+	public void waitForInvitation() {
 
 	}
 

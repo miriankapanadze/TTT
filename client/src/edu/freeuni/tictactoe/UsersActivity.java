@@ -49,7 +49,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 			registerForContextMenu(listView);
 		} else {
 			ListenersFactory.addGameInvitationListener(this);
-			ServicesFactory.getGameService().waitForOpponent();
+			ServicesFactory.getGameService().waitForInvitation();
 		}
 		listView.setItemsCanFocus(true);
 		handler = new Handler();
