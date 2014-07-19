@@ -5,5 +5,6 @@ public enum RequestType {
 	REGISTRATION,
 	LOGIN,
 	START_GAME,
-	MOVE
+	MOVE,
+	INVITATION_ANSWER
 }

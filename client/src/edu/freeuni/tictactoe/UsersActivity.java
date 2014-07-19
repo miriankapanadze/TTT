@@ -109,7 +109,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						System.out.println("onPositiveButton");
-						ServicesFactory.getGameService().acceptInvitation();
+						ServicesFactory.getGameService().acceptInvitation(opponentId);
 						Intent intent = new Intent(UsersActivity.this, BoardActivity.class);
 						intent.putExtra("size", boardSize);
 						intent.putExtra("mode", UserMode.PASSIVE.name());
@@ -122,7 +122,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						System.out.println("onNegativeButton");
-						ServicesFactory.getGameService().rejectInvitation();
+						ServicesFactory.getGameService().rejectInvitation(opponentId);
 					}
 				});
 

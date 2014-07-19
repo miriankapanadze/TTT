@@ -38,12 +38,12 @@ public class TestGameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void rejectInvitation() {
+	public void rejectInvitation(int opponentId) {
 
 	}
 
 	@Override
-	public void acceptInvitation() {
+	public void acceptInvitation(int opponentId) {
 
 	}
 }

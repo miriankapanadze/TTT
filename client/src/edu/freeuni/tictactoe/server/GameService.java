@@ -12,7 +12,7 @@ public interface GameService {
 
 	void waitForInvitation();
 
-	void rejectInvitation();
+	void rejectInvitation(int opponentId);
 
-	void acceptInvitation();
+	void acceptInvitation(int opponentId);
 }

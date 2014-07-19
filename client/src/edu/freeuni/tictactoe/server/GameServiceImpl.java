@@ -21,9 +21,11 @@ public class GameServiceImpl implements GameService {
 					System.out.println("starting game request should be written to stream");
 					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					System.out.println("starting game request written to stream");
+
 					System.out.println("waiting for response for starting game request");
 					String responseString = UserServiceImpl.INPUT_STREAM.readUTF();
 					System.out.println("starting game response received");
+
 					JSONObject responseJSON = new JSONObject(responseString);
 
 					Status status = new Status();
@@ -33,6 +35,7 @@ public class GameServiceImpl implements GameService {
 					System.out.println("should notify starting game listeners");
 					ListenersFactory.notifyStartGameListeners(type == BoardType.BOARD_3X3 ? 3 : 5, status);
 					System.out.println("notified starting game listeners");
+
 				} catch (Exception e) {
 					System.out.println("starting game thread corrupted");
 					e.printStackTrace();
@@ -56,8 +59,8 @@ public class GameServiceImpl implements GameService {
 					System.out.println("make move should be made");
 					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					System.out.println("move made");
-					waitForOpponentMove();
 
+					waitForOpponentMove();
 				} catch (Exception e) {
 					System.out.println("make move corrupted");
 					e.printStackTrace();
@@ -80,6 +83,7 @@ public class GameServiceImpl implements GameService {
 					Status status = new Status();
 					status.setType(Status.Type.valueOf(responseJSON.getString("status")));
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
+
 					System.out.println("should notify game move listeners");
 					ListenersFactory.notifyGameMoveListeners(responseJSON.getInt("x"), responseJSON.getInt("y"));
 					System.out.println("notified game move listeners");
@@ -100,6 +104,7 @@ public class GameServiceImpl implements GameService {
 					System.out.println("waiting invitation");
 					String requestSTR = UserServiceImpl.INPUT_STREAM.readUTF();
 					System.out.println("received invitation");
+
 					JSONObject requestJSN = new JSONObject(requestSTR);
 					int opponentId = requestJSN.getInt("opponentId");
 					String opponentName = requestJSN.getString("opponentName");
@@ -118,18 +123,20 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void rejectInvitation() {
+	public void rejectInvitation(final int opponentId) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					JSONObject responseJSN = new JSONObject();
-					responseJSN.put("status", "FAILURE");
+					responseJSN.put("requestType", RequestType.INVITATION_ANSWER.name());
+					responseJSN.put("status", Status.Type.FAILURE.name());
 					responseJSN.put("additionalInfo", "rejected");
+					responseJSN.put("opponentId", opponentId);
+
 					System.out.println("rejected should be sent");
 					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
 					System.out.println("rejected sent");
-//					UserServiceImpl.OUTPUT_STREAM.flush();
 				} catch (Exception e) {
 					System.out.println("reject invitation corrupted");
 					e.printStackTrace();
@@ -139,18 +146,20 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void acceptInvitation() {
+	public void acceptInvitation(final int opponentId) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					JSONObject responseJSN = new JSONObject();
-					responseJSN.put("status", "SUCCESS");
+					responseJSN.put("requestType", RequestType.INVITATION_ANSWER.name());
+					responseJSN.put("status", Status.Type.SUCCESS.name());
 					responseJSN.put("additionalInfo", "accepted");
+					responseJSN.put("opponentId", opponentId);
+
 					System.out.println("accepted should be sent");
 					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
 					System.out.println("accepted sent");
-//					UserServiceImpl.OUTPUT_STREAM.flush();
 				} catch (Exception e) {
 					System.out.println("accept invitation corrupted");
 					e.printStackTrace();
