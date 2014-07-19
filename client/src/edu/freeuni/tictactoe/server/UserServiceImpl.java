@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			} finally {
 				System.out.println("should notify login listeners");
-				ListenersFactory.notifyLoginListeners(status, users, request.getUserMode());
+				ListenersManager.notifyLoginListeners(status, users, request.getUserMode());
 				System.out.println("notified login listeners");
 			}
 		}
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
 			} catch (IOException | JSONException e) {
 				e.printStackTrace();
 			} finally {
-				ListenersFactory.notifyRegisterListeners(status);
+				ListenersManager.notifyRegisterListeners(status);
 			}
 		}
 	}

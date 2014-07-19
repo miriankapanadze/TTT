@@ -7,20 +7,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
+import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.model.UserMode;
-import edu.freeuni.tictactoe.server.ListenersFactory;
+import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.game.Board;
 
 @SuppressWarnings("ConstantConditions")
-public class BoardActivity extends Activity implements GameMoveListener {
+public class BoardActivity extends Activity implements GameMoveListener, GameOverListener {
 
 	private int size;
 	private int self;
 	private int opponent;
 	private int opponentId;
 
-	private Board board;
+	public static Board board;
 	private GridAdapter adapter;
 	private Handler handler;
 
@@ -57,7 +58,8 @@ public class BoardActivity extends Activity implements GameMoveListener {
 			}
 		});
 
-		ListenersFactory.addGameMoveListener(this);
+		ListenersManager.addGameMoveListener(this);
+		ListenersManager.addGameOverListener(this);
 
 		if (mode == UserMode.PASSIVE) {
 			ServicesFactory.getGameService().waitForOpponentMove();
@@ -74,5 +76,10 @@ public class BoardActivity extends Activity implements GameMoveListener {
 				adapter.notifyDataSetChanged();
 			}
 		});
+	}
+
+	@Override
+	public void onGameOver() {
+
 	}
 }

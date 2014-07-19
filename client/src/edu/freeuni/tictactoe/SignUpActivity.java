@@ -11,7 +11,7 @@ import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.RegisterListener;
 import edu.freeuni.tictactoe.model.RegistrationRequest;
 import edu.freeuni.tictactoe.model.Status;
-import edu.freeuni.tictactoe.server.ListenersFactory;
+import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.UserService;
 
@@ -34,7 +34,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 
 		btnSignUp.setOnClickListener(this);
 		userService = ServicesFactory.getUserService();
-		ListenersFactory.addRegisterListener(this);
+		ListenersManager.addRegisterListener(this);
 		handler = new Handler();
 	}
 

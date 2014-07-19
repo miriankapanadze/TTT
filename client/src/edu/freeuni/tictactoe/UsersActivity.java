@@ -22,7 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import edu.freeuni.tictactoe.listeners.GameInvitationListener;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
-import edu.freeuni.tictactoe.server.ListenersFactory;
+import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 		if (mode == UserMode.ACTIVE) {
 			registerForContextMenu(listView);
 		} else {
-			ListenersFactory.addGameInvitationListener(this);
+			ListenersManager.addGameInvitationListener(this);
 			ServicesFactory.getGameService().waitForInvitation();
 		}
 		listView.setItemsCanFocus(true);

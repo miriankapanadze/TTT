@@ -2,6 +2,7 @@ package edu.freeuni.tictactoe.server;
 
 import edu.freeuni.tictactoe.listeners.GameInvitationListener;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
+import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.listeners.GameStartListener;
 import edu.freeuni.tictactoe.listeners.LoginListener;
 import edu.freeuni.tictactoe.listeners.RegisterListener;
@@ -12,12 +13,18 @@ import edu.freeuni.tictactoe.model.UserMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListenersFactory {
+public class ListenersManager {
 	private static List<LoginListener> loginListeners = new ArrayList<>();
 	private static List<RegisterListener> registerListeners = new ArrayList<>();
 	private static List<GameStartListener> gameStartListeners = new ArrayList<>();
 	private static List<GameMoveListener> gameMoveListeners = new ArrayList<>();
 	private static List<GameInvitationListener> gameInvitationListeners = new ArrayList<>();
+	private static List<GameOverListener> gameOverListeners = new ArrayList<>();
+
+
+	public static void addGameOverListener(GameOverListener overListener) {
+		gameOverListeners.add(overListener);
+	}
 
 	public static void addGameInvitationListener(GameInvitationListener invitationListener) {
 		gameInvitationListeners.add(invitationListener);
@@ -66,6 +73,12 @@ public class ListenersFactory {
 	public static void notifyGameInvitationListeners(int opponentId, String opponentName, int opponentRank, int boardSize) {
 		for (GameInvitationListener invitationListener : gameInvitationListeners) {
 			invitationListener.onGameInvitation(opponentId, opponentName, opponentRank, boardSize);
+		}
+	}
+
+	public static void notifyGameOverListeners() {
+		for (GameOverListener overListener : gameOverListeners) {
+			overListener.onGameOver();
 		}
 	}
 }

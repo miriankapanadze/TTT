@@ -5,7 +5,7 @@ import edu.freeuni.tictactoe.model.RegistrationRequest;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
-import edu.freeuni.tictactoe.server.ListenersFactory;
+import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.UserService;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class TestUserServiceImpl implements UserService {
 		user.setUsername("tesT");
 		userEntries.add(user);
 
-		ListenersFactory.notifyLoginListeners(serverStatus, userEntries, UserMode.ACTIVE);
+		ListenersManager.notifyLoginListeners(serverStatus, userEntries, UserMode.ACTIVE);
 	}
 
 	@Override

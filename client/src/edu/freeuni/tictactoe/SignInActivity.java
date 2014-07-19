@@ -16,7 +16,7 @@ import edu.freeuni.tictactoe.model.LoginRequest;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
-import edu.freeuni.tictactoe.server.ListenersFactory;
+import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.UserService;
 
@@ -47,7 +47,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 
 		btnSignIn.setOnClickListener(this);
 		userService = ServicesFactory.getUserService();
-		ListenersFactory.addLoginListener(this);
+		ListenersManager.addLoginListener(this);
 
 		userService.logout();
 		handler = new Handler();

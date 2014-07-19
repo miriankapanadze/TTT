@@ -1,8 +1,10 @@
 package edu.freeuni.tictactoe.server;
 
+import edu.freeuni.tictactoe.BoardActivity;
 import edu.freeuni.tictactoe.model.BoardType;
 import edu.freeuni.tictactoe.model.RequestType;
 import edu.freeuni.tictactoe.model.Status;
+import edu.freeuni.tictactoe.server.game.Referee;
 import org.json.JSONObject;
 
 public class GameServiceImpl implements GameService {
@@ -33,7 +35,7 @@ public class GameServiceImpl implements GameService {
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
 
 					System.out.println("should notify starting game listeners");
-					ListenersFactory.notifyStartGameListeners(type == BoardType.BOARD_3X3 ? 3 : 5, status);
+					ListenersManager.notifyStartGameListeners(type == BoardType.BOARD_3X3 ? 3 : 5, status);
 					System.out.println("notified starting game listeners");
 
 				} catch (Exception e) {
@@ -60,7 +62,11 @@ public class GameServiceImpl implements GameService {
 					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					System.out.println("move made");
 
-					waitForOpponentMove();
+					if (Referee.gameOver(BoardActivity.board)) {
+						ListenersManager.notifyGameOverListeners();
+					} else {
+						waitForOpponentMove();
+					}
 				} catch (Exception e) {
 					System.out.println("make move corrupted");
 					e.printStackTrace();
@@ -85,7 +91,7 @@ public class GameServiceImpl implements GameService {
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
 
 					System.out.println("should notify game move listeners");
-					ListenersFactory.notifyGameMoveListeners(responseJSON.getInt("x"), responseJSON.getInt("y"));
+					ListenersManager.notifyGameMoveListeners(responseJSON.getInt("x"), responseJSON.getInt("y"));
 					System.out.println("notified game move listeners");
 				} catch (Exception e) {
 					System.out.println("waiting for opponent move corrupted");
@@ -112,7 +118,7 @@ public class GameServiceImpl implements GameService {
 					BoardType boardType = BoardType.valueOf(requestJSN.getString("boardType"));
 
 					System.out.println("should notify game invitation listeners");
-					ListenersFactory.notifyGameInvitationListeners(opponentId, opponentName, rank, boardType == BoardType.BOARD_3X3 ? 3 : 5);
+					ListenersManager.notifyGameInvitationListeners(opponentId, opponentName, rank, boardType == BoardType.BOARD_3X3 ? 3 : 5);
 					System.out.println("notified game invitation listeners");
 				} catch (Exception e) {
 					System.out.println("waiting for invitation corrupted");

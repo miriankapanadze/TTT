@@ -3,14 +3,14 @@ package edu.freeuni.tictactoe.server.test;
 import edu.freeuni.tictactoe.model.BoardType;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.server.GameService;
-import edu.freeuni.tictactoe.server.ListenersFactory;
+import edu.freeuni.tictactoe.server.ListenersManager;
 
 public class TestGameServiceImpl implements GameService {
 
 	@Override
 	public void startGame(int opponentId, BoardType type) {
 
-		ListenersFactory.notifyStartGameListeners(type == BoardType.BOARD_5X5 ? 5 : 3, new Status());
+		ListenersManager.notifyStartGameListeners(type == BoardType.BOARD_5X5 ? 5 : 3, new Status());
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class TestGameServiceImpl implements GameService {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					ListenersFactory.notifyGameMoveListeners(2, 2);
+					ListenersManager.notifyGameMoveListeners(2, 2);
 				}
 			}).start();
 	}
