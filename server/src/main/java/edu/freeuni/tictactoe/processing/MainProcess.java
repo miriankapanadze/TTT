@@ -79,6 +79,10 @@ public class MainProcess {
 							System.out.println("calling onStartGame");
 							onStartGame(receivedJSON);
 							break;
+						case INVITATION_ANSWER:
+							System.out.println("calling onInvitationAnswer");
+							onInvitationAnswer(receivedJSON);
+							break;
 						case MOVE:
 							onMove(receivedJSON);
 							break;
@@ -149,16 +153,16 @@ public class MainProcess {
 				}
 
 				System.out.println("calling sendInvitation method");
-				StatusType statusType = sendInvitation(opponent, boardType);
+				sendInvitation(opponent, boardType);
 
-				System.out.println("received invitation statusType: " + statusType.name());
+//				System.out.println("received invitation statusType: " + statusType.name());
 
-				responseJSON.put("status", statusType.name());
-				responseJSON.put("additionalInfo", "");
+//				responseJSON.put("status", statusType.name());
+//				responseJSON.put("additionalInfo", "");
 
-				System.out.println("forwarding back invitation answer: " + responseJSON.toString());
-				outputStream.writeUTF(responseJSON.toString());
-				System.out.println("forwarded back invitation answer");
+//				System.out.println("forwarding back invitation answer: " + responseJSON.toString());
+//				outputStream.writeUTF(responseJSON.toString());
+//				System.out.println("forwarded back invitation answer");
 				// outputStream.flush();
 
 			} catch (Exception e) {
@@ -175,7 +179,7 @@ public class MainProcess {
 			return null;
 		}
 
-		private StatusType sendInvitation(User opponent, BoardType boardType) {
+		private void sendInvitation(User opponent, BoardType boardType) {
 			try {
 				SocketHolder holder = socketsMap.get(opponent);
 				DataInputStream inputStream = holder.getInputStream();
@@ -185,21 +189,23 @@ public class MainProcess {
 				System.out.println("sending invitation: " + invitation);
 
 				outputStream.writeUTF(invitation);
+
+				System.out.println("invitation sent");
 				// outputStream.flush();
 
-				System.out.println("waiting for invitation answer");
+				/*System.out.println("waiting for invitation answer");
 				String receivedString = inputStream.readUTF();
 				System.out.println("invitation answer received: " + receivedString);
 				JSONObject receivedJSON = new JSONObject(receivedString);
 
 				System.out.println("returning invitation status");
-				return StatusType.valueOf(receivedJSON.getString("status"));
+				return StatusType.valueOf(receivedJSON.getString("status"));*/
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("returning invitation failure status due to exception");
-			return StatusType.FAILURE;
+//			System.out.println("returning invitation failure status due to exception");
+//			return StatusType.FAILURE;
 		}
 
 		private JSONObject getInvitationJSON(BoardType boardType) {
@@ -217,6 +223,31 @@ public class MainProcess {
 				e.printStackTrace();
 			}
 			return null;
+		}
+
+		private void onInvitationAnswer(JSONObject receivedJSON) {
+			JSONObject responseJSON = new JSONObject();
+			try {
+				StatusType status = StatusType.valueOf(receivedJSON.getString("status"));
+				System.out.println("received invitation answer status: " + status.name());
+
+				int opponentId = receivedJSON.getInt("opponentId");
+				System.out.println("received invitation answer opponentId: " + opponentId);
+
+				User opponent = UsersManager.getInstance().findUserById(opponentId);
+				if (opponent == null) {
+					throw new Exception("unknownUser");
+				}
+				DataOutputStream outputStream = socketsMap.get(opponent).getOutputStream();
+				responseJSON.put("status", status.name());
+
+				System.out.println("forwarding invitation answer: " + responseJSON.toString());
+				outputStream.writeUTF(responseJSON.toString());
+				System.out.println("forwarded invitation answer");
+
+			} catch (Exception e) {
+				onFailure(responseJSON, e);
+			}
 		}
 
 		private void onMove(JSONObject receivedJSON) {
