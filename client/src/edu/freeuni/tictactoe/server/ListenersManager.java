@@ -6,6 +6,7 @@ import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.listeners.GameStartListener;
 import edu.freeuni.tictactoe.listeners.LoginListener;
 import edu.freeuni.tictactoe.listeners.RegisterListener;
+import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
@@ -76,9 +77,9 @@ public class ListenersManager {
 		}
 	}
 
-	public static void notifyGameOverListeners() {
+	public static void notifyGameOverListeners(GameStatus gameStatus) {
 		for (GameOverListener overListener : gameOverListeners) {
-			overListener.onGameOver();
+			overListener.onGameOver(gameStatus);
 		}
 	}
 }

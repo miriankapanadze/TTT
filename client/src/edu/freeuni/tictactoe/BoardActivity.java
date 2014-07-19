@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.listeners.GameOverListener;
+import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
@@ -79,7 +80,7 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 	}
 
 	@Override
-	public void onGameOver() {
+	public void onGameOver(GameStatus gameStatus) {
 
 	}
 }

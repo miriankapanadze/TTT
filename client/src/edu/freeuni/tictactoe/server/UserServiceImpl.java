@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 	private static String loggerMarker = "userServiceImpl";
-	private static String serverIp = "192.168.76.162";
+	private static String serverIp = "192.168.0.101";
 	private static int serverPort = 8080;
 	public static DataInputStream INPUT_STREAM;
 	public static DataOutputStream OUTPUT_STREAM;

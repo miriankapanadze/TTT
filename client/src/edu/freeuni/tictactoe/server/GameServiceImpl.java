@@ -2,6 +2,7 @@ package edu.freeuni.tictactoe.server;
 
 import edu.freeuni.tictactoe.BoardActivity;
 import edu.freeuni.tictactoe.model.BoardType;
+import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.RequestType;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.server.game.Referee;
@@ -62,8 +63,9 @@ public class GameServiceImpl implements GameService {
 					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					System.out.println("move made");
 
-					if (Referee.gameOver(BoardActivity.board)) {
-						ListenersManager.notifyGameOverListeners();
+					GameStatus gameStatus = Referee.checkGameStatus(BoardActivity.board, x, y);
+					if (gameStatus != GameStatus.IN_PROGRESS) {
+						ListenersManager.notifyGameOverListeners(gameStatus);
 					} else {
 						waitForOpponentMove();
 					}

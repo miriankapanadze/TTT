@@ -7,6 +7,7 @@ public class Board {
 
 	private int[][] board;
 	private int size;
+	private int movesCount;
 	private int turn = 1;
 
 	public Board(int size) {
@@ -25,10 +26,15 @@ public class Board {
 	public void set(int x, int y) {
 		board[x][y] = turn;
 		turn = (turn == 1) ? 2 : 1;
+		movesCount++;
 	}
 
 	public void set(int index) {
 		set(index / size, index % size);
+	}
+
+	public int getMovesCount() {
+		return movesCount;
 	}
 
 	public int getTurn() {
@@ -43,5 +49,9 @@ public class Board {
 			}
 		}
 		return result;
+	}
+
+	public int [][] getBoardArray() {
+		return board;
 	}
 }
