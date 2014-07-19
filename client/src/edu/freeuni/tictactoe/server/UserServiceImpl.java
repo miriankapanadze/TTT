@@ -77,7 +77,9 @@ public class UserServiceImpl implements UserService {
 				jsonObject.put("userMode", request.getUserMode().name());
 
 				Log.i(loggerMarker, "ObjectOutputStream created");
+				OUTPUT_STREAM.reset();
 				OUTPUT_STREAM.writeObject(jsonObject.toString());
+				OUTPUT_STREAM.flush();
 				Log.i(loggerMarker, "written object");
 
 				String responseString = (String) INPUT_STREAM.readObject();
@@ -147,7 +149,9 @@ public class UserServiceImpl implements UserService {
 				jsonObject.put("password", request.getPassword());
 
 				Log.i(loggerMarker, "ObjectOutputStream created");
+				outputStream.reset();
 				outputStream.writeObject(jsonObject.toString());
+				outputStream.flush();
 				Log.i(loggerMarker, "written object");
 
 				String responseString = (String) inputStream.readObject();
