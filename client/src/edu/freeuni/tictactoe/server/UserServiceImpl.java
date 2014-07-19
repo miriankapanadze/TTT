@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
 					closeConnection();
 				}
 				LOGIN_SOCKET = new Socket(serverIp, serverPort);
-				OUTPUT_STREAM = new ObjectOutputStream(LOGIN_SOCKET.getOutputStream());
-				INPUT_STREAM = new ObjectInputStream(LOGIN_SOCKET.getInputStream());
+				OUTPUT_STREAM = new ObjectOutputStream((LOGIN_SOCKET.getOutputStream()));
+				INPUT_STREAM = new ObjectInputStream((LOGIN_SOCKET.getInputStream()));
 				Log.i(loggerMarker, "socketCreated");
 
 				JSONObject jsonObject = new JSONObject();
@@ -101,12 +101,10 @@ public class UserServiceImpl implements UserService {
 					}
 				}
 				if (status.getType() != Status.Type.SUCCESS) {
-					LOGIN_SOCKET.close();
-					LOGIN_SOCKET = null;
+					closeConnection();
 				}
-			} catch (IOException | JSONException e) {
+			} catch (IOException | JSONException | ClassNotFoundException e) {
 				e.printStackTrace();
-			} catch (ClassNotFoundException ignored){
 			} finally {
 				ListenersFactory.notifyLoginListeners(status, users, request.getUserMode());
 			}
@@ -160,9 +158,8 @@ public class UserServiceImpl implements UserService {
 				inputStream.close();
 				outputStream.close();
 
-			} catch (IOException | JSONException e) {
+			} catch (IOException | JSONException | ClassNotFoundException e) {
 				e.printStackTrace();
-			} catch (ClassNotFoundException ignored){
 			} finally {
 				ListenersFactory.notifyRegisterListeners(status);
 			}

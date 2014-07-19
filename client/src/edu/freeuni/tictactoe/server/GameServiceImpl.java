@@ -110,8 +110,9 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					JSONObject responseJSN = new JSONObject();
-					responseJSN.put("status", Status.Type.FAILURE.name());
-					responseJSN.put("additionalInfo", "rejected");
+					responseJSN.put("status", "FAILURE");
+//					responseJSN.put("additionalInfo", "rejected");
+//					UserServiceImpl.OUTPUT_STREAM.reset();
 					UserServiceImpl.OUTPUT_STREAM.writeObject(responseJSN.toString());
 				} catch (Exception e) {
 					System.out.println("reject invitation corrupted");
@@ -128,9 +129,10 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					JSONObject responseJSN = new JSONObject();
-					responseJSN.put("status", Status.Type.SUCCESS.name());
-					responseJSN.put("additionalInfo", "accepted");
-					UserServiceImpl.OUTPUT_STREAM.writeObject(responseJSN.toString());
+					responseJSN.put("status", "SUCCESS");
+//					responseJSN.put("additionalInfo", "accepted");
+//					UserServiceImpl.OUTPUT_STREAM.reset();
+//					UserServiceImpl.OUTPUT_STREAM.writeObject(responseJSN.toString());
 				} catch (Exception e) {
 					System.out.println("accept invitation corrupted");
 					e.printStackTrace();
