@@ -95,6 +95,7 @@ public class MainProcess {
 				responseJSON.put("status", StatusType.SUCCESS.name());
 				responseJSON.put("additionalInfo", "registrationSuccessful");
 				outputStream.writeObject(responseJSON.toString());
+				outputStream.flush();
 
 			} catch (Exception e) {
 				onFailure(responseJSON, e);
@@ -119,6 +120,7 @@ public class MainProcess {
 
 				outputStream.reset();
 				outputStream.writeObject(responseJSON.toString());
+				outputStream.flush();
 
 				return true;
 
@@ -150,6 +152,7 @@ public class MainProcess {
 
 				outputStream.reset();
 				outputStream.writeObject(responseJSON.toString());
+				outputStream.flush();
 
 			} catch (Exception e) {
 				onFailure(responseJSON, e);
@@ -173,6 +176,8 @@ public class MainProcess {
 
 				outputStream.reset();
 				outputStream.writeObject(getInvitationJSON(boardType).toString());
+				outputStream.flush();
+
 				String receivedString = (String) inputStream.readObject();
 				JSONObject receivedJSON = new JSONObject(receivedString);
 
@@ -224,6 +229,7 @@ public class MainProcess {
 
 				outputStream.reset();
 				outputStream.writeObject(getMoveJSON(x, y).toString());
+				outputStream.flush();
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -252,6 +258,7 @@ public class MainProcess {
 				responseJSON.put("additionalInfo", e.getMessage());
 				outputStream.reset();
 				outputStream.writeObject(responseJSON.toString());
+				outputStream.flush();
 
 			} catch (Exception ignored) {
 				ignored.printStackTrace();
