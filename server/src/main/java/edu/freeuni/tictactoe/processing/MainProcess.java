@@ -116,6 +116,8 @@ public class MainProcess {
 				responseJSON.put("additionalInfo", "loginSuccessful");
 				responseJSON.put("opponents", User.getJSONArray(UsersManager.getInstance().getOpponents(dbUser)).toString());
 				responseJSON.put("history", History.getJSONArray(UsersManager.getInstance().getUserHistory(dbUser)).toString());
+
+				outputStream.reset();
 				outputStream.writeObject(responseJSON.toString());
 
 				return true;
@@ -145,6 +147,8 @@ public class MainProcess {
 				StatusType statusType = sendInvitation(opponent, boardType);
 				responseJSON.put("status", statusType.name());
 				responseJSON.put("additionalInfo", "");
+
+				outputStream.reset();
 				outputStream.writeObject(responseJSON.toString());
 
 			} catch (Exception e) {
@@ -167,11 +171,12 @@ public class MainProcess {
 				ObjectInputStream inputStream = holder.getInputStream();
 				ObjectOutputStream outputStream = holder.getOutputStream();
 
+				outputStream.reset();
 				outputStream.writeObject(getInvitationJSON(boardType).toString());
-//				String receivedString = (String) inputStream.readObject();
-//				JSONObject receivedJSON = new JSONObject(receivedString);
+				String receivedString = (String) inputStream.readObject();
+				JSONObject receivedJSON = new JSONObject(receivedString);
 
-				return StatusType.SUCCESS;
+				return StatusType.valueOf(receivedJSON.getString("status"));
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -217,6 +222,7 @@ public class MainProcess {
 				SocketHolder holder = socketsMap.get(opponent);
 				ObjectOutputStream outputStream = holder.getOutputStream();
 
+				outputStream.reset();
 				outputStream.writeObject(getMoveJSON(x, y).toString());
 
 			} catch (Exception e) {
@@ -244,6 +250,7 @@ public class MainProcess {
 			try {
 				responseJSON.put("status", StatusType.FAILURE.name());
 				responseJSON.put("additionalInfo", e.getMessage());
+				outputStream.reset();
 				outputStream.writeObject(responseJSON.toString());
 
 			} catch (Exception ignored) {
