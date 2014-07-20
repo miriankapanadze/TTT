@@ -41,9 +41,8 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 		mode = (ToggleButton) findViewById(R.id.mode);
 		mode.setTextOff(getResources().getString(R.string.passiveMode));
 		mode.setTextOn(getResources().getString(R.string.activeMode));
-		mode.setText("რეჟიმი");
-		mode.setBackgroundColor(Color.WHITE);
-		mode.setButtonDrawable(getResources().getDrawable(R.drawable.button_default_bg));
+		mode.setChecked(true);
+//		mode.setBackgroundColor(Color.WHITE);
 
 		btnSignIn.setOnClickListener(this);
 		userService = ServicesFactory.getUserService();

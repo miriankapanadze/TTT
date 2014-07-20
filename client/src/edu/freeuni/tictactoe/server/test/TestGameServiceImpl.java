@@ -10,7 +10,9 @@ public class TestGameServiceImpl implements GameService {
 	@Override
 	public void startGame(int opponentId, BoardType type) {
 
-		ListenersManager.notifyStartGameListeners(type == BoardType.BOARD_5X5 ? 5 : 3, new Status());
+		Status status = new Status();
+		status.setType(Status.Type.SUCCESS);
+		ListenersManager.notifyStartGameListeners(type == BoardType.BOARD_5X5 ? 5 : 3, status);
 	}
 
 	@Override
