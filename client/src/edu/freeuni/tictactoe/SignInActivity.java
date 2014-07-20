@@ -11,10 +11,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.google.gson.Gson;
 import edu.freeuni.tictactoe.listeners.LoginListener;
+import edu.freeuni.tictactoe.model.HistoryEntry;
 import edu.freeuni.tictactoe.model.LoginRequest;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
+import edu.freeuni.tictactoe.server.AppController;
 import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.UserService;
@@ -64,6 +66,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 			Toast.makeText(this, getResources().getString(R.string.emptyValidationMessage), Toast.LENGTH_SHORT).show();
 			return;
 		}
+		AppController.SELF_USERNAME = userName.getText().toString();
 		LoginRequest request = new LoginRequest();
 		request.setUserName(userName.getText().toString());
 		request.setPassword(password.getText().toString());
@@ -73,7 +76,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 	}
 
 	@Override
-	public void onLogin(final Status status, final List<UserEntry> users, final UserMode mode) {
+	public void onLogin(final Status status, final List<UserEntry> users, final List<HistoryEntry> historyEntries, final UserMode mode) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
@@ -81,6 +84,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 					Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
 					intent.putExtra("users", new Gson().toJson(users));
 					intent.putExtra("mode", mode.name());
+					intent.putExtra("history", new Gson().toJson(historyEntries));
 					startActivity(intent);
 				} else {
 					Toast.makeText(SignInActivity.this, status.getAdditionalInfo(), Toast.LENGTH_SHORT).show();

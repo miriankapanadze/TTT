@@ -44,7 +44,6 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 		userEntries = new Gson().fromJson(getIntent().getExtras().getString("users"), new TypeToken<List<UserEntry>>(){}.getType());
 		UserMode mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
 
-		Toast.makeText(this, mode.name(), Toast.LENGTH_LONG).show();
 		if (mode == UserMode.ACTIVE) {
 			registerForContextMenu(listView);
 		} else {

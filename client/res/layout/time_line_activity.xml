@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-	android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/tic_tac_toe_background">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:orientation="horizontal"
+		android:layout_marginTop="80dp"
+		android:background="#5ACC9966">
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:textColor="@android:color/white"
+			android:textSize="12sp"
+			android:text="@string/selfUsername"/>
+
+		<View
+			android:layout_width="2dp"
+			android:layout_height="fill_parent"
+			android:background="@android:color/transparent" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="3"
+			android:gravity="center"
+			android:textColor="@android:color/white"
+			android:textSize="12sp"
+			android:text="@string/opponentUsername"/>
+
+		<View
+			android:layout_width="2dp"
+			android:layout_height="fill_parent"
+			android:background="@android:color/transparent" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:textColor="@android:color/white"
+			android:textSize="12sp"
+			android:text="@string/result"/>
+	</LinearLayout>
+
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="2dp"
+		android:background="@android:color/black" />
+
+	<ListView
+		android:id="@+id/timeLineList"
+		android:layout_width="fill_parent"
+		android:layout_marginBottom="5dp"
+		android:layout_height="290dp">
+	</ListView>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="40dp"
+		android:layout_gravity="center_horizontal"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:gravity="center"
+			android:textColor="@android:color/white"
+			android:textSize="12sp"
+			android:layout_marginRight="5dp"
+			android:background="#5A00FF00"/>
+
+		<TextView
+			android:id="@+id/sumOfWinnings"
+			android:layout_width="wrap_content"
+			android:layout_marginRight="15dp"
+			android:textColor="@android:color/white"
+			android:layout_height="wrap_content" />
+
+		<View
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@android:color/transparent" />
+
+		<TextView
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:gravity="center"
+			android:textColor="@android:color/white"
+			android:textSize="12sp"
+			android:layout_marginRight="5dp"
+			android:background="#5AFF0000"/>
+
+		<TextView
+			android:id="@+id/sumOfLosses"
+			android:layout_width="wrap_content"
+			android:layout_marginRight="15dp"
+			android:textColor="@android:color/white"
+			android:layout_height="wrap_content" />
+
+	</LinearLayout>
 
 </LinearLayout>

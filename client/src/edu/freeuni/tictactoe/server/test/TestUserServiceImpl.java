@@ -26,7 +26,7 @@ public class TestUserServiceImpl implements UserService {
 		user.setUsername("tesT");
 		userEntries.add(user);
 
-		ListenersManager.notifyLoginListeners(serverStatus, userEntries, UserMode.ACTIVE);
+		ListenersManager.notifyLoginListeners(serverStatus, userEntries, null, UserMode.ACTIVE);
 	}
 
 	@Override

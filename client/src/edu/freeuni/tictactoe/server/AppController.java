@@ -14,4 +14,6 @@ public class AppController {
 
 	public static String SERVER_IP = "192.168.0.102";
 	public static int SERVER_PORT = 8080;
+
+	public static String SELF_USERNAME;
 }

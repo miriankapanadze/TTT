@@ -1,6 +1,7 @@
 package edu.freeuni.tictactoe.server;
 
 import android.util.Log;
+import edu.freeuni.tictactoe.model.HistoryEntry;
 import edu.freeuni.tictactoe.model.LoginRequest;
 import edu.freeuni.tictactoe.model.RegistrationRequest;
 import edu.freeuni.tictactoe.model.RequestType;
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
 			Status status = new Status();
 			status.setType(Status.Type.FAILURE);
 			List<UserEntry> users = new ArrayList<>();
+			List<HistoryEntry> historyEntries = new ArrayList<>();
 			try {
 				Log.i(loggerMarker, "try login");
 				if (AppController.SOCKET != null) {
@@ -91,6 +93,19 @@ public class UserServiceImpl implements UserService {
 						users.add(userEntry);
 
 					}
+					JSONArray jsonArray1 = new JSONArray(response.getString("history"));
+					for (int i = 0; i < jsonArray1.length(); i++) {
+						JSONObject object = (JSONObject) jsonArray1.get(i);
+
+						HistoryEntry entry = new HistoryEntry();
+						String firstUsername = object.getString("firstUser_username");
+						String secondUsername = object.getString("secondUser_username");
+						entry.setOpponentUsername(AppController.SELF_USERNAME.equals(firstUsername) ? secondUsername : firstUsername);
+
+						entry.setResult(AppController.SELF_USERNAME.equals(firstUsername) ? 1 : -1);
+
+						historyEntries.add(entry);
+					}
 				} else {
 					closeConnection();
 				}
@@ -98,7 +113,7 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			} finally {
 				System.out.println("should notify login listeners");
-				ListenersManager.notifyLoginListeners(status, users, request.getUserMode());
+				ListenersManager.notifyLoginListeners(status, users, historyEntries, request.getUserMode());
 				System.out.println("notified login listeners");
 			}
 		}

@@ -26,6 +26,11 @@
 	<string name="draw">ფრე</string>
 	<string name="youWin">შენ მოიგე! :)</string>
 	<string name="youLose">შენ წააგე! :(</string>
+	<string name="win">მოგება</string>
+	<string name="lose">წაგება</string>
+	<string name="selfUsername">ჩემი სახელი</string>
+	<string name="opponentUsername">ოპონენტი</string>
+	<string name="result">შედეგი</string>
 
 	<style name="DefaultButtonText">
 		<item name="android:layout_width">fill_parent</item>

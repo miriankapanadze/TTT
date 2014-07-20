@@ -7,6 +7,7 @@ import edu.freeuni.tictactoe.listeners.GameStartListener;
 import edu.freeuni.tictactoe.listeners.LoginListener;
 import edu.freeuni.tictactoe.listeners.RegisterListener;
 import edu.freeuni.tictactoe.model.GameStatus;
+import edu.freeuni.tictactoe.model.HistoryEntry;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
@@ -46,8 +47,8 @@ public class ListenersManager {
 		ListenersManager.gameMoveListener = moveListener;
 	}
 
-	public static void notifyLoginListeners(Status status, List<UserEntry> users, UserMode mode) {
-		loginListener.onLogin(status, users, mode);
+	public static void notifyLoginListeners(Status status, List<UserEntry> users, List<HistoryEntry> historyEntries, UserMode mode) {
+		loginListener.onLogin(status, users, historyEntries, mode);
 	}
 
 	public static void notifyRegisterListeners(Status status) {
