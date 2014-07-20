@@ -42,6 +42,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 	public void onClick(View v) {
 		if (userName.getText() == null || password.getText() == null || name.getText() == null ||
 				userName.getText().toString().isEmpty() || password.getText().toString().isEmpty() || name.getText().toString().isEmpty()) {
+			Toast.makeText(this, getResources().getString(R.string.emptyValidationMessage), Toast.LENGTH_SHORT).show();
 			return;
 		}
 

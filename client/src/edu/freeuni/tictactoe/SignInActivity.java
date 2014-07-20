@@ -60,6 +60,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 	public void onClick(View v) {
 		if (userName.getText() == null || password.getText() == null ||
 				userName.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+			Toast.makeText(this, getResources().getString(R.string.emptyValidationMessage), Toast.LENGTH_SHORT).show();
 			return;
 		}
 		LoginRequest request = new LoginRequest();
