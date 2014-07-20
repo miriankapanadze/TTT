@@ -89,6 +89,7 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 					adapter.getValues().set(x * size + y, opponent);
 					adapter.notifyDataSetChanged();
 				} else {
+					grid.setEnabled(false);
 					Toast.makeText(BoardActivity.this, status.getAdditionalInfo(), Toast.LENGTH_LONG).show();
 				}
 			}

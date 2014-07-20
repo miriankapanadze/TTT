@@ -26,7 +26,7 @@ public class TestGameServiceImpl implements GameService {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					ListenersManager.notifyGameMoveListeners(status, 2, 2);
+					ListenersManager.notifyGameMoveListeners(null, 2, 2);
 				}
 			}).start();
 	}
