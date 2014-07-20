@@ -148,7 +148,7 @@ public class GameServiceImpl implements GameService {
 					JSONObject responseJSN = new JSONObject();
 					responseJSN.put("requestType", RequestType.INVITATION_ANSWER.name());
 					responseJSN.put("status", Status.Type.FAILURE.name());
-					responseJSN.put("additionalInfo", "rejected");
+					responseJSN.put("additionalInfo", "invitationRejected");
 					responseJSN.put("opponentId", opponentId);
 
 					System.out.println("rejected should be sent");
