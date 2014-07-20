@@ -1,11 +1,13 @@
 package edu.freeuni.tictactoe;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.model.GameStatus;
@@ -24,6 +26,8 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 
 	public static Board board;
 	private GridAdapter adapter;
+	private GridView grid;
+
 	private Handler handler;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 		self = mode == UserMode.ACTIVE ? 1 : 2;
 		opponent = mode == UserMode.ACTIVE ? 2 : 1;
 
-		GridView grid = (GridView) findViewById(R.id.gridView);
+		grid = (GridView) findViewById(R.id.gridView);
 		grid.setNumColumns(size);
 		grid.setAdapter(adapter);
 		handler = new Handler();
@@ -80,7 +84,13 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 	}
 
 	@Override
-	public void onGameOver(GameStatus gameStatus) {
-
+	public void onGameOver(final GameStatus gameStatus) {
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				grid.setEnabled(false);
+				Toast.makeText(BoardActivity.this, gameStatus == GameStatus.DRAW ? "ნიჩია" : (board.getTurn() != self ? "შენ მოიგე" : "შენ წააგე"), Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 }

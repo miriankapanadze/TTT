@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 	private static String loggerMarker = "userServiceImpl";
-	private static String serverIp = "192.168.0.101";
+	private static String serverIp = "192.168.0.102";
 	private static int serverPort = 8080;
 	public static DataInputStream INPUT_STREAM;
 	public static DataOutputStream OUTPUT_STREAM;
@@ -38,13 +38,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void logout() {
-//		if (LOGIN_SOCKET != null) {
-//			try {
-//				closeConnection();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		if (LOGIN_SOCKET != null) {
+			try {
+				closeConnection();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private class LoginThread extends Thread {

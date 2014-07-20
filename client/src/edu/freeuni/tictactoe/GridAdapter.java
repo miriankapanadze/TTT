@@ -1,7 +1,6 @@
 package edu.freeuni.tictactoe;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -42,7 +41,7 @@ public class GridAdapter extends BaseAdapter {
 		ImageView imageView;
 		if (convertView == null) {  // if it's not recycled, initialize some attributes
 			imageView = new ImageView(context);
-			imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 75));
+			imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 			imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 			imageView.setPadding(1, 1, 1, 1);
 		} else {

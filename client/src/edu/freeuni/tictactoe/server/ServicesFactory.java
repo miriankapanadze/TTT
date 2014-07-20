@@ -1,15 +1,12 @@
 package edu.freeuni.tictactoe.server;
 
-import edu.freeuni.tictactoe.server.test.TestGameServiceImpl;
-import edu.freeuni.tictactoe.server.test.TestUserServiceImpl;
-
 public class ServicesFactory {
 
 	public static UserService getUserService() {
-		return new TestUserServiceImpl();
+		return new UserServiceImpl();
 	}
 
 	public static GameService getGameService() {
-		return new TestGameServiceImpl();
+		return new GameServiceImpl();
 	}
 }

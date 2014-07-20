@@ -91,10 +91,17 @@ public class GameServiceImpl implements GameService {
 					Status status = new Status();
 					status.setType(Status.Type.valueOf(responseJSON.getString("status")));
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
-
+					int x = responseJSON.getInt("x");
+					int y = responseJSON.getInt("y");
 					System.out.println("should notify game move listeners");
-					ListenersManager.notifyGameMoveListeners(responseJSON.getInt("x"), responseJSON.getInt("y"));
+					ListenersManager.notifyGameMoveListeners(x, y);
 					System.out.println("notified game move listeners");
+
+					GameStatus gameStatus = Referee.checkGameStatus(BoardActivity.board, x, y);
+					if (gameStatus != GameStatus.IN_PROGRESS) {
+						ListenersManager.notifyGameOverListeners(gameStatus);
+					}
+
 				} catch (Exception e) {
 					System.out.println("waiting for opponent move corrupted");
 					e.printStackTrace();
