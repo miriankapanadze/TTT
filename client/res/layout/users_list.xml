@@ -59,8 +59,11 @@
 	<ListView
 		android:id="@+id/list"
 		android:layout_width="fill_parent"
-		android:layout_height="match_parent"
-		android:layout_marginBottom="70dp">
+		android:layout_height="280dp">
 	</ListView>
 
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="2dp"
+		android:background="@android:color/black" />
 </LinearLayout>
