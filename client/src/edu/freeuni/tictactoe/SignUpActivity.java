@@ -40,7 +40,8 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 
 	@Override
 	public void onClick(View v) {
-		if (userName.getText() == null || password.getText() == null || name.getText() == null) {
+		if (userName.getText() == null || password.getText() == null || name.getText() == null ||
+				userName.getText().toString().isEmpty() || password.getText().toString().isEmpty() || name.getText().toString().isEmpty()) {
 			return;
 		}
 
@@ -58,10 +59,11 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(SignUpActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
 				if (status.getType() == Status.Type.SUCCESS) {
 					Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
 					startActivity(intent);
+				} else {
+					Toast.makeText(SignUpActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

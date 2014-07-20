@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService {
 						userEntry.setRank(object.getInt("rank"));
 
 						users.add(userEntry);
+
 					}
 				} else {
 					closeConnection();
@@ -159,10 +160,13 @@ public class UserServiceImpl implements UserService {
 				inputStream.close();
 				outputStream.close();
 
+
 			} catch (IOException | JSONException e) {
 				e.printStackTrace();
 			} finally {
+				System.out.println("should notify register listeners");
 				ListenersManager.notifyRegisterListeners(status);
+				System.out.println("notified register listeners");
 			}
 		}
 	}

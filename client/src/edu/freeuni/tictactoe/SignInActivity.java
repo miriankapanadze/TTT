@@ -2,7 +2,6 @@ package edu.freeuni.tictactoe;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -42,7 +41,6 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 		mode.setTextOff(getResources().getString(R.string.passiveMode));
 		mode.setTextOn(getResources().getString(R.string.activeMode));
 		mode.setChecked(true);
-//		mode.setBackgroundColor(Color.WHITE);
 
 		btnSignIn.setOnClickListener(this);
 		userService = ServicesFactory.getUserService();
@@ -60,7 +58,8 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 
 	@Override
 	public void onClick(View v) {
-		if (userName.getText() == null || password.getText() == null) {
+		if (userName.getText() == null || password.getText() == null ||
+				userName.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
 			return;
 		}
 		LoginRequest request = new LoginRequest();
@@ -76,12 +75,14 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(SignInActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
-
-				Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
-				intent.putExtra("users", new Gson().toJson(users));
-				intent.putExtra("mode", mode.name());
-				startActivity(intent);
+				if (status.getType() == Status.Type.SUCCESS) {
+					Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
+					intent.putExtra("users", new Gson().toJson(users));
+					intent.putExtra("mode", mode.name());
+					startActivity(intent);
+				} else {
+					Toast.makeText(SignInActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}
