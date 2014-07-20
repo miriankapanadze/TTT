@@ -17,6 +17,7 @@ public class UsersManager {
 
 	private EntityManager em;
 
+	@SuppressWarnings("UnusedDeclaration")
 	private Logger logger = LoggerFactory.getLogger(UsersManager.class);
 
 	private UsersManager() {
@@ -55,7 +56,7 @@ public class UsersManager {
 					.getSingleResult();
 
 		} catch (NoResultException e) {
-			throw new Exception("unknownUser");
+			throw new Exception("userNotFound");
 		}
 	}
 
@@ -83,5 +84,20 @@ public class UsersManager {
 		return em.createQuery("SELECT h FROM History h WHERE h.firstUser.id = :id OR h.secondUser.id = :id")
 				.setParameter("id", user.getId())
 				.getResultList();
+	}
+
+	public void updateUserRanksByHistory(History history) {
+		updateUserRank(history.getFirstUser(), history.getResult());
+		updateUserRank(history.getSecondUser(), history.getResult());
+	}
+
+	private void updateUserRank(User user, int plusRank) {
+		int rank = user.getRank() + plusRank;
+		rank = rank > 0 ? rank : 0;
+
+		em.createQuery("UPDATE User u SET u.rank = :rank WHERE u.id = :id")
+				.setParameter("id", user.getId())
+				.setParameter("rank", rank)
+				.executeUpdate();
 	}
 }

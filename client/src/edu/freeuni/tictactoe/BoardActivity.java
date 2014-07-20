@@ -88,7 +88,7 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 			@Override
 			public void run() {
 				grid.setEnabled(false);
-				Toast.makeText(BoardActivity.this, gameStatus == GameStatus.DRAW ? "ნიჩია" : (board.getTurn() != self ? "შენ მოიგე" : "შენ წააგე"), Toast.LENGTH_LONG).show();
+				Toast.makeText(BoardActivity.this, gameStatus == GameStatus.DRAW ? "ფრე" : (board.getTurn() != self ? "თქვენ მოიგეთ :-)" : "თქვენ წააგეთ :-("), Toast.LENGTH_LONG).show();
 			}
 		});
 	}

@@ -1,12 +1,15 @@
 package edu.freeuni.tictactoe.processing;
 
+import edu.freeuni.tictactoe.messages.Messages;
 import edu.freeuni.tictactoe.model.BoardType;
+import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.History;
 import edu.freeuni.tictactoe.model.RequestType;
 import edu.freeuni.tictactoe.model.SocketHolder;
 import edu.freeuni.tictactoe.model.StatusType;
 import edu.freeuni.tictactoe.model.User;
 import edu.freeuni.tictactoe.model.UserMode;
+import edu.freeuni.tictactoe.service.HistoryManager;
 import edu.freeuni.tictactoe.service.UsersManager;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,6 +87,9 @@ public class MainProcess {
 						case MOVE:
 							onMove(receivedJSON);
 							break;
+						case GAME_OVER:
+							onGameOver(receivedJSON);
+							break;
 					}
 				}
 			} catch (Exception e) {
@@ -98,9 +104,8 @@ public class MainProcess {
 				UsersManager.getInstance().registerUser(user);
 
 				responseJSON.put("status", StatusType.SUCCESS.name());
-				responseJSON.put("additionalInfo", "registrationSuccessful");
+				responseJSON.put("additionalInfo", Messages.get("registrationSuccessful"));
 				outputStream.writeUTF(responseJSON.toString());
-				// outputStream.flush();
 
 			} catch (Exception e) {
 				onFailure(responseJSON, e);
@@ -119,12 +124,11 @@ public class MainProcess {
 				socketsMap.put(user, new SocketHolder(socket, inputStream, outputStream));
 
 				responseJSON.put("status", StatusType.SUCCESS.name());
-				responseJSON.put("additionalInfo", "loginSuccessful");
+				responseJSON.put("additionalInfo", Messages.get("loginSuccessful"));
 				responseJSON.put("opponents", User.getJSONArray(UsersManager.getInstance().getOpponents(dbUser)).toString());
 				responseJSON.put("history", History.getJSONArray(UsersManager.getInstance().getUserHistory(dbUser)).toString());
 
 				outputStream.writeUTF(responseJSON.toString());
-				// outputStream.flush();
 
 				return true;
 
@@ -153,16 +157,6 @@ public class MainProcess {
 				System.out.println("calling sendInvitation method");
 				sendInvitation(opponent, boardType);
 
-//				System.out.println("received invitation statusType: " + statusType.name());
-
-//				responseJSON.put("status", statusType.name());
-//				responseJSON.put("additionalInfo", "");
-
-//				System.out.println("forwarding back invitation answer: " + responseJSON.toString());
-//				outputStream.writeUTF(responseJSON.toString());
-//				System.out.println("forwarded back invitation answer");
-				// outputStream.flush();
-
 			} catch (Exception e) {
 				onFailure(responseJSON, e);
 			}
@@ -180,30 +174,16 @@ public class MainProcess {
 		private void sendInvitation(User opponent, BoardType boardType) {
 			try {
 				SocketHolder holder = socketsMap.get(opponent);
-				DataInputStream inputStream = holder.getInputStream();
 				DataOutputStream outputStream = holder.getOutputStream();
 
 				String invitation = getInvitationJSON(boardType).toString();
 				System.out.println("sending invitation: " + invitation);
-
 				outputStream.writeUTF(invitation);
-
 				System.out.println("invitation sent");
-				// outputStream.flush();
-
-				/*System.out.println("waiting for invitation answer");
-				String receivedString = inputStream.readUTF();
-				System.out.println("invitation answer received: " + receivedString);
-				JSONObject receivedJSON = new JSONObject(receivedString);
-
-				System.out.println("returning invitation status");
-				return StatusType.valueOf(receivedJSON.getString("status"));*/
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-//			System.out.println("returning invitation failure status due to exception");
-//			return StatusType.FAILURE;
 		}
 
 		private JSONObject getInvitationJSON(BoardType boardType) {
@@ -233,9 +213,7 @@ public class MainProcess {
 				System.out.println("received invitation answer opponentId: " + opponentId);
 
 				User opponent = UsersManager.getInstance().findUserById(opponentId);
-				if (opponent == null) {
-					throw new Exception("unknownUser");
-				}
+
 				DataOutputStream outputStream = socketsMap.get(opponent).getOutputStream();
 				responseJSON.put("status", status.name());
 				responseJSON.put("additionalInfo", "");
@@ -269,9 +247,7 @@ public class MainProcess {
 			try {
 				SocketHolder holder = socketsMap.get(opponent);
 				DataOutputStream outputStream = holder.getOutputStream();
-
 				outputStream.writeUTF(getMoveJSON(x, y).toString());
-				// outputStream.flush();
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -294,12 +270,29 @@ public class MainProcess {
 			return null;
 		}
 
+		private void onGameOver(JSONObject receivedJSON) {
+			try {
+				int opponentId = receivedJSON.getInt("opponentId");
+				GameStatus gameStatus = GameStatus.valueOf(receivedJSON.getString("gameStatus"));
+				User opponent = UsersManager.getInstance().findUserById(opponentId);
+
+				History history = new History();
+				history.setFirstUser(user);
+				history.setSecondUser(opponent);
+				history.setResult(gameStatus == GameStatus.WINNER_ANNOUNCED ? 1 : -1);
+
+				HistoryManager.getInstance().addHistory(history);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		private void onFailure(JSONObject responseJSON, Exception e) {
 			try {
 				responseJSON.put("status", StatusType.FAILURE.name());
-				responseJSON.put("additionalInfo", e.getMessage());
+				responseJSON.put("additionalInfo", Messages.get(e.getMessage()));
 				outputStream.writeUTF(responseJSON.toString());
-				// outputStream.flush();
 
 			} catch (Exception ignored) {
 				ignored.printStackTrace();

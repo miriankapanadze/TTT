@@ -64,7 +64,7 @@ public class SignUpActivity extends Activity implements View.OnClickListener, Re
 					Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
 					startActivity(intent);
 				} else {
-					Toast.makeText(SignUpActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
+					Toast.makeText(SignUpActivity.this, status.getAdditionalInfo(), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

@@ -1,6 +1,7 @@
 package edu.freeuni.tictactoe.server.test;
 
 import edu.freeuni.tictactoe.model.BoardType;
+import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.server.GameService;
 import edu.freeuni.tictactoe.server.ListenersManager;
@@ -46,6 +47,11 @@ public class TestGameServiceImpl implements GameService {
 
 	@Override
 	public void acceptInvitation(int opponentId) {
+
+	}
+
+	@Override
+	public void notifyServerOnGameOver(GameStatus gameStatus, int opponentId) {
 
 	}
 }

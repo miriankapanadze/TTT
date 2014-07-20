@@ -82,7 +82,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 					intent.putExtra("mode", mode.name());
 					startActivity(intent);
 				} else {
-					Toast.makeText(SignInActivity.this, status.getType().name() + "(" + status.getAdditionalInfo() + ")", Toast.LENGTH_SHORT).show();
+					Toast.makeText(SignInActivity.this, status.getAdditionalInfo(), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

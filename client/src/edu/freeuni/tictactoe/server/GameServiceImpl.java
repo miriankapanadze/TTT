@@ -66,6 +66,7 @@ public class GameServiceImpl implements GameService {
 					GameStatus gameStatus = Referee.checkGameStatus(BoardActivity.board, x, y);
 					if (gameStatus != GameStatus.IN_PROGRESS) {
 						ListenersManager.notifyGameOverListeners(gameStatus);
+						notifyServerOnGameOver(gameStatus, opponentId);
 					} else {
 						waitForOpponentMove();
 					}
@@ -179,6 +180,27 @@ public class GameServiceImpl implements GameService {
 					System.out.println("accepted sent");
 				} catch (Exception e) {
 					System.out.println("accept invitation corrupted");
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	@Override
+	public void notifyServerOnGameOver(final GameStatus gameStatus, final int opponentId) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					JSONObject responseJSN = new JSONObject();
+					responseJSN.put("requestType", RequestType.GAME_OVER.name());
+					responseJSN.put("status", Status.Type.SUCCESS.name());
+					responseJSN.put("gameStatus", gameStatus.name());
+					responseJSN.put("opponentId", opponentId);
+
+					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
+
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
