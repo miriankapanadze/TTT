@@ -197,7 +197,7 @@ public class GameServiceImpl implements GameService {
 					responseJSN.put("gameStatus", gameStatus.name());
 					responseJSN.put("opponentId", opponentId);
 
-					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
+					AppController.OUTPUT_STREAM.writeUTF(responseJSN.toString());
 
 				} catch (Exception e) {
 					e.printStackTrace();
