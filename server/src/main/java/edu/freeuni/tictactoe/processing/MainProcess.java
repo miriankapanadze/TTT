@@ -279,7 +279,7 @@ public class MainProcess {
 				History history = new History();
 				history.setFirstUser(user);
 				history.setSecondUser(opponent);
-				history.setResult(gameStatus == GameStatus.WINNER_ANNOUNCED ? 1 : -1);
+				history.setResult(gameStatus == GameStatus.WINNER_ANNOUNCED ? 1 : 0);
 
 				HistoryManager.getInstance().addHistory(history);
 

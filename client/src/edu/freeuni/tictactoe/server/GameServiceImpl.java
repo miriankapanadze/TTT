@@ -129,7 +129,7 @@ public class GameServiceImpl implements GameService {
 				try {
 					System.out.println("waiting invitation");
 					String requestSTR = AppController.INPUT_STREAM.readUTF();
-					System.out.println("received invitation");
+					System.out.println("received invitation: " + requestSTR);
 
 					JSONObject requestJSN = new JSONObject(requestSTR);
 					int opponentId = requestJSN.getInt("opponentId");
