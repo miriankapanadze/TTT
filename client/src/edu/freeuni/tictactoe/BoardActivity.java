@@ -77,7 +77,6 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 			@Override
 			public void run() {
 				adapter.getValues().set(x * size + y, opponent);
-				board.set(x, y);
 				adapter.notifyDataSetChanged();
 			}
 		});

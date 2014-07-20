@@ -93,6 +93,8 @@ public class GameServiceImpl implements GameService {
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
 					int x = responseJSON.getInt("x");
 					int y = responseJSON.getInt("y");
+					BoardActivity.board.set(x, y);
+
 					System.out.println("should notify game move listeners");
 					ListenersManager.notifyGameMoveListeners(x, y);
 					System.out.println("notified game move listeners");
