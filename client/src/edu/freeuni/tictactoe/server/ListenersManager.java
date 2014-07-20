@@ -11,75 +11,62 @@ import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListenersManager {
-	private static List<LoginListener> loginListeners = new ArrayList<>();
-	private static List<RegisterListener> registerListeners = new ArrayList<>();
-	private static List<GameStartListener> gameStartListeners = new ArrayList<>();
-	private static List<GameMoveListener> gameMoveListeners = new ArrayList<>();
-	private static List<GameInvitationListener> gameInvitationListeners = new ArrayList<>();
-	private static List<GameOverListener> gameOverListeners = new ArrayList<>();
+	private static LoginListener loginListener;
+	private static RegisterListener registerListener;
+	private static GameStartListener gameStartListener;
+	private static GameMoveListener gameMoveListener;
+	private static GameInvitationListener gameInvitationListener;
+	private static GameOverListener gameOverListener;
 
 
 	public static void addGameOverListener(GameOverListener overListener) {
-		gameOverListeners.add(overListener);
+		gameOverListener = overListener;
 	}
 
 	public static void addGameInvitationListener(GameInvitationListener invitationListener) {
-		gameInvitationListeners.add(invitationListener);
+		gameInvitationListener = invitationListener;
 	}
 
 	public static void addRegisterListener(RegisterListener registerListener) {
-		registerListeners.add(registerListener);
+		ListenersManager.registerListener= registerListener;
 	}
 
 	public static void addLoginListener(LoginListener loginListener) {
-		loginListeners.add(loginListener);
+		ListenersManager.loginListener = loginListener;
 	}
 
 	public static void addGameStartListener(GameStartListener gameListener) {
-		gameStartListeners.add(gameListener);
+		ListenersManager.gameStartListener = gameListener;
 	}
 
 	public static void addGameMoveListener(GameMoveListener moveListener) {
-		gameMoveListeners.add(moveListener);
+		ListenersManager.gameMoveListener = moveListener;
 	}
 
 	public static void notifyLoginListeners(Status status, List<UserEntry> users, UserMode mode) {
-		for (LoginListener loginListener : loginListeners) {
-			loginListener.onLogin(status, users, mode);
-		}
+		loginListener.onLogin(status, users, mode);
 	}
 
 	public static void notifyRegisterListeners(Status status) {
-		for (RegisterListener registerListener : registerListeners) {
-			registerListener.onRegister(status);
-		}
+		registerListener.onRegister(status);
 	}
 
 	public static void notifyStartGameListeners(int boardSize, Status status) {
-		for (GameStartListener gameListener : gameStartListeners) {
-			gameListener.startGame(boardSize, status);
-		}
+		gameStartListener.startGame(boardSize, status);
 	}
 
 	public static void notifyGameMoveListeners(int x, int y) {
-		for (GameMoveListener gameListener : gameMoveListeners) {
-			gameListener.onOpponentMove(x, y);
-		}
+		gameMoveListener.onOpponentMove(x, y);
 	}
 
 	public static void notifyGameInvitationListeners(int opponentId, String opponentName, int opponentRank, int boardSize) {
-		for (GameInvitationListener invitationListener : gameInvitationListeners) {
-			invitationListener.onGameInvitation(opponentId, opponentName, opponentRank, boardSize);
-		}
+		gameInvitationListener.onGameInvitation(opponentId, opponentName, opponentRank, boardSize);
 	}
 
 	public static void notifyGameOverListeners(GameStatus gameStatus) {
-		for (GameOverListener overListener : gameOverListeners) {
-			overListener.onGameOver(gameStatus);
-		}
+		gameOverListener.onGameOver(gameStatus);
 	}
 }

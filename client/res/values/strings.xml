@@ -12,14 +12,20 @@
 	<string name="startGame">თამაშის დაწყება</string>
 	<string name="activeMode">აქტიური რეჟიმი</string>
 	<string name="passiveMode">მოლოდინის რეჟიმი</string>
-	<string name="fiveFiveGrid">5:5</string>
-	<string name="threeThreeGrid">3:3</string>
+	<string name="fiveFiveGrid">5X5</string>
+	<string name="threeThreeGrid">3X3</string>
 	<string name="userMode">აქტიური|პასიური</string>
 	<string name="accept">დათანხმება</string>
 	<string name="reject">უარყოფა</string>
 	<string name="invitationText3">გთავაზობს, რომ ეთამაშო 3X3 დაფაზე</string>
 	<string name="invitationText5">გთავაზობს, რომ ეთამაშო 5X5 დაფაზე</string>
 	<string name="emptyValidationMessage">შესაყვანი ველები არ უნდა იყოს ცარიელი</string>
+	<string name="rank">რეიტინგი</string>
+	<string name="opponents">ოპონენტები</string>
+	<string name="history">ისტორია</string>
+	<string name="draw">ფრე</string>
+	<string name="youWin">შენ მოიგე! :)</string>
+	<string name="youLose">შენ წააგე! :(</string>
 
 	<style name="DefaultButtonText">
 		<item name="android:layout_width">fill_parent</item>

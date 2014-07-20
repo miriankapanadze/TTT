@@ -29,6 +29,8 @@
 		<activity android:name=".UsersActivity" />
 		<activity android:name=".BoardActivity" />
 		<activity android:name=".BoardDialogActivity" />
+		<activity android:name=".HomeActivity" />
+		<activity android:name=".TimeLineActivity" />
 	</application>
 
 </manifest>

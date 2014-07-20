@@ -52,6 +52,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 
 	@Override
 	protected void onResume() {
+		System.out.println("sign in activity onResume()");
 		userService.logout();
 		super.onResume();
 	}
@@ -77,7 +78,7 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 			@Override
 			public void run() {
 				if (status.getType() == Status.Type.SUCCESS) {
-					Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
+					Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
 					intent.putExtra("users", new Gson().toJson(users));
 					intent.putExtra("mode", mode.name());
 					startActivity(intent);

@@ -20,11 +20,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 	private static String loggerMarker = "userServiceImpl";
-	private static String serverIp = "192.168.0.102";
-	private static int serverPort = 8080;
-	public static DataInputStream INPUT_STREAM;
-	public static DataOutputStream OUTPUT_STREAM;
-	public static Socket LOGIN_SOCKET;
 
 	@Override
 	public void login(LoginRequest request) {
@@ -38,12 +33,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void logout() {
-		if (LOGIN_SOCKET != null) {
-			try {
-				closeConnection();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (AppController.SOCKET != null) {
+			closeConnection();
 		}
 	}
 
@@ -61,13 +52,13 @@ public class UserServiceImpl implements UserService {
 			status.setType(Status.Type.FAILURE);
 			List<UserEntry> users = new ArrayList<>();
 			try {
-				Log.i(loggerMarker, "try registration");
-				if (LOGIN_SOCKET != null) {
+				Log.i(loggerMarker, "try login");
+				if (AppController.SOCKET != null) {
 					closeConnection();
 				}
-				LOGIN_SOCKET = new Socket(serverIp, serverPort);
-				OUTPUT_STREAM = new DataOutputStream((LOGIN_SOCKET.getOutputStream()));
-				INPUT_STREAM = new DataInputStream((LOGIN_SOCKET.getInputStream()));
+				AppController.SOCKET = new Socket(AppController.SERVER_IP, AppController.SERVER_PORT);
+				AppController.OUTPUT_STREAM = new DataOutputStream((AppController.SOCKET.getOutputStream()));
+				AppController.INPUT_STREAM = new DataInputStream((AppController.SOCKET.getInputStream()));
 				Log.i(loggerMarker, "socketCreated");
 
 				JSONObject jsonObject = new JSONObject();
@@ -77,10 +68,10 @@ public class UserServiceImpl implements UserService {
 				jsonObject.put("userMode", request.getUserMode().name());
 
 				Log.i(loggerMarker, "ObjectOutputStream created");
-				OUTPUT_STREAM.writeUTF(jsonObject.toString());
+				AppController.OUTPUT_STREAM.writeUTF(jsonObject.toString());
 				Log.i(loggerMarker, "written object");
 
-				String responseString = INPUT_STREAM.readUTF();
+				String responseString = AppController.INPUT_STREAM.readUTF();
 				JSONObject response = new JSONObject(responseString);
 				status.setType(Status.Type.valueOf(response.getString("status")));
 				status.setAdditionalInfo(response.getString("additionalInfo"));
@@ -113,14 +104,20 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	private void closeConnection() throws IOException {
-		LOGIN_SOCKET.close();
-		INPUT_STREAM.close();
-		OUTPUT_STREAM.close();
+	private void closeConnection() {
+		try {
+			System.out.println("closing connections");
+			AppController.SOCKET.close();
+			AppController.INPUT_STREAM.close();
+			AppController.OUTPUT_STREAM.close();
 
-		LOGIN_SOCKET = null;
-		INPUT_STREAM = null;
-		OUTPUT_STREAM = null;
+			AppController.SOCKET = null;
+			AppController.INPUT_STREAM = null;
+			AppController.OUTPUT_STREAM = null;
+			System.out.println("closed connections");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private class RegistrationThread extends Thread {
@@ -137,7 +134,7 @@ public class UserServiceImpl implements UserService {
 			status.setType(Status.Type.FAILURE);
 			try {
 				Log.i(loggerMarker, "try registration");
-				Socket socket = new Socket(serverIp, serverPort);
+				Socket socket = new Socket(AppController.SERVER_IP, AppController.SERVER_PORT);
 				DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 				DataInputStream inputStream = new DataInputStream(socket.getInputStream());
 				Log.i(loggerMarker, "socketCreated");

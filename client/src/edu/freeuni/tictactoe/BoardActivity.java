@@ -1,7 +1,6 @@
 package edu.freeuni.tictactoe;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,6 +11,7 @@ import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.UserMode;
+import edu.freeuni.tictactoe.server.AppController;
 import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 import edu.freeuni.tictactoe.server.game.Board;
@@ -24,7 +24,6 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 	private int opponent;
 	private int opponentId;
 
-	public static Board board;
 	private GridAdapter adapter;
 	private GridView grid;
 
@@ -37,8 +36,8 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 		opponentId = getIntent().getExtras().getInt("opponentId");
 
 		size = getIntent().getExtras().getInt("size");
-		board = new Board(size);
-		adapter = new GridAdapter(this, size, board.getValues());
+		AppController.BOARD = new Board(size);
+		adapter = new GridAdapter(this, size, AppController.BOARD.getValues());
 
 		UserMode mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
 		self = mode == UserMode.ACTIVE ? 1 : 2;
@@ -51,14 +50,14 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 
 		grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-				if (board.get(position) != 0) {
+				if (AppController.BOARD.get(position) != 0) {
 					return;
 				}
-				if (board.getTurn() == self) {
+				if (AppController.BOARD.getTurn() == self) {
 					adapter.getValues().set(position, self);
 					adapter.notifyDataSetChanged();
 					ServicesFactory.getGameService().makeMove(opponentId, position / size, position % size);
-					board.set(position);
+					AppController.BOARD.set(position);
 				}
 			}
 		});
@@ -88,7 +87,12 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 			@Override
 			public void run() {
 				grid.setEnabled(false);
-				Toast.makeText(BoardActivity.this, gameStatus == GameStatus.DRAW ? "ფრე" : (board.getTurn() != self ? "თქვენ მოიგეთ :-)" : "თქვენ წააგეთ :-("), Toast.LENGTH_LONG).show();
+				String message = gameStatus == GameStatus.DRAW ?
+						getResources().getString(R.string.draw) :
+							(AppController.BOARD.getTurn() != self ?
+								getResources().getString(R.string.youWin) :
+								getResources().getString(R.string.youLose));
+				Toast.makeText(BoardActivity.this, message, Toast.LENGTH_LONG).show();
 			}
 		});
 	}

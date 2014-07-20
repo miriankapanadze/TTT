@@ -1,6 +1,5 @@
 package edu.freeuni.tictactoe.server;
 
-import edu.freeuni.tictactoe.BoardActivity;
 import edu.freeuni.tictactoe.model.BoardType;
 import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.RequestType;
@@ -22,11 +21,11 @@ public class GameServiceImpl implements GameService {
 					requestJSON.put("boardType", type.name());
 
 					System.out.println("starting game request should be written to stream");
-					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
+					AppController.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					System.out.println("starting game request written to stream");
 
 					System.out.println("waiting for response for starting game request");
-					String responseString = UserServiceImpl.INPUT_STREAM.readUTF();
+					String responseString = AppController.INPUT_STREAM.readUTF();
 					System.out.println("starting game response received");
 
 					JSONObject responseJSON = new JSONObject(responseString);
@@ -60,10 +59,10 @@ public class GameServiceImpl implements GameService {
 					requestJSON.put("y", y);
 
 					System.out.println("make move should be made");
-					UserServiceImpl.OUTPUT_STREAM.writeUTF(requestJSON.toString());
+					AppController.OUTPUT_STREAM.writeUTF(requestJSON.toString());
 					System.out.println("move made");
 
-					GameStatus gameStatus = Referee.checkGameStatus(BoardActivity.board, x, y);
+					GameStatus gameStatus = Referee.checkGameStatus(AppController.BOARD, x, y);
 					if (gameStatus != GameStatus.IN_PROGRESS) {
 						ListenersManager.notifyGameOverListeners(gameStatus);
 						notifyServerOnGameOver(gameStatus, opponentId);
@@ -85,7 +84,7 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					System.out.println("waiting for opponent move");
-					String responseString = UserServiceImpl.INPUT_STREAM.readUTF();
+					String responseString = AppController.INPUT_STREAM.readUTF();
 					System.out.println("opponent moved");
 					JSONObject responseJSON = new JSONObject(responseString);
 
@@ -94,13 +93,13 @@ public class GameServiceImpl implements GameService {
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
 					int x = responseJSON.getInt("x");
 					int y = responseJSON.getInt("y");
-					BoardActivity.board.set(x, y);
+					AppController.BOARD.set(x, y);
 
 					System.out.println("should notify game move listeners");
 					ListenersManager.notifyGameMoveListeners(x, y);
 					System.out.println("notified game move listeners");
 
-					GameStatus gameStatus = Referee.checkGameStatus(BoardActivity.board, x, y);
+					GameStatus gameStatus = Referee.checkGameStatus(AppController.BOARD, x, y);
 					if (gameStatus != GameStatus.IN_PROGRESS) {
 						ListenersManager.notifyGameOverListeners(gameStatus);
 					}
@@ -120,7 +119,7 @@ public class GameServiceImpl implements GameService {
 			public void run() {
 				try {
 					System.out.println("waiting invitation");
-					String requestSTR = UserServiceImpl.INPUT_STREAM.readUTF();
+					String requestSTR = AppController.INPUT_STREAM.readUTF();
 					System.out.println("received invitation");
 
 					JSONObject requestJSN = new JSONObject(requestSTR);
@@ -153,7 +152,7 @@ public class GameServiceImpl implements GameService {
 					responseJSN.put("opponentId", opponentId);
 
 					System.out.println("rejected should be sent");
-					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
+					AppController.OUTPUT_STREAM.writeUTF(responseJSN.toString());
 					System.out.println("rejected sent");
 				} catch (Exception e) {
 					System.out.println("reject invitation corrupted");
@@ -176,7 +175,7 @@ public class GameServiceImpl implements GameService {
 					responseJSN.put("opponentId", opponentId);
 
 					System.out.println("accepted should be sent");
-					UserServiceImpl.OUTPUT_STREAM.writeUTF(responseJSN.toString());
+					AppController.OUTPUT_STREAM.writeUTF(responseJSN.toString());
 					System.out.println("accepted sent");
 				} catch (Exception e) {
 					System.out.println("accept invitation corrupted");
