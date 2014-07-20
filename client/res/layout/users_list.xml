@@ -2,63 +2,65 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
 	android:background="@drawable/tic_tac_toe_background">
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="40dp"
 		android:orientation="horizontal"
-		android:background="@android:color/white">
+		android:layout_marginTop="80dp"
+		android:background="#5AFF0000">
 
 		<TextView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:textAlignment="center"
-			android:textColor="@android:color/background_dark"
+			android:gravity="center"
+			android:textColor="@android:color/white"
 			android:textSize="12sp"
 			android:text="@string/name"/>
 
 		<View
 			android:layout_width="2dp"
 			android:layout_height="fill_parent"
-			android:background="@android:color/darker_gray" />
+			android:background="#5AFF0000" />
 
 		<TextView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="3"
-			android:textAlignment="center"
-			android:textColor="@android:color/background_dark"
+			android:gravity="center"
+			android:textColor="@android:color/white"
 			android:textSize="12sp"
 			android:text="@string/userName"/>
 
 		<View
 			android:layout_width="2dp"
 			android:layout_height="fill_parent"
-			android:background="@android:color/darker_gray" />
+			android:background="#5AFF0000" />
 
 		<TextView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:textAlignment="center"
-			android:textColor="@android:color/background_dark"
+			android:gravity="center"
+			android:textColor="@android:color/white"
 			android:textSize="12sp"
 			android:text="@string/rank"/>
 	</LinearLayout>
 
-
 	<View
 		android:layout_width="fill_parent"
 		android:layout_height="2dp"
-		android:background="@android:color/darker_gray" />
+		android:background="@android:color/black" />
 
 	<ListView
 		android:id="@+id/list"
 		android:layout_width="fill_parent"
-		android:layout_height="match_parent" >
+		android:layout_height="match_parent"
+		android:layout_marginBottom="70dp">
 	</ListView>
+
 </LinearLayout>

@@ -12,6 +12,6 @@ public class AppController {
 	public static DataOutputStream OUTPUT_STREAM;
 	public static Board BOARD;
 
-	public static String SERVER_IP = "192.168.0.100";
+	public static String SERVER_IP = "192.168.0.102";
 	public static int SERVER_PORT = 8080;
 }

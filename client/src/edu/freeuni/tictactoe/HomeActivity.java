@@ -2,6 +2,7 @@ package edu.freeuni.tictactoe;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TabHost;
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ public class HomeActivity extends TabActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_activity);
 		TabHost tabHost = getTabHost();
+		tabHost.setBackgroundColor(Color.parseColor("#CC9966"));
 
 		List<UserEntry> userEntries = new Gson().fromJson(getIntent().getExtras().getString("users"), new TypeToken<List<UserEntry>>(){}.getType());
 		UserMode mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
@@ -26,13 +28,13 @@ public class HomeActivity extends TabActivity {
 		usersActivity.putExtra("mode", mode.name());
 
 		TabHost.TabSpec tabSpecUsers = tabHost.newTabSpec("Users")
-				.setIndicator(getResources().getString(R.string.opponents), getResources().getDrawable(R.drawable.people))
+				.setIndicator(null, getResources().getDrawable(R.drawable.people))
 				.setContent(usersActivity);
 
 		Intent barChart = new Intent().setClass(this, TimeLineActivity.class);
 
 		TabHost.TabSpec timeLine = tabHost.newTabSpec("BarChart")
-				.setIndicator(getResources().getString(R.string.history), getResources().getDrawable(R.drawable.history))
+				.setIndicator(null, getResources().getDrawable(R.drawable.history))
 				.setContent(barChart);
 
 		tabHost.addTab(tabSpecUsers);

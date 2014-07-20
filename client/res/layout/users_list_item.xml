@@ -3,43 +3,44 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="horizontal"
-	android:background="@android:color/white">
+	android:textAlignment="center"
+	android:background="#5AFF0000">
 
 	<TextView
 		android:id="@+id/name"
 		android:layout_width="0dp"
-		android:layout_height="wrap_content"
+		android:layout_height="40dp"
 		android:layout_weight="1"
-		android:textAlignment="center"
-		android:textColor="@android:color/background_dark"
+		android:gravity="center"
+		android:textColor="@android:color/white"
 		android:textSize="12sp" />
 
 	<View
 		android:layout_width="2dp"
 		android:layout_height="fill_parent"
-		android:background="@android:color/darker_gray" />
+		android:background="#5AFF0000" />
 
 	<TextView
 		android:id="@+id/userName"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_weight="3"
-		android:textAlignment="center"
-		android:textColor="@android:color/background_dark"
+		android:gravity="center"
+		android:textColor="@android:color/white"
 		android:textSize="12sp" />
 
 	<View
 		android:layout_width="2dp"
 		android:layout_height="fill_parent"
-		android:background="@android:color/darker_gray" />
+		android:background="#5AFF0000" />
 
 	<TextView
 		android:id="@+id/rank"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
-		android:textAlignment="center"
-		android:textColor="@android:color/background_dark"
+		android:gravity="center"
+		android:textColor="@android:color/white"
 		android:textSize="12sp" />
 
 </LinearLayout>
