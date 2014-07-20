@@ -26,7 +26,7 @@ public class TestGameServiceImpl implements GameService {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					ListenersManager.notifyGameMoveListeners(2, 2);
+					ListenersManager.notifyGameMoveListeners(status, 2, 2);
 				}
 			}).start();
 	}
@@ -52,6 +52,11 @@ public class TestGameServiceImpl implements GameService {
 
 	@Override
 	public void notifyServerOnGameOver(GameStatus gameStatus, int opponentId) {
+
+	}
+
+	@Override
+	public void cancelGame(int opponentId) {
 
 	}
 }

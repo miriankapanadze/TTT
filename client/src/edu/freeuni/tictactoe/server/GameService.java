@@ -18,4 +18,6 @@ public interface GameService {
 	void acceptInvitation(int opponentId);
 
 	void notifyServerOnGameOver(GameStatus gameStatus, int opponentId);
+
+	void cancelGame(int opponentId);
 }

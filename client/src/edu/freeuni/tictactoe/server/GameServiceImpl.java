@@ -96,12 +96,12 @@ public class GameServiceImpl implements GameService {
 					Status status = new Status();
 					status.setType(Status.Type.valueOf(responseJSON.getString("status")));
 					status.setAdditionalInfo(responseJSON.getString("additionalInfo"));
-					int x = responseJSON.getInt("x");
-					int y = responseJSON.getInt("y");
+					int x = status.getType() != Status.Type.FAILURE ? responseJSON.getInt("x") : 0;
+					int y = status.getType() != Status.Type.FAILURE ? responseJSON.getInt("y") : 0;
 					AppController.BOARD.set(x, y);
 
 					System.out.println("should notify game move listeners");
-					ListenersManager.notifyGameMoveListeners(x, y);
+					ListenersManager.notifyGameMoveListeners(status, x, y);
 					System.out.println("notified game move listeners");
 
 					GameStatus gameStatus = Referee.checkGameStatus(AppController.BOARD, x, y);
@@ -204,6 +204,25 @@ public class GameServiceImpl implements GameService {
 					responseJSN.put("requestType", RequestType.GAME_OVER.name());
 					responseJSN.put("status", Status.Type.SUCCESS.name());
 					responseJSN.put("gameStatus", gameStatus.name());
+					responseJSN.put("opponentId", opponentId);
+
+					AppController.OUTPUT_STREAM.writeUTF(responseJSN.toString());
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	@Override
+	public void cancelGame(final int opponentId) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					JSONObject responseJSN = new JSONObject();
+					responseJSN.put("requestType", RequestType.GAME_CANCELLED.name());
 					responseJSN.put("opponentId", opponentId);
 
 					AppController.OUTPUT_STREAM.writeUTF(responseJSN.toString());

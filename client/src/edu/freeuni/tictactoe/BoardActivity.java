@@ -11,6 +11,7 @@ import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.HistoryEntry;
+import edu.freeuni.tictactoe.model.Status;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.AppController;
 import edu.freeuni.tictactoe.server.ListenersManager;
@@ -72,12 +73,24 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 	}
 
 	@Override
-	public void onOpponentMove(final int x, final int y) {
+	protected void onPause() {
+		if (grid.isEnabled()) {
+			ServicesFactory.getGameService().cancelGame(opponentId);
+		}
+		super.onPause();
+	}
+
+	@Override
+	public void onOpponentMove(final Status status, final int x, final int y) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
-				adapter.getValues().set(x * size + y, opponent);
-				adapter.notifyDataSetChanged();
+				if (status.getType() != Status.Type.FAILURE) {
+					adapter.getValues().set(x * size + y, opponent);
+					adapter.notifyDataSetChanged();
+				} else {
+					Toast.makeText(BoardActivity.this, status.getAdditionalInfo(), Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 	}

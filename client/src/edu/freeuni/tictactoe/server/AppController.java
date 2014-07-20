@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.List;
 
 public class AppController {
+
 	public static Socket SOCKET;
 	public static DataInputStream INPUT_STREAM;
 	public static DataOutputStream OUTPUT_STREAM;

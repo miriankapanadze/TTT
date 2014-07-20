@@ -7,12 +7,7 @@ import edu.freeuni.tictactoe.listeners.GameStartListener;
 import edu.freeuni.tictactoe.listeners.LoginListener;
 import edu.freeuni.tictactoe.listeners.RegisterListener;
 import edu.freeuni.tictactoe.model.GameStatus;
-import edu.freeuni.tictactoe.model.HistoryEntry;
 import edu.freeuni.tictactoe.model.Status;
-import edu.freeuni.tictactoe.model.UserEntry;
-import edu.freeuni.tictactoe.model.UserMode;
-
-import java.util.List;
 
 public class ListenersManager {
 	private static LoginListener loginListener;
@@ -59,8 +54,8 @@ public class ListenersManager {
 		gameStartListener.startGame(boardSize, status);
 	}
 
-	public static void notifyGameMoveListeners(int x, int y) {
-		gameMoveListener.onOpponentMove(x, y);
+	public static void notifyGameMoveListeners(Status status, int x, int y) {
+		gameMoveListener.onOpponentMove(status, x, y);
 	}
 
 	public static void notifyGameInvitationListeners(int opponentId, String opponentName, int opponentRank, int boardSize) {
