@@ -49,8 +49,6 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 		grid.setNumColumns(size);
 		grid.setAdapter(adapter);
 		handler = new Handler();
-
-		grid.setAlpha(Float.valueOf("0.5"));
 		grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 				if (AppController.BOARD.get(position) != 0) {
