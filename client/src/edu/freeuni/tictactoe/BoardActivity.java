@@ -117,7 +117,7 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 				HistoryEntry historyEntry = new HistoryEntry();
 				historyEntry.setResult(gameStatus == GameStatus.DRAW ? 0 : (AppController.BOARD.getTurn() != self ? 1 : -1));
 				UserEntry userEntry = AppController.getUserById(opponentId);
-				userEntry.setRank(userEntry.getRank() + historyEntry.getResult());
+				userEntry.setRank(userEntry.getRank() - historyEntry.getResult());
 				historyEntry.setOpponentUsername(userEntry.getUsername());
 
 				AppController.HISTORY.add(historyEntry);
