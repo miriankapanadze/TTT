@@ -103,9 +103,12 @@ public class TimeLineActivity extends Activity {
 			if (item.getResult() == 1) {
 				holder.result.setText(getResources().getString(R.string.win));
 				holder.linearLayout.setBackgroundColor(Color.parseColor("#5A00FF00"));
-			} else {
+			} else if (item.getResult() == -1) {
 				holder.result.setText(getResources().getString(R.string.lose));
 				holder.linearLayout.setBackgroundColor(Color.parseColor("#5AFF0000"));
+			} else {
+				holder.result.setText(getResources().getString(R.string.draw));
+				holder.linearLayout.setBackgroundColor(Color.parseColor("#5A0000FF"));
 			}
 			return row;
 		}

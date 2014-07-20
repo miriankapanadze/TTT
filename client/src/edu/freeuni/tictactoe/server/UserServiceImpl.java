@@ -101,8 +101,7 @@ public class UserServiceImpl implements UserService {
 						String firstUsername = object.getString("firstUser_username");
 						String secondUsername = object.getString("secondUser_username");
 						entry.setOpponentUsername(AppController.USERNAME.equals(firstUsername) ? secondUsername : firstUsername);
-
-						entry.setResult(AppController.USERNAME.equals(firstUsername) ? 1 : -1);
+						entry.setResult(object.getInt("result") == 0 ? 0 : (AppController.USERNAME.equals(firstUsername) ? 1 : -1));
 
 						historyEntries.add(entry);
 					}
