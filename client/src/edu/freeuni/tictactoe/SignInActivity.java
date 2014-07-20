@@ -78,15 +78,12 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 	}
 
 	@Override
-	public void onLogin(final Status status, final List<UserEntry> users, final List<HistoryEntry> historyEntries, final UserMode mode) {
+	public void onLogin(final Status status) {
 		handler.post(new Runnable() {
 			@Override
 			public void run() {
 				if (status.getType() == Status.Type.SUCCESS) {
 					Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-					intent.putExtra("users", new Gson().toJson(users));
-					intent.putExtra("mode", mode.name());
-					intent.putExtra("history", new Gson().toJson(historyEntries));
 					startActivity(intent);
 				} else {
 					Toast.makeText(SignInActivity.this, status.getAdditionalInfo(), Toast.LENGTH_SHORT).show();

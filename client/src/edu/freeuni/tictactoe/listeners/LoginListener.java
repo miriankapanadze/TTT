@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface LoginListener {
 
-	void onLogin(Status status, List<UserEntry> users, List<HistoryEntry> historyEntries, UserMode mode);
+	void onLogin(Status status);
 }

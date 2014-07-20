@@ -47,8 +47,8 @@ public class ListenersManager {
 		ListenersManager.gameMoveListener = moveListener;
 	}
 
-	public static void notifyLoginListeners(Status status, List<UserEntry> users, List<HistoryEntry> historyEntries, UserMode mode) {
-		loginListener.onLogin(status, users, historyEntries, mode);
+	public static void notifyLoginListeners(Status status) {
+		loginListener.onLogin(status);
 	}
 
 	public static void notifyRegisterListeners(Status status) {

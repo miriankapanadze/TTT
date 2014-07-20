@@ -112,7 +112,9 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			} finally {
 				System.out.println("should notify login listeners");
-				ListenersManager.notifyLoginListeners(status, users, historyEntries, request.getUserMode());
+				AppController.USERS = users;
+				AppController.HISTORY = historyEntries;
+				ListenersManager.notifyLoginListeners(status);
 				System.out.println("notified login listeners");
 			}
 		}

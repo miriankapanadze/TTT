@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import edu.freeuni.tictactoe.model.HistoryEntry;
 import edu.freeuni.tictactoe.server.AppController;
 
@@ -27,6 +25,7 @@ public class TimeLineActivity extends Activity {
 
 	private TextView numOfWinnings;
 	private TextView numOfLosses;
+	private TextView numOfTies;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,13 +33,13 @@ public class TimeLineActivity extends Activity {
 		ListView listView = (ListView) findViewById(R.id.timeLineList);
 		numOfWinnings = (TextView) findViewById(R.id.sumOfWinnings);
 		numOfLosses = (TextView) findViewById(R.id.sumOfLosses);
+		numOfTies = (TextView) findViewById(R.id.sumOfTies);
 
 		adapter = new HistoryAdapter(this);
 		listView.setAdapter(adapter);
-		historyEntries = new Gson().fromJson(getIntent().getExtras().getString("history"), new TypeToken<List<HistoryEntry>>(){}.getType());
+		historyEntries = AppController.HISTORY;
 		initAdapter();
 	}
-
 
 	@Override
 	protected void onResume() {
@@ -56,6 +55,7 @@ public class TimeLineActivity extends Activity {
 
 		numOfLosses.setText(getCount(-1));
 		numOfWinnings.setText(getCount(1));
+		numOfTies.setText(getCount(0));
 	}
 
 	private String getCount(int value) {

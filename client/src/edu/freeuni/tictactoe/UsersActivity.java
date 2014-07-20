@@ -16,11 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import edu.freeuni.tictactoe.listeners.GameInvitationListener;
 import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
+import edu.freeuni.tictactoe.server.AppController;
 import edu.freeuni.tictactoe.server.ListenersManager;
 import edu.freeuni.tictactoe.server.ServicesFactory;
 
@@ -40,8 +39,8 @@ public class UsersActivity extends Activity implements GameInvitationListener {
 		adapter = new UsersAdapter(this);
 		listView.setAdapter(adapter);
 
-		userEntries = new Gson().fromJson(getIntent().getExtras().getString("users"), new TypeToken<List<UserEntry>>(){}.getType());
-		UserMode mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
+		userEntries = AppController.USERS;
+		UserMode mode = AppController.USER_MODE;
 
 		if (mode == UserMode.ACTIVE) {
 			registerForContextMenu(listView);

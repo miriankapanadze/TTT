@@ -10,6 +10,7 @@ import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.model.GameStatus;
+import edu.freeuni.tictactoe.model.HistoryEntry;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.AppController;
 import edu.freeuni.tictactoe.server.ListenersManager;
@@ -39,7 +40,7 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 		AppController.BOARD = new Board(size);
 		adapter = new GridAdapter(this, size, AppController.BOARD.getValues());
 
-		UserMode mode = UserMode.valueOf(getIntent().getExtras().getString("mode"));
+		UserMode mode = AppController.USER_MODE;
 		self = mode == UserMode.ACTIVE ? 1 : 2;
 		opponent = mode == UserMode.ACTIVE ? 2 : 1;
 
@@ -93,6 +94,12 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 								getResources().getString(R.string.youWin) :
 								getResources().getString(R.string.youLose));
 				Toast.makeText(BoardActivity.this, message, Toast.LENGTH_LONG).show();
+
+				HistoryEntry entry = new HistoryEntry();
+				entry.setResult(gameStatus == GameStatus.DRAW ? 0 :	(AppController.BOARD.getTurn() != self ? 1 : -1));
+				entry.setOpponentUsername(AppController.getUserNameById(opponentId));
+
+				AppController.HISTORY.add(entry);
 			}
 		});
 	}

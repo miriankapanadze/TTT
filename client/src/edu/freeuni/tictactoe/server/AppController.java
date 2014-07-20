@@ -1,11 +1,14 @@
 package edu.freeuni.tictactoe.server;
 
+import edu.freeuni.tictactoe.model.HistoryEntry;
+import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.game.Board;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 public class AppController {
 	public static Socket SOCKET;
@@ -18,4 +21,16 @@ public class AppController {
 
 	public static String USERNAME;
 	public static UserMode USER_MODE;
+
+	public static List<HistoryEntry> HISTORY;
+	public static List<UserEntry> USERS;
+
+	public static String getUserNameById(int userId) {
+		for (UserEntry entry : USERS) {
+			if (userId == entry.getId()) {
+				return entry.getUsername();
+			}
+		}
+		return null;
+	}
 }
