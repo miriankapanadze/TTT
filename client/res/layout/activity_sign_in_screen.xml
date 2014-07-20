@@ -6,7 +6,7 @@
 	android:paddingLeft="@dimen/activity_horizontal_margin"
 	android:paddingRight="@dimen/activity_horizontal_margin"
 	android:paddingTop="@dimen/activity_vertical_margin"
-	android:background="#ffffff">
+	android:background="@drawable/tic_tac_toe_logo">
 
 	<LinearLayout
 		android:orientation="vertical"
@@ -19,7 +19,7 @@
 		<EditText
 			android:id="@+id/inUserName"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="50dp"
 			android:background="@drawable/edittext_top_bg"
 			android:padding="10dp"
 			android:hint="@string/userName"
@@ -28,8 +28,8 @@
 		<EditText
 			android:id="@+id/inPass"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/edittext_bottom_bg"
+			android:layout_height="50dp"
+			android:background="@drawable/edittext_default_bg"
 			android:layout_marginTop="-2dp"
 			android:padding="10dp"
 			android:hint="@string/password"
@@ -39,15 +39,15 @@
 		<ToggleButton
 			android:id="@+id/mode"
 			android:layout_width="match_parent"
-			android:layout_marginTop="10dp"
+			android:layout_height="50dp"
+			android:layout_marginTop="-2dp"
 			android:padding="10dp"
-			android:background="@drawable/edittext_top_bg"
-
-			android:layout_height="wrap_content" />
+			android:background="@drawable/edittext_bottom_bg"
+/>
 		<Button
 			android:id="@+id/submitSignIn"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="50dp"
 			android:padding="10dp"
 			android:layout_margin="4dp"
 			android:text="@string/login"

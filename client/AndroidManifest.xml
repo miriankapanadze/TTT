@@ -28,7 +28,6 @@
 		<activity android:name=".SignUpActivity" />
 		<activity android:name=".UsersActivity" />
 		<activity android:name=".BoardActivity" />
-		<activity android:name=".ModeDialogActivity" />
 		<activity android:name=".BoardDialogActivity" />
 	</application>
 

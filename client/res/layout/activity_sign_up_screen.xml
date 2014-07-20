@@ -8,20 +8,19 @@
 	android:paddingTop="@dimen/activity_vertical_margin"
 	tools:context=".MainActivity"
 
-	android:background="#ffffff">
+	android:background="@drawable/tic_tac_toe_logo">
 
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
-		android:padding="10dp"
-		>
+		android:padding="10dp">
 
 		<EditText
 			android:id="@+id/upName"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="50dp"
 			android:background="@drawable/edittext_top_bg"
 			android:padding="10dp"
 			android:hint="@string/name"
@@ -30,7 +29,7 @@
 		<EditText
 			android:id="@+id/upUserName"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="50dp"
 			android:background="@drawable/edittext_default_bg"
 			android:layout_marginTop="-2dp"
 			android:padding="10dp"
@@ -40,7 +39,7 @@
 		<EditText
 			android:id="@+id/upPass"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="50dp"
 			android:background="@drawable/edittext_bottom_bg"
 			android:layout_marginTop="-2dp"
 			android:padding="10dp"
@@ -51,13 +50,12 @@
 		<Button
 			android:id="@+id/submitSignUp"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="50dp"
 			android:padding="10dp"
 			android:layout_margin="4dp"
 			android:text="@string/register"
 			style="@style/DefaultButtonText"
-			android:background="@drawable/button_default_bg"
-			/>
+			android:background="@drawable/button_default_bg"/>
 	</LinearLayout>
 
 </RelativeLayout>
