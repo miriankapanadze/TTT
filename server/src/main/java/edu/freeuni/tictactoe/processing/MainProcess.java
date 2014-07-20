@@ -216,7 +216,7 @@ public class MainProcess {
 
 				DataOutputStream outputStream = socketsMap.get(opponent).getOutputStream();
 				responseJSON.put("status", status.name());
-				responseJSON.put("additionalInfo", Messages.get(responseJSON.getString("additionalInfo")));
+				responseJSON.put("additionalInfo", Messages.get(receivedJSON.getString("additionalInfo")));
 
 				System.out.println("forwarding invitation answer: " + responseJSON.toString());
 				outputStream.writeUTF(responseJSON.toString());
