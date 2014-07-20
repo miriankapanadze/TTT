@@ -12,6 +12,7 @@ import edu.freeuni.tictactoe.listeners.GameOverListener;
 import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.HistoryEntry;
 import edu.freeuni.tictactoe.model.Status;
+import edu.freeuni.tictactoe.model.UserEntry;
 import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.AppController;
 import edu.freeuni.tictactoe.server.ListenersManager;
@@ -113,11 +114,13 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 								getResources().getString(R.string.youLose));
 				Toast.makeText(BoardActivity.this, message, Toast.LENGTH_LONG).show();
 
-				HistoryEntry entry = new HistoryEntry();
-				entry.setResult(gameStatus == GameStatus.DRAW ? 0 :	(AppController.BOARD.getTurn() != self ? 1 : -1));
-				entry.setOpponentUsername(AppController.getUserNameById(opponentId));
+				HistoryEntry historyEntry = new HistoryEntry();
+				historyEntry.setResult(gameStatus == GameStatus.DRAW ? 0 : (AppController.BOARD.getTurn() != self ? 1 : -1));
+				UserEntry userEntry = AppController.getUserById(opponentId);
+				userEntry.setRank(userEntry.getRank() + historyEntry.getResult());
+				historyEntry.setOpponentUsername(userEntry.getUsername());
 
-				AppController.HISTORY.add(entry);
+				AppController.HISTORY.add(historyEntry);
 			}
 		});
 	}

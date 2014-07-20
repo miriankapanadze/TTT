@@ -16,6 +16,7 @@
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 			<property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/tictactoe?useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.connection.characterEncoding" value="utf8" />
             <property name="hibernate.connection.charSet" value="utf8" />

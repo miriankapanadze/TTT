@@ -26,10 +26,10 @@ public class AppController {
 	public static List<HistoryEntry> HISTORY;
 	public static List<UserEntry> USERS;
 
-	public static String getUserNameById(int userId) {
+	public static UserEntry getUserById(int id) {
 		for (UserEntry entry : USERS) {
-			if (userId == entry.getId()) {
-				return entry.getUsername();
+			if (id == entry.getId()) {
+				return entry;
 			}
 		}
 		return null;

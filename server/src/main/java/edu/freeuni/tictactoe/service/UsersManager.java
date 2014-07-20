@@ -36,6 +36,7 @@ public class UsersManager {
 	}
 
 	public User updateUser(User user) throws Exception {
+		em.clear();
 		String userQL = (user.getId() == 0) ? "" : "AND u.id != " + user.getId();
 		Query q = em.createQuery("SELECT COUNT(*) FROM User u WHERE u.username = :username " + userQL);
 		q.setParameter("username", user.getUsername());
@@ -51,6 +52,7 @@ public class UsersManager {
 
 	public User findUserById(int id) throws Exception {
 		try {
+			em.clear();
 			return (User) em.createQuery("SELECT u FROM User u WHERE u.id = :id")
 					.setParameter("id", id)
 					.getSingleResult();
@@ -62,6 +64,7 @@ public class UsersManager {
 
 	public User findUserByCredentials(User user) throws Exception {
 		try {
+			em.clear();
 			return (User) em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password")
 					.setParameter("username", user.getUsername())
 					.setParameter("password", user.getPassword())
@@ -73,6 +76,7 @@ public class UsersManager {
 	}
 
 	public List<User> getOpponents(User user) {
+		em.clear();
 		//noinspection unchecked
 		return em.createQuery("SELECT u FROM User u WHERE u.id <> :id")
 				.setParameter("id", user.getId())
@@ -80,6 +84,7 @@ public class UsersManager {
 	}
 
 	public List<History> getUserHistory(User user) {
+		em.clear();
 		//noinspection unchecked
 		return em.createQuery("SELECT h FROM History h WHERE h.firstUser.id = :id OR h.secondUser.id = :id")
 				.setParameter("id", user.getId())
@@ -95,6 +100,7 @@ public class UsersManager {
 		int rank = user.getRank() + plusRank;
 		rank = rank > 0 ? rank : 0;
 
+		em.clear();
 		em.getTransaction().begin();
 		em.createQuery("UPDATE User u SET u.rank = :rank WHERE u.id = :id")
 				.setParameter("id", user.getId())

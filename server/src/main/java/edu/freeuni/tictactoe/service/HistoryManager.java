@@ -28,6 +28,7 @@ public class HistoryManager {
 	}
 
 	public void addHistory(History history) {
+		em.clear();
 		em.getTransaction().begin();
 		em.persist(history);
 		em.getTransaction().commit();
