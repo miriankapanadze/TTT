@@ -104,6 +104,10 @@ public class GameServiceImpl implements GameService {
 					ListenersManager.notifyGameMoveListeners(status, x, y);
 					System.out.println("notified game move listeners");
 
+					if (status.getType() == Status.Type.FAILURE) {
+						return;
+					}
+
 					GameStatus gameStatus = Referee.checkGameStatus(AppController.BOARD, x, y);
 					if (gameStatus != GameStatus.IN_PROGRESS) {
 						ListenersManager.notifyGameOverListeners(gameStatus);
@@ -226,6 +230,10 @@ public class GameServiceImpl implements GameService {
 					responseJSN.put("opponentId", opponentId);
 
 					AppController.OUTPUT_STREAM.writeUTF(responseJSN.toString());
+
+					if (AppController.USER_MODE == UserMode.PASSIVE) {
+						waitForInvitation();
+					}
 
 				} catch (Exception e) {
 					e.printStackTrace();

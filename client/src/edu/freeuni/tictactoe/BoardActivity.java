@@ -50,6 +50,7 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 		grid.setAdapter(adapter);
 		handler = new Handler();
 
+		grid.setAlpha(Float.valueOf("0.5"));
 		grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 				if (AppController.BOARD.get(position) != 0) {
@@ -91,6 +92,11 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 				} else {
 					grid.setEnabled(false);
 					Toast.makeText(BoardActivity.this, status.getAdditionalInfo(), Toast.LENGTH_LONG).show();
+					BoardActivity.this.finish();
+
+					if (AppController.USER_MODE == UserMode.PASSIVE) {
+						ServicesFactory.getGameService().waitForInvitation();
+					}
 				}
 			}
 		});
