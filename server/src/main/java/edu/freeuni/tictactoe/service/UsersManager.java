@@ -88,16 +88,18 @@ public class UsersManager {
 
 	public void updateUserRanksByHistory(History history) {
 		updateUserRank(history.getFirstUser(), history.getResult());
-		updateUserRank(history.getSecondUser(), history.getResult());
+		updateUserRank(history.getSecondUser(), -history.getResult());
 	}
 
 	private void updateUserRank(User user, int plusRank) {
 		int rank = user.getRank() + plusRank;
 		rank = rank > 0 ? rank : 0;
 
+		em.getTransaction().begin();
 		em.createQuery("UPDATE User u SET u.rank = :rank WHERE u.id = :id")
 				.setParameter("id", user.getId())
 				.setParameter("rank", rank)
 				.executeUpdate();
+		em.getTransaction().commit();
 	}
 }
