@@ -7,5 +7,6 @@ public enum RequestType {
 	START_GAME,
 	MOVE,
 	INVITATION_ANSWER,
-	GAME_OVER
+	GAME_OVER,
+	GAME_CANCELLED
 }

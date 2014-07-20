@@ -90,6 +90,9 @@ public class MainProcess {
 						case GAME_OVER:
 							onGameOver(receivedJSON);
 							break;
+						case GAME_CANCELLED:
+							onGameCancelled(receivedJSON);
+							break;
 					}
 				}
 			} catch (Exception e) {
@@ -285,6 +288,24 @@ public class MainProcess {
 
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+		}
+
+		private void onGameCancelled(JSONObject receivedJSON) {
+			JSONObject responseJSON = new JSONObject();
+			try {
+				int opponentId = receivedJSON.getInt("opponentId");
+				User opponent = UsersManager.getInstance().findUserById(opponentId);
+
+				if (socketsMap.get(opponent) == null) {
+					throw new Exception("inactiveOpponent");
+				}
+				responseJSON.put("status", StatusType.FAILURE.name());
+				responseJSON.put("additionalInfo", Messages.get("gameCancelled"));
+				socketsMap.get(opponent).getOutputStream().writeUTF(responseJSON.toString());
+
+			} catch (Exception e) {
+				onFailure(responseJSON, e);
 			}
 		}
 
