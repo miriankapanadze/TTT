@@ -12,5 +12,7 @@
 		android:verticalSpacing="0dp"
 		android:horizontalSpacing="0dp"
 		android:stretchMode="columnWidth"
+		android:layout_marginRight="10dp"
+		android:layout_marginLeft="10dp"
 		android:layout_centerInParent="true"/>
 </RelativeLayout>

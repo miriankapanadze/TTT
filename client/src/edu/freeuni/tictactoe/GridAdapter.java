@@ -51,12 +51,15 @@ public class GridAdapter extends BaseAdapter {
 
 		switch (value) {
 			case 0:
+				imageView.setAlpha(Float.valueOf("0.2"));
 				imageView.setImageResource(R.drawable.default_xo);
 				break;
 			case 1:
+				imageView.setAlpha(Float.valueOf("1"));
 				imageView.setImageResource(R.drawable.x);
 				break;
 			case 2:
+				imageView.setAlpha(Float.valueOf("1"));
 				imageView.setImageResource(R.drawable.o);
 				break;
 		}
