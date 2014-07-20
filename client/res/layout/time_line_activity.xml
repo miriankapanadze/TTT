@@ -91,7 +91,7 @@
 			android:layout_height="wrap_content" />
 
 		<View
-			android:layout_width="40dp"
+			android:layout_width="30dp"
 			android:layout_height="40dp"
 			android:background="@android:color/transparent" />
 
@@ -112,7 +112,7 @@
 			android:layout_height="wrap_content" />
 
 		<View
-			android:layout_width="40dp"
+			android:layout_width="30dp"
 			android:layout_height="40dp"
 			android:background="@android:color/transparent" />
 
@@ -128,7 +128,6 @@
 		<TextView
 			android:id="@+id/sumOfTies"
 			android:layout_width="wrap_content"
-			android:layout_marginRight="15dp"
 			android:textColor="@android:color/white"
 			android:layout_height="wrap_content" />
 
