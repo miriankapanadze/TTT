@@ -4,6 +4,7 @@ import edu.freeuni.tictactoe.model.BoardType;
 import edu.freeuni.tictactoe.model.GameStatus;
 import edu.freeuni.tictactoe.model.RequestType;
 import edu.freeuni.tictactoe.model.Status;
+import edu.freeuni.tictactoe.model.UserMode;
 import edu.freeuni.tictactoe.server.game.Referee;
 import org.json.JSONObject;
 
@@ -66,6 +67,10 @@ public class GameServiceImpl implements GameService {
 					if (gameStatus != GameStatus.IN_PROGRESS) {
 						ListenersManager.notifyGameOverListeners(gameStatus);
 						notifyServerOnGameOver(gameStatus, opponentId);
+
+						if (AppController.USER_MODE == UserMode.PASSIVE) {
+							waitForInvitation();
+						}
 					} else {
 						waitForOpponentMove();
 					}
@@ -102,6 +107,10 @@ public class GameServiceImpl implements GameService {
 					GameStatus gameStatus = Referee.checkGameStatus(AppController.BOARD, x, y);
 					if (gameStatus != GameStatus.IN_PROGRESS) {
 						ListenersManager.notifyGameOverListeners(gameStatus);
+
+						if (AppController.USER_MODE == UserMode.PASSIVE) {
+							waitForInvitation();
+						}
 					}
 
 				} catch (Exception e) {

@@ -66,7 +66,9 @@ public class SignInActivity extends Activity implements View.OnClickListener, Lo
 			Toast.makeText(this, getResources().getString(R.string.emptyValidationMessage), Toast.LENGTH_SHORT).show();
 			return;
 		}
-		AppController.SELF_USERNAME = userName.getText().toString();
+		AppController.USERNAME = userName.getText().toString();
+		AppController.USER_MODE = mode.isChecked() ? UserMode.ACTIVE : UserMode.PASSIVE;
+
 		LoginRequest request = new LoginRequest();
 		request.setUserName(userName.getText().toString());
 		request.setPassword(password.getText().toString());

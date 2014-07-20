@@ -97,7 +97,7 @@ public class TimeLineActivity extends Activity {
 
 			HistoryEntry item = getItem(position);
 
-			holder.selfUsername.setText(AppController.SELF_USERNAME);
+			holder.selfUsername.setText(AppController.USERNAME);
 			holder.opponentUsername.setText(item.getOpponentUsername());
 
 			if (item.getResult() == 1) {
