@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 import edu.freeuni.tictactoe.listeners.GameMoveListener;
 import edu.freeuni.tictactoe.listeners.GameOverListener;
@@ -70,6 +71,11 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 		if (mode == UserMode.PASSIVE) {
 			ServicesFactory.getGameService().waitForOpponentMove();
 		}
+		String fireName = mode == UserMode.ACTIVE ? AppController.USERNAME : AppController.getUserById(opponentId).getUsername();
+		String waterName = mode != UserMode.ACTIVE ? AppController.USERNAME : AppController.getUserById(opponentId).getUsername();
+
+		((TextView) findViewById(R.id.fire)).setText(fireName);
+		((TextView) findViewById(R.id.water)).setText(waterName);
 	}
 
 	@Override
@@ -118,6 +124,9 @@ public class BoardActivity extends Activity implements GameMoveListener, GameOve
 				historyEntry.setResult(gameStatus == GameStatus.DRAW ? 0 : (AppController.BOARD.getTurn() != self ? 1 : -1));
 				UserEntry userEntry = AppController.getUserById(opponentId);
 				userEntry.setRank(userEntry.getRank() - historyEntry.getResult());
+				if (userEntry.getRank() < 0) {
+					userEntry.setRank(0);
+				}
 				historyEntry.setOpponentUsername(userEntry.getUsername());
 
 				AppController.HISTORY.add(historyEntry);

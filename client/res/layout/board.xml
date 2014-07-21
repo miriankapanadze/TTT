@@ -15,4 +15,37 @@
 		android:layout_marginRight="10dp"
 		android:layout_marginLeft="10dp"
 		android:layout_centerInParent="true"/>
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/gridView"
+		android:gravity="center_horizontal"
+		android:orientation="horizontal">
+		<ImageView
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/x"/>
+		<TextView
+			android:id="@+id/fire"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAlignment="center"
+			android:textColor="@android:color/white"/>
+		<View
+			android:layout_width="30dp"
+			android:layout_height="40dp"
+			android:background="@android:color/transparent" />
+
+		<ImageView
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/o"/>
+		<TextView
+			android:id="@+id/water"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAlignment="center"
+			android:textColor="@android:color/white"/>
+	</LinearLayout>
 </RelativeLayout>
