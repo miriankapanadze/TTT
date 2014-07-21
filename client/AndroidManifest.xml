@@ -27,9 +27,9 @@
 		<activity android:name=".SignInActivity" />
 		<activity android:name=".SignUpActivity" />
 		<activity android:name=".UsersActivity" />
-		<activity android:name=".BoardActivity" />
+		<activity android:name=".BoardActivity" android:screenOrientation="portrait"/>
 		<activity android:name=".BoardDialogActivity" />
-		<activity android:name=".HomeActivity" />
+		<activity android:name=".HomeActivity"/>
 		<activity android:name=".TimeLineActivity" />
 	</application>
 
